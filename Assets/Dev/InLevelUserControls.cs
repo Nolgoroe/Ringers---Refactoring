@@ -118,18 +118,6 @@ public class InLevelUserControls : MonoBehaviour
 
     }
 
-    private RaycastHit2D GetIntersectionsAtPoint(Vector3 touchPos, LayerMask layerToHit)
-    {
-        Ray touchRay;
-
-        touchRay = Camera.main.ScreenPointToRay(touchPos);
-
-        RaycastHit2D hit2D = Physics2D.GetRayIntersection(touchRay, Mathf.Infinity, layerToHit);
-
-        return hit2D;
-
-    }
-
     private RaycastHit2D[] GetIntersectionsArea(Vector3 touchPos, LayerMask layerToHit)
     {
         Vector3 pointToCheck = Input.mousePosition;
@@ -148,6 +136,19 @@ public class InLevelUserControls : MonoBehaviour
         return hit2D;
 
     }
+
+    private RaycastHit2D GetIntersectionsAtPoint(Vector3 touchPos, LayerMask layerToHit)
+    {
+        Ray touchRay;
+
+        touchRay = Camera.main.ScreenPointToRay(touchPos);
+
+        RaycastHit2D hit2D = Physics2D.GetRayIntersection(touchRay, Mathf.Infinity, layerToHit);
+
+        return hit2D;
+
+    }
+
 
     private void OnDrawGizmos()
     {
