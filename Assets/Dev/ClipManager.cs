@@ -26,8 +26,35 @@ public class ClipManager : MonoBehaviour
     public SymbolToMat[] symbolToMat;
 
 
+    [ContextMenu("Summon tiles")]
     public void SummonTiles()
     {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab, slots[i].transform).GetComponent<Tile>();
+            slots[i].heldTile = tile;
+        }
+    }
 
+    public void RePopulateFirstEmpty()
+    {
+        foreach (ClipSlot slot in slots)
+        {
+            if(slot.heldTile == null)
+            {
+                Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab, slot.transform).GetComponent<Tile>();
+                slot.heldTile = tile;
+                return;
+            }
+        }
+    }
+    public void RePopulateSpecificSlot(ClipSlot slot)
+    {
+        if (slot.heldTile == null)
+        {
+            Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab, slot.transform).GetComponent<Tile>();
+            slot.heldTile = tile;
+            return;
+        }
     }
 }

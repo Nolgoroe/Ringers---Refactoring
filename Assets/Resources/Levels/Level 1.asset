@@ -14,12 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldName: 0
   levelNumInZone: 0
-  levelAvailableColors: 
-  levelAvailablesymbols: 
+  boardPrefab: {fileID: 0}
+  tilePrefab: {fileID: 1645121695642233041, guid: 9006b37d13737004a8954e6ed3236a5d,
+    type: 3}
   isUsingSpecificStatue: 0
   specificStatueForLevel: {fileID: 0}
   beforeRingSpawnActions: 
   afterRingSpawnActions: 
+  levelAvailableColors: 
+  levelAvailablesymbols: 
   RandomSlicePositions: 0
   allowRepeatSlices: 0
   slicesToSpawn: []

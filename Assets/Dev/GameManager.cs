@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     [Header("In game Data")]
     public Transform gameBoard;
-
+    public LevelSO currentLevel;
     void Start()
     {
         instance = this;

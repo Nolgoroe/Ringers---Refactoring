@@ -124,11 +124,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2346371762228157122}
-  - component: {fileID: 4801052585063378316}
   - component: {fileID: 5181250236781162904}
   - component: {fileID: 6070407885714538678}
   m_Layer: 7
-  m_Name: New piece Prefab 23_2_2021
+  m_Name: Tile 8 ring
   m_TagString: MainPiece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,8 +140,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645121695642233041}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.5519369, w: 0.83388585}
+  m_LocalPosition: {x: -0.05, y: -0.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -150,20 +149,7 @@ Transform:
   - {fileID: 5499533800878373339}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4801052585063378316
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1645121695642233041}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.2340028, y: 1.644768, z: 0.46502545}
-  m_Center: {x: -0.013515045, y: -0.00544885, z: -0.031092927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -67}
 --- !u!114 &5181250236781162904
 MonoBehaviour:
   m_ObjectHideFlags: 0

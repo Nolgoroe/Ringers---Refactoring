@@ -35,5 +35,5 @@ public abstract class TileParentLogic : MonoBehaviour
     public bool partOfBoard;
 
     public abstract void OnPlaceTile();
-    public abstract void SetTile(SubTileData subTile);
+    public abstract void SetTile(SubTileData subTileTo);
 }

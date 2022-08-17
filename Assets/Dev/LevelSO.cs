@@ -85,16 +85,18 @@ public class LevelSO : ScriptableObject
     [Header("General Settings")]
     public WorldEnum worldName;
     public int levelNumInZone;
-    public TileColor[] levelAvailableColors;
-    public TileSymbol[] levelAvailablesymbols;
+    public GameObject boardPrefab;
+    public GameObject tilePrefab;
 
     [Header("Statue")]
     public bool isUsingSpecificStatue;
     public GameObject specificStatueForLevel;
 
-    [Header("Actions Settings")]
+    [Header("Level Setup Settings")]
     public List<LevelActions> beforeRingSpawnActions;
     public List<LevelActions> afterRingSpawnActions;
+    public TileColor[] levelAvailableColors;
+    public TileSymbol[] levelAvailablesymbols;
 
     [Header("Slices")]
     public bool RandomSlicePositions;

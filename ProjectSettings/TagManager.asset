@@ -11,6 +11,7 @@ TagManager:
   - Commit
   - Board
   - MainPiece
+  - Cell
   layers:
   - Default
   - TransparentFX

@@ -10,18 +10,37 @@ public class Cell : TileHolder
 
     public bool goodConnectLeft, goodConnectRight;
     public bool isLocked;
-    public void OnPlaceTileInCell()
+
+    [Header("Testing")]
+    public GameObject tilePrefab;
+    public void OnPlaceTileInCell(Tile tileToPlace)
     {
+        tileToPlace.transform.SetParent(transform);
+
+        tileToPlace.transform.localPosition = Vector3.zero;
+        tileToPlace.transform.localRotation = Quaternion.identity;
+        tileToPlace.transform.localScale = Vector3.one;
+
+        heldTile = tileToPlace;
 
     }
 
     public override void OnRemoveTile()
     {
-        throw new System.NotImplementedException();
+        heldTile = null;
     }
 
     private void CheckConnection()
     {
 
+    }
+
+    [ContextMenu("Summon tile")]
+    public void SummonTest()
+    {
+        Tile tile = Instantiate(tilePrefab, transform).GetComponent<Tile>();
+        heldTile = tile;
+        tile.transform.localPosition = Vector3.zero;
+        tile.transform.transform.localRotation = Quaternion.identity;
     }
 }

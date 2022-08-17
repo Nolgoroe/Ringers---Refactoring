@@ -6,5 +6,6 @@ public class ClipSlot : TileHolder
 {
     public override void OnRemoveTile()
     {
+        heldTile = null;
     }
 }
