@@ -26,13 +26,17 @@ public class ClipManager : MonoBehaviour
     public SymbolToMat[] symbolToMat;
 
 
+    public void InitClipManager()
+    {
+        SummonTiles();
+    }
+
     [ContextMenu("Summon tiles")]
     public void SummonTiles()
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab, slots[i].transform).GetComponent<Tile>();
-            slots[i].heldTile = tile;
+            SpawnRandomTileInSlot(slots[i]);
         }
     }
 
@@ -42,8 +46,7 @@ public class ClipManager : MonoBehaviour
         {
             if(slot.heldTile == null)
             {
-                Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab, slot.transform).GetComponent<Tile>();
-                slot.heldTile = tile;
+                SpawnRandomTileInSlot(slot);
                 return;
             }
         }
@@ -52,9 +55,38 @@ public class ClipManager : MonoBehaviour
     {
         if (slot.heldTile == null)
         {
-            Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab, slot.transform).GetComponent<Tile>();
-            slot.heldTile = tile;
+            SpawnRandomTileInSlot(slot);
             return;
         }
+    }
+
+    private void SpawnRandomTileInSlot(ClipSlot slot)
+    {
+        Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab).GetComponent<Tile>();
+        slot.heldTile = tile;
+        SetSpawnDataAndDisplay(tile);
+        slot.AcceptTileToHolder(tile);
+    }
+
+
+    private void SetSpawnDataAndDisplay(Tile tile)
+    {
+        tile.SetTileSpawnData(tile.subTileLeft);
+        tile.SetTileSpawnData(tile.subTileRight);
+
+        SetTileSpawnDisplayByData(tile.subTileLeft);
+        SetTileSpawnDisplayByData(tile.subTileRight);
+    }
+
+    private void SetTileSpawnDisplayByData(SubTileData subTile)
+    {
+        int colorIndex = (int)subTile.subTileColor;
+        int symbolIndex = (int)subTile.subTileSymbol;
+        Material matToChange = subTile.subtileMesh.material;
+        Texture colorSymbolTexture = colorsToMats[colorIndex].colorTex[symbolIndex];
+        Texture connectionTex = symbolToMat[symbolIndex].symbolTex;
+
+        matToChange.SetTexture("Tile_Albedo_Map", colorSymbolTexture);
+        matToChange.SetTexture("MatchedSymbolTex", connectionTex);
     }
 }

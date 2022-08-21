@@ -3,15 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public enum SliceConditionsEnums
-{
-    None,
-    GeneralColor,
-    GeneralShape,
-    SpecificColor,
-    SpecificShape,
-}
-public abstract class ConditonsData : MonoBehaviour
+public class ConditonsData
 {
     public bool conditionIsValidated;
 
@@ -21,21 +13,22 @@ public abstract class ConditonsData : MonoBehaviour
         return false;
     }
 
-    public virtual bool CheckCondition(TileSymbol requiredSymbol, SubTileData subTileCurrent, SubTileData subTileContested)
-    {
-        Debug.LogError("Coulden't find override for conditions");
+    //public virtual bool CheckCondition(TileSymbol requiredSymbol, SubTileData subTileCurrent, SubTileData subTileContested)
+    //{
+    //    Debug.LogError("Coulden't find override for conditions");
 
-        return false;
-    }
+    //    return false;
+    //}
 
-    public virtual bool CheckCondition(TileColor requiredColor, SubTileData subTileCurrent, SubTileData subTileContested)
-    {
-        Debug.LogError("Coulden't find override for conditions");
+    //public virtual bool CheckCondition(TileColor requiredColor, SubTileData subTileCurrent, SubTileData subTileContested)
+    //{
+    //    Debug.LogError("Coulden't find override for conditions");
 
-        return false;
-    }
+    //    return false;
+    //}
 }
 
+[System.Serializable]
 public class ColorAndShapeCondition : ConditonsData
 {
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
@@ -54,6 +47,7 @@ public class ColorAndShapeCondition : ConditonsData
     }
 }
 
+[System.Serializable]
 public class GeneralColorCondition : ConditonsData
 {
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
@@ -66,6 +60,8 @@ public class GeneralColorCondition : ConditonsData
         return false;
     }
 }
+
+[System.Serializable]
 public class GeneralSymbolCondition : ConditonsData
 {
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
@@ -79,9 +75,12 @@ public class GeneralSymbolCondition : ConditonsData
     }
 }
 
+[System.Serializable]
 public class SpecificColorCondition : ConditonsData
 {
-    public override bool CheckCondition(TileColor requiredColor, SubTileData subTileCurrent, SubTileData subTileContested)
+    public TileColor requiredColor;
+
+    public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
         if (subTileCurrent.subTileColor == requiredColor && subTileContested.subTileColor == requiredColor)
         {
@@ -91,9 +90,13 @@ public class SpecificColorCondition : ConditonsData
         return false;
     }
 }
+
+[System.Serializable]
 public class SpecificSymbolCondition : ConditonsData
 {
-    public override bool CheckCondition(TileSymbol requiredSymbol, SubTileData subTileCurrent, SubTileData subTileContested)
+    public TileSymbol requiredSymbol;
+
+    public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
         if (subTileCurrent.subTileSymbol == requiredSymbol && subTileContested.subTileSymbol == requiredSymbol)
         {

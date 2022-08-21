@@ -82,21 +82,22 @@ public class tileDataStruct
 [CreateAssetMenu(fileName = "Level", menuName ="ScriptableObjects/Create Level")]
 public class LevelSO : ScriptableObject
 {
-    [Header("General Settings")]
+    [Header("Level Setup Settings")]
     public WorldEnum worldName;
     public int levelNumInZone;
     public GameObject boardPrefab;
+    public int numOfCells;
+    public GameObject clipPrefab;
     public GameObject tilePrefab;
-
-    [Header("Statue")]
-    public bool isUsingSpecificStatue;
-    public GameObject specificStatueForLevel;
-
-    [Header("Level Setup Settings")]
+    public GameObject levelSpecificUserControls;
     public List<LevelActions> beforeRingSpawnActions;
     public List<LevelActions> afterRingSpawnActions;
     public TileColor[] levelAvailableColors;
     public TileSymbol[] levelAvailablesymbols;
+
+    [Header("Statue")]
+    public bool isUsingSpecificStatue;
+    public GameObject specificStatueForLevel;
 
     [Header("Slices")]
     public bool RandomSlicePositions;

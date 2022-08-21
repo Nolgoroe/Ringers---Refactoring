@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772844705618137394}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.7826648, y: 0, z: 0}
+  m_LocalPosition: {x: 1.44, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -98,7 +98,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -689406408450205330, guid: 4ad4bb29817ae744fa53ade2dd4d9c35, type: 3}
+  m_Mesh: {fileID: -689406408450205330, guid: b9324bb7204cc2440af12e64b961c052, type: 3}
 --- !u!114 &8920212215316814738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 5181250236781162904}
   - component: {fileID: 6070407885714538678}
   m_Layer: 7
-  m_Name: Tile 8 ring
+  m_Name: 8 Ring Tile
   m_TagString: MainPiece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,8 +140,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645121695642233041}
-  m_LocalRotation: {x: 0, y: 0, z: -0.5519369, w: 0.83388585}
-  m_LocalPosition: {x: -0.05, y: -0.24, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -149,7 +149,7 @@ Transform:
   - {fileID: 5499533800878373339}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -67}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5181250236781162904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,9 +181,11 @@ MonoBehaviour:
   subTileLeft:
     subTileSymbol: 4
     subTileColor: 5
+    subtileMesh: {fileID: 3120019251313842015}
   subTileRight:
     subTileSymbol: 4
     subTileColor: 5
+    subtileMesh: {fileID: 3608196929416577028}
   partOfBoard: 0
 --- !u!1 &3511628377651697941
 GameObject:
@@ -213,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3511628377651697941}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.78266484, y: 0, z: 0}
+  m_LocalPosition: {x: -1.44, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -283,7 +285,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: -1308064327287094486, guid: 4ad4bb29817ae744fa53ade2dd4d9c35, type: 3}
+  m_Mesh: {fileID: -1308064327287094486, guid: b9324bb7204cc2440af12e64b961c052, type: 3}
 --- !u!114 &4370489997454094907
 MonoBehaviour:
   m_ObjectHideFlags: 0

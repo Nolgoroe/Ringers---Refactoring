@@ -9,8 +9,12 @@ public class Tile : TileParentLogic
         partOfBoard = true;
     }
 
-    public override void SetTile(SubTileData subTile)
+    public override void SetTileSpawnData(SubTileData subTile)
     {
+        TileSymbol symbol = RollTileSymbol();
+        TileColor color = RollTileColor();
 
+        subTile.subTileSymbol = symbol;
+        subTile.subTileColor = color;
     }
 }

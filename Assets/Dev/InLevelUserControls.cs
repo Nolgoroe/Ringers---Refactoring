@@ -17,8 +17,8 @@ public class InLevelUserControls : MonoBehaviour
     public Vector3 tileFollowOffset;
 
     [Header("General")]
-    public Tile currentTileToMove;
-    public TileHolder tileParent;
+    public TileParentLogic currentTileToMove;
+    public TileHolder tileOriginalHolder;
 
     [Header("Needed Classes")]
     public ClipManager clipManager;
@@ -92,14 +92,22 @@ public class InLevelUserControls : MonoBehaviour
                 {
                     Transform hit = intersectionsArea[0].transform;
 
-                    if(hit && hit != tileParent.transform && hit.transform.CompareTag(cellTag))
+                    if(hit && hit != tileOriginalHolder.transform && hit.transform.CompareTag(cellTag))
                     {
                         Cell cell = hit.transform.GetComponent<Cell>();
-                        cell.OnPlaceTileInCell(currentTileToMove);
 
-                        if(tileParent is ClipSlot) //if parent can be casted to a "ClipSlot" type, meanin it came from the clip
+                        if(!cell.heldTile)
                         {
-                            clipManager.RePopulateSpecificSlot((ClipSlot)tileParent);
+                            cell.RecieveTile(currentTileToMove);
+                        }
+                        else
+                        {
+                            ReturnHome();
+                        }
+
+                        if (tileOriginalHolder is ClipSlot) //if parent can be casted to a "ClipSlot" type, meanin it came from the clip
+                        {
+                            clipManager.RePopulateSpecificSlot((ClipSlot)tileOriginalHolder);
                         }
 
                         ReleaseData();
@@ -127,11 +135,6 @@ public class InLevelUserControls : MonoBehaviour
 
         RaycastHit2D[] hit2D = Physics2D.CircleCastAll(posCheck, overlapRadius, transform.right, 0, layerToHit);
 
-
-        foreach (RaycastHit2D t in hit2D)
-        {
-            Debug.Log(t.transform.name);
-        }
 
         return hit2D;
 
@@ -163,7 +166,7 @@ public class InLevelUserControls : MonoBehaviour
     private void GrabTile(TileHolder holder)
     {
         currentTileToMove = holder.heldTile;
-        tileParent = holder;
+        tileOriginalHolder = holder;
 
         OriginalPos = holder.heldTile.transform.position;
         OriginalRot = holder.heldTile.transform.rotation;
@@ -192,9 +195,7 @@ public class InLevelUserControls : MonoBehaviour
     {
         LeanTween.cancel(currentTileToMove.gameObject);
 
-        tileParent.heldTile = currentTileToMove;
-        currentTileToMove.transform.position = OriginalPos;
-        currentTileToMove.transform.rotation = OriginalRot;
+        tileOriginalHolder.RecieveTile(currentTileToMove);
 
         ReleaseData();
     }
@@ -204,6 +205,6 @@ public class InLevelUserControls : MonoBehaviour
         OriginalPos = Vector3.zero;
         OriginalRot = Quaternion.identity;
         currentTileToMove = null;
-        tileParent = null;
+        tileOriginalHolder = null;
     }
 }

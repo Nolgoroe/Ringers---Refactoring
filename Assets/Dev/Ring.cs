@@ -17,4 +17,19 @@ public class Ring : MonoBehaviour
     {
         
     }
+
+    public void OnAddTileToRing()
+    {
+        filledCells++;
+
+        if (filledCells == GameManager.instance.currentLevel.numOfCells && unsuccessfulConnections == 0)
+        {
+            Debug.Log("Win Level");
+        }
+    }
+
+    public void OnRemoveTileFromRing()
+    {
+        filledCells--;
+    }
 }
