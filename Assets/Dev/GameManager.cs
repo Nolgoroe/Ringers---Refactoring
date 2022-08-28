@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
         
 
-
-
-
         // Spawn ring by type from level
         Ring ring = Instantiate(currentLevel.boardPrefab).GetComponent<Ring>();
         if (!ring)

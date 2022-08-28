@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour
 {
-    //public static CameraShake Instance;
-
     public Vector3 Amount = new Vector3(1f, 1f, 0);
 
     public float Duration = 1;
@@ -14,7 +12,6 @@ public class CameraShake : MonoBehaviour
 
     public bool ResetPosition = true;
 
-    //Camera Camera;
     float time = 0;
     Vector3 lastPos;
     Vector3 nextPos;
@@ -22,23 +19,15 @@ public class CameraShake : MonoBehaviour
     float nextFoV;
     bool destroyAfterPlay;
 
-    //private void Awake()
-    //{
-    //    //Instance = this;
-    //    //Camera = GetComponent<Camera>();
-    //}
-
 
     public void ShakeOnce()
     {
-        //Debug.Log("Shake");
         destroyAfterPlay = false;
         Shake();
     }
 
     public void Shake()
     {
-        //ResetCam();
         time = Duration;
     }
 

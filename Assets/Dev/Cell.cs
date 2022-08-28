@@ -182,10 +182,6 @@ public class Cell : TileHolder
         LeanTween.rotateLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
         LeanTween.scale(recievedTile.gameObject, Vector3.one, timeToAnimate);
 
-        //recievedTile.transform.localPosition = Vector3.zero;
-        //recievedTile.transform.localRotation = Quaternion.identity;
-        //recievedTile.transform.localScale = Vector3.one;
-
         heldTile = recievedTile;
     }
 }
