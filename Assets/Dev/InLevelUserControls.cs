@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class InLevelUserControls : MonoBehaviour
 {
+    // THINK ABOUT MAYBE CRATING INHERITENCE FOR "CONTROLS"
+
+
+
+
+
     [Header("Raycast data")]
     public LayerMask tileLayer;
-    //public LayerMask boardCellLayer;
     public LayerMask tileHolderLayer;
     public string cellTag;
     public float overlapRadius;
@@ -22,6 +27,7 @@ public class InLevelUserControls : MonoBehaviour
 
     [Header("Needed Classes")]
     public ClipManager clipManager;
+    public Ring ringManager;
 
     Vector3 touchPos;
     float tileDragDist;
@@ -48,83 +54,122 @@ public class InLevelUserControls : MonoBehaviour
 
             touchPos = touch.position;
 
-            if (touch.phase == TouchPhase.Began)
+            switch (touch.phase)
             {
+                case TouchPhase.Began:
+                    OnTouchBegin();
+                    break;
+                case TouchPhase.Moved:
+                    if(currentTileToMove) OnTouchMoveOrStationairy();
+                    break;
+                case TouchPhase.Stationary:
+                    if (currentTileToMove) OnTouchMoveOrStationairy();
+                    break;
+                case TouchPhase.Ended:
+                    if(currentTileToMove) OnTouchEnd();
+                    break;
+                case TouchPhase.Canceled:
+                    Debug.LogError("Cancelled??");
+                    break;
+                default:
+                    break;
+            } 
+        }
 
-                RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
-                // we also already have a point on raycast function called "GetIntersectionsAtPoint"
+    }
 
-                if (intersectionsArea.Length > 0 && intersectionsArea[0].transform)
-                {
-                    TileHolder holder = intersectionsArea[0].transform.GetComponent<TileHolder>();
 
-                    if (holder.heldTile)
-                    {
-                        GrabTile(holder);
-                    }
-                }
+    private void OnTouchBegin()
+    {
+        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
+        // we also already have a point on raycast function called "GetIntersectionsAtPoint"
+
+        if (intersectionsArea.Length > 0)
+        {
+            TileHolder holder = intersectionsArea[0].transform.GetComponent<TileHolder>();
+
+            if (holder.heldTile)
+            {
+                GrabTile(holder);
             }
-            
-            if((touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary) && currentTileToMove)
+        }
+    }
+    private void GrabTile(TileHolder holder)
+    {
+        currentTileToMove = holder.OnRemoveTile();
+
+        tileOriginalHolder = holder;
+
+        OriginalPos = currentTileToMove.transform.position;
+        OriginalRot = currentTileToMove.transform.rotation;
+
+        LeanTween.move(currentTileToMove.gameObject, TargetPosOffset(), pickupSpeed);
+
+        RotateTileTowardsBoard();
+    }
+
+
+
+    private void OnTouchMoveOrStationairy()
+    {
+        RotateTileTowardsBoard();
+
+        SmoothPieceMover();
+
+        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
+        // we also already have a point on raycast function called "GetIntersectionsAtPoint"
+
+        /// do VFX according to hits here.
+    }
+    private void SmoothPieceMover()
+    {
+        currentTileToMove.transform.position = Vector3.Lerp(currentTileToMove.transform.position, TargetPosOffset(), Time.deltaTime * tileFollowSpeed);
+    }
+
+
+
+    private void OnTouchEnd()
+    {
+        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
+        // we also already have a point on raycast function called "GetIntersectionsAtPoint"
+
+        if (intersectionsArea.Length > 0)
+        {
+            Transform hit = intersectionsArea[0].transform;
+
+            if (hit && hit != tileOriginalHolder.transform && hit.transform.CompareTag(cellTag))
             {
-                RotateTileTowardsBoard();
+                Cell cell = hit.transform.GetComponent<Cell>();
 
-                Vector3 targetPosClac = OriginalPos + tileFollowOffset;
-
-                Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, targetPosClac.z));
-
-                currentTileToMove.transform.position = Vector3.Lerp(currentTileToMove.transform.position, targetPos, Time.deltaTime * tileFollowSpeed);
-
-
-                RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
-                // we also already have a point on raycast function called "GetIntersectionsAtPoint"
-
-                /// do VFX according to hits here.
-
-            }
-
-            if (touch.phase == TouchPhase.Ended && currentTileToMove)
-            {
-                RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
-                // we also already have a point on raycast function called "GetIntersectionsAtPoint"
-
-                if (intersectionsArea.Length > 0)
+                if (!cell.heldTile)
                 {
-                    Transform hit = intersectionsArea[0].transform;
-
-                    if(hit && hit != tileOriginalHolder.transform && hit.transform.CompareTag(cellTag))
-                    {
-                        Cell cell = hit.transform.GetComponent<Cell>();
-
-                        if(!cell.heldTile)
-                        {
-                            cell.RecieveTile(currentTileToMove);
-                        }
-                        else
-                        {
-                            ReturnHome();
-                        }
-
-                        if (tileOriginalHolder is ClipSlot) //if parent can be casted to a "ClipSlot" type, meanin it came from the clip
-                        {
-                            clipManager.RePopulateSpecificSlot((ClipSlot)tileOriginalHolder);
-                        }
-
-                        ReleaseData();
-                    }
-                    else
-                    {
-                        ReturnHome();
-                    }
+                    cell.RecieveTile(currentTileToMove);
                 }
                 else
                 {
                     ReturnHome();
                 }
+
+                if (tileOriginalHolder is ClipSlot) //if parent can be casted to a "ClipSlot" type, meanin it came from the clip
+                {
+                    clipManager.RePopulateSpecificSlot((ClipSlot)tileOriginalHolder);
+                }
+
+                ReleaseData();
+            }
+            else
+            {
+                ReturnHome();
             }
         }
-
+        else
+        {
+            ReturnHome();
+        }
     }
+
+
+
 
     private RaycastHit2D[] GetIntersectionsArea(Vector3 touchPos, LayerMask layerToHit)
     {
@@ -153,38 +198,10 @@ public class InLevelUserControls : MonoBehaviour
     }
 
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector3 pointToCheck = Input.mousePosition;
-        pointToCheck.z = 35;
-
-        Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
-        //Debug.Log(posCheck);
-        Gizmos.DrawWireSphere(posCheck + transform.right * 0, overlapRadius);
-    }
-    private void GrabTile(TileHolder holder)
-    {
-        currentTileToMove = holder.heldTile;
-        tileOriginalHolder = holder;
-
-        OriginalPos = holder.heldTile.transform.position;
-        OriginalRot = holder.heldTile.transform.rotation;
-
-        holder.OnRemoveTile();
-
-        Vector3 targetPosClac = currentTileToMove.transform.position + tileFollowOffset;
-
-        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x, touchPos.y, targetPosClac.z));
-
-        LeanTween.move(currentTileToMove.gameObject, targetPos, pickupSpeed);
-
-        RotateTileTowardsBoard();
-    }
     private void RotateTileTowardsBoard()
     {
-        float difY = GameManager.instance.gameBoard.position.y - currentTileToMove.transform.position.y;
-        float difX = GameManager.instance.gameBoard.position.x - currentTileToMove.transform.position.x;
+        float difY = ringManager.transform.position.y - currentTileToMove.transform.position.y;
+        float difX = ringManager.transform.position.x - currentTileToMove.transform.position.x;
 
         float angle = Mathf.Atan2(difY, difX) * Mathf.Rad2Deg;
 
@@ -206,5 +223,26 @@ public class InLevelUserControls : MonoBehaviour
         OriginalRot = Quaternion.identity;
         currentTileToMove = null;
         tileOriginalHolder = null;
+    }
+
+    private Vector3 TargetPosOffset()
+    {
+        float targetPosClacZ = OriginalPos.z + tileFollowOffset.z;
+
+        Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x + tileFollowOffset.x, touchPos.y + tileFollowOffset.y, targetPosClacZ));
+
+        return targetPos;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Vector3 pointToCheck = Input.mousePosition;
+        pointToCheck.z = 35;
+
+        Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
+        //Debug.Log(posCheck);
+        Gizmos.DrawWireSphere(posCheck + transform.right * 0, overlapRadius);
     }
 }

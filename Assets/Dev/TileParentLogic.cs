@@ -4,22 +4,22 @@ using UnityEngine;
 
 public enum TileColor
 {
+    NoColor,
     Purple,
     Blue,
     Yellow,
     Green,
     Pink,
-    NoColor,
     Stone,
     Joker,
 }
 public enum TileSymbol
 {
+    NoShape,
     DragonFly,
     Bear,
     Ram,
     Turtle,
-    NoShape,
     Joker
 }
 
@@ -66,7 +66,7 @@ public abstract class TileParentLogic : MonoBehaviour
         matToChangeOwn.SetInt("Is_Piece_Match", 1);
         matToChangeContested.SetInt("Is_Piece_Match", 1);
     }
-    virtual public void SetSubtilesAsNOTConnected(SubTileData ownSubTile, SubTileData contestedSubTile)
+    virtual public void SetSubtilesAsNOTConnectedGFX(SubTileData ownSubTile, SubTileData contestedSubTile)
     {
         Material matToChangeOwn = ownSubTile.subtileMesh.material;
         Material matToChangeContested = contestedSubTile.subtileMesh.material;

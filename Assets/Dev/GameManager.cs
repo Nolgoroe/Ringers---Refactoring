@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
 
         //local Init User Controls For Level - we don't do enoguh to merit own Init function
         userControls.clipManager = clip;
+        userControls.ringManager = ring;
 
         //Init slices that pass information to cells (run 2)
     }

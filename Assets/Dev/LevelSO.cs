@@ -21,7 +21,10 @@ public class sliceToSpawnDataStruct
     public bool isLock;
     public bool isLoot;
     public bool isLimiter;
-    public LootPacks[] RewardBags;
+    public int specificSliceSpots;
+    public TileColor specificSlicesColors;
+    public TileSymbol specificSlicesShapes;
+    public LootPacks RewardBag;
 }
 
 
@@ -29,10 +32,6 @@ public enum LevelActions
 {
 }
 
-
-
-
-/// TEMPORARY HERE
 public enum PowerUp
 {
     Switch,
@@ -43,6 +42,7 @@ public enum PowerUp
 
 public enum LootPacks
 {
+    None,
     R1,
     R2,
     R3,
@@ -111,8 +111,5 @@ public class LevelSO : ScriptableObject
     public stoneTileDataStruct[] stoneTiles;
 
     [Header("Percise Position Settings")]
-    public List<tileDataStruct> arrayOfTiles;
-    public int[] specificSliceSpots;
-    public TileColor[] specificSlicesColors;
-    public TileSymbol[] specificSlicesShapes;
+    public List<tileDataStruct> arrayOfSpecificTilesInClip;
 }

@@ -17,16 +17,4 @@ public class Slice : MonoBehaviour
     public SliceConditionsEnums connectionType;
     public TileSymbol requiredSymbol;
     public TileColor requiredColor;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

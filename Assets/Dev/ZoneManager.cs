@@ -17,3 +17,6 @@ public class ZoneManager : MonoBehaviour
 
     public Dictionary<WorldEnum, string> BGEnumToResource;
 }
+
+/// create a context menu method that will go to resources folder and retrieve all BG's into
+/// the BG Paths array

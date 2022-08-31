@@ -34,7 +34,4 @@ MonoBehaviour:
   slicesToSpawn: []
   powerupsForLevel: 
   stoneTiles: []
-  arrayOfTiles: []
-  specificSliceSpots: 
-  specificSlicesColors: 
-  specificSlicesShapes: 
+  arrayOfSpecificTilesInClip: []

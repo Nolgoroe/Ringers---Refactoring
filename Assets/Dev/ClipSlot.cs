@@ -15,9 +15,11 @@ public class ClipSlot : TileHolder
         heldTile = recievedTile;
     }
 
-    public override void OnRemoveTile()
+    public override TileParentLogic OnRemoveTile()
     {
+        TileParentLogic temp = heldTile;
         heldTile = null;
+        return temp;
     }
 
     public override void RecieveTile(TileParentLogic recievedTile)

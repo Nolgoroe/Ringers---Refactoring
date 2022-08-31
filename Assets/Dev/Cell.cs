@@ -48,7 +48,7 @@ public class Cell : TileHolder
 
     }
 
-    public override void OnRemoveTile()
+    public override TileParentLogic OnRemoveTile()
     {
         ringParent.OnRemoveTileFromRing(); // changes the filled cell count and checks win condition
 
@@ -64,8 +64,9 @@ public class Cell : TileHolder
             SetConnectDataRight(false);
         }
 
-
+        TileParentLogic temp =  heldTile;
         heldTile = null;
+        return temp;
     }
 
     [ContextMenu("Summon tile")]
@@ -133,7 +134,7 @@ public class Cell : TileHolder
         }
         else
         {
-            heldTile.SetSubtilesAsNOTConnected(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
+            heldTile.SetSubtilesAsNOTConnectedGFX(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
 
             sliceConditionLeft.conditionIsValidated = false;
             leftCell.sliceConditionRight.conditionIsValidated = false;
@@ -158,7 +159,7 @@ public class Cell : TileHolder
         }
         else
         {
-            heldTile.SetSubtilesAsNOTConnected(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
+            heldTile.SetSubtilesAsNOTConnectedGFX(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
 
             sliceConditionRight.conditionIsValidated = false;
             rightCell.sliceConditionLeft.conditionIsValidated = false;
