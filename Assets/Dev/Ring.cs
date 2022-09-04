@@ -22,4 +22,5 @@ public class Ring : MonoBehaviour
     {
         filledCells--;
     }
+
 }

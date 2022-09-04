@@ -15,6 +15,7 @@ public class Cell : TileHolder
     [SerializeField] bool goodConnectLeft, goodConnectRight;
     [SerializeField] bool isLocked;
 
+    // think about creating an action system here aswell for "on good connection" + "on bad connection" - look at gamemanger as example.
 
     [Header("Testing")]
     public GameObject tilePrefab;
@@ -30,6 +31,10 @@ public class Cell : TileHolder
         ConditonsData dataRight = new ColorAndShapeCondition();
         sliceConditionRight = dataRight;
 
+        //example of specific color
+        SpecificColorCondition dataRightT = new SpecificColorCondition();
+        dataRightT.requiredColor = TileColor.Blue;
+        sliceConditionRight = dataRightT;
 
         //this is not temporary
         ringParent = transform.GetComponentInParent<Ring>();

@@ -26,8 +26,8 @@ public class InLevelUserControls : MonoBehaviour
     public TileHolder tileOriginalHolder;
 
     [Header("Needed Classes")]
-    public ClipManager clipManager;
     public Ring ringManager;
+    public ClipManager clipManager;
 
     Vector3 touchPos;
     float tileDragDist;
@@ -41,6 +41,13 @@ public class InLevelUserControls : MonoBehaviour
             NormalControls();
             return;
         }
+    }
+
+
+    public void UserControlsSetter(Ring gameRing, ClipManager gameClip)
+    {
+        ringManager = gameRing;
+        clipManager = gameClip;
     }
 
     private void NormalControls()

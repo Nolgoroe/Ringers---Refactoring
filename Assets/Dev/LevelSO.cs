@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class stoneTileDataStruct
@@ -27,10 +28,6 @@ public class sliceToSpawnDataStruct
     public LootPacks RewardBag;
 }
 
-
-public enum LevelActions
-{
-}
 
 public enum PowerUp
 {
@@ -90,8 +87,8 @@ public class LevelSO : ScriptableObject
     public GameObject clipPrefab;
     public GameObject tilePrefab;
     public GameObject levelSpecificUserControls;
-    public List<LevelActions> beforeRingSpawnActions;
-    public List<LevelActions> afterRingSpawnActions;
+    public UnityEvent beforeRingSpawnActions; // each function that will be called here will "subscribe" to it's relavent stage in the gamemanger action
+    public UnityEvent afterRingSpawnActions; 
     public TileColor[] levelAvailableColors;
     public TileSymbol[] levelAvailablesymbols;
 

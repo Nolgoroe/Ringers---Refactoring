@@ -65,15 +65,18 @@ public class ClipManager : MonoBehaviour
         Tile tile = Instantiate(GameManager.instance.currentLevel.tilePrefab).GetComponent<Tile>();
         slot.heldTile = tile;
         SetSpawnDataAndDisplay(tile);
+
         slot.AcceptTileToHolder(tile);
     }
 
 
     private void SetSpawnDataAndDisplay(Tile tile)
     {
+        //this is the data
         tile.SetTileSpawnData(tile.subTileLeft);
         tile.SetTileSpawnData(tile.subTileRight);
 
+        //this is the display
         SetTileSpawnDisplayByData(tile.subTileLeft);
         SetTileSpawnDisplayByData(tile.subTileRight);
     }
@@ -82,7 +85,9 @@ public class ClipManager : MonoBehaviour
     {
         int colorIndex = (int)subTile.subTileColor;
         int symbolIndex = (int)subTile.subTileSymbol;
+
         Material matToChange = subTile.subtileMesh.material;
+
         Texture colorSymbolTexture = colorsToMats[colorIndex].colorTex[symbolIndex];
         Texture connectionTex = symbolToMat[symbolIndex].symbolTex;
 

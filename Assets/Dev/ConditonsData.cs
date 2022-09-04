@@ -12,20 +12,6 @@ public class ConditonsData
         Debug.LogError("Coulden't find override for conditions");
         return false;
     }
-
-    //public virtual bool CheckCondition(TileSymbol requiredSymbol, SubTileData subTileCurrent, SubTileData subTileContested)
-    //{
-    //    Debug.LogError("Coulden't find override for conditions");
-
-    //    return false;
-    //}
-
-    //public virtual bool CheckCondition(TileColor requiredColor, SubTileData subTileCurrent, SubTileData subTileContested)
-    //{
-    //    Debug.LogError("Coulden't find override for conditions");
-
-    //    return false;
-    //}
 }
 
 [System.Serializable]

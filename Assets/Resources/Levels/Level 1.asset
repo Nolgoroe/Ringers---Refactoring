@@ -23,8 +23,12 @@ MonoBehaviour:
     type: 3}
   levelSpecificUserControls: {fileID: 8724694532173668366, guid: a9f97b7cc35b8084ebd52e109551b2b1,
     type: 3}
-  beforeRingSpawnActions: 
-  afterRingSpawnActions: 
+  beforeRingSpawnActions:
+    m_PersistentCalls:
+      m_Calls: []
+  afterRingSpawnActions:
+    m_PersistentCalls:
+      m_Calls: []
   levelAvailableColors: 000000000100000002000000
   levelAvailablesymbols: 000000000100000003000000
   isUsingSpecificStatue: 0
