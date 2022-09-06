@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class GameManager : MonoBehaviour
     [Header("In game Data")]
     public Ring gameRing;
     public ClipManager gameClip;
-    public LevelSO currentLevel;
+    public static LevelSO currentLevel;
+    public LevelSO tempcurrentlevel;
 
     public static System.Action BeforeRingActions;
     public static System.Action RingActions;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
         // consider changing Sigleton access to something else.
 
         instance = this;
+        currentLevel = tempcurrentlevel;
 
         SetLevel(currentLevel);
     }
@@ -29,14 +32,13 @@ public class GameManager : MonoBehaviour
     public void SetLevel(LevelSO level)
     {
         //this is the only place in code where we add delegates to the actions of before, during and after ring.
-
-
-        BeforeRingActions += () => currentLevel.beforeRingSpawnActions.Invoke(); // this will not actually invoke the unity event functions - it will add it's invoked functions to the action in the order they are created.
-
+        RingActions += LevelSetup;
         currentLevel = level; //choose level here
 
-        RingActions += LevelActionSetup;
-
+        // this will not actually invoke the unity event functions - it will add it's invoked functions to the action in the order they are created.
+        BeforeRingActions += () => currentLevel.beforeRingSpawnActions.Invoke();
+        RingActions += () => currentLevel.ringSpawnActions.Invoke();
+        AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke(); 
 
         StartLevel();
     }
@@ -51,10 +53,9 @@ public class GameManager : MonoBehaviour
 
         //After Ring
         AfterRingActions?.Invoke();
-
     }
 
-    private void LevelActionSetup()
+    private void LevelSetup()
     {
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
 

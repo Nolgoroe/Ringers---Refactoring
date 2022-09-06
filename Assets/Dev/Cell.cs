@@ -15,12 +15,18 @@ public class Cell : TileHolder
     [SerializeField] bool goodConnectLeft, goodConnectRight;
     [SerializeField] bool isLocked;
 
+    //TEMP
+    [SerializeField]
+    int maxDistanceToAnimate;
+    [SerializeField]
+    int maxAnimateSpeed;
+
     // think about creating an action system here aswell for "on good connection" + "on bad connection" - look at gamemanger as example.
 
     [Header("Testing")]
     public GameObject tilePrefab;
 
-    private void Start()
+    private void Awake()
     {
 
         // this will arrive from a slice when we're instantiating them!
@@ -31,13 +37,10 @@ public class Cell : TileHolder
         ConditonsData dataRight = new ColorAndShapeCondition();
         sliceConditionRight = dataRight;
 
-        //example of specific color
+        //example of specific color slice
         SpecificColorCondition dataRightT = new SpecificColorCondition();
-        dataRightT.requiredColor = TileColor.Blue;
+        dataRightT.requiredColor = SubTileColor.Blue;
         sliceConditionRight = dataRightT;
-
-        //this is not temporary
-        ringParent = transform.GetComponentInParent<Ring>();
     }
 
     public override void RecieveTile(TileParentLogic tileToPlace)
@@ -48,9 +51,6 @@ public class Cell : TileHolder
 
         CheckConnectionLeft();
         CheckConnectionRight();
-
-        //change connected Display on tile
-
     }
 
     public override TileParentLogic OnRemoveTile()
@@ -89,7 +89,7 @@ public class Cell : TileHolder
         {
             if (!sliceConditionLeft.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight))
             {
-                ringParent.unsuccessfulConnections++;
+                ringParent.unsuccessfulConnectionsCount++;
                 
                 return;
             }
@@ -104,7 +104,7 @@ public class Cell : TileHolder
         {
             if (!sliceConditionRight.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft))
             {
-                ringParent.unsuccessfulConnections++;
+                ringParent.unsuccessfulConnectionsCount++;
                 return;
             }
 
@@ -117,12 +117,12 @@ public class Cell : TileHolder
     {
         if(leftCell.heldTile && !goodConnectLeft)
         {
-            ringParent.unsuccessfulConnections--;
+            ringParent.unsuccessfulConnectionsCount--;
         }
 
         if(rightCell.heldTile && !goodConnectRight)
         {
-            ringParent.unsuccessfulConnections--;
+            ringParent.unsuccessfulConnectionsCount--;
         }
     }
     private void SetConnectDataLeft(bool isGood)
@@ -179,14 +179,24 @@ public class Cell : TileHolder
     {
         recievedTile.transform.SetParent(tileGFXParent);
 
-        float distanceFromTarget = Vector3.Distance(recievedTile.transform.localPosition, Vector3.zero);
-        Debug.Log(distanceFromTarget);
-        float timeToAnimate = distanceFromTarget / 20f;
-        Debug.Log("time: " + timeToAnimate);
+        // all of this should happen in an animation manager?? or something that will manage animations
 
-        LeanTween.moveLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
-        LeanTween.rotateLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
-        LeanTween.scale(recievedTile.gameObject, Vector3.one, timeToAnimate);
+
+        float distanceFromTarget = Vector3.Distance(recievedTile.transform.localPosition, Vector3.zero);
+        
+        if(distanceFromTarget > maxDistanceToAnimate)
+        {
+            recievedTile.transform.localPosition = Vector3.zero;
+            recievedTile.transform.localRotation = Quaternion.Euler(Vector3.zero);
+            recievedTile.transform.localScale = Vector3.one;
+        }
+        else
+        {
+            float timeToAnimate = distanceFromTarget / maxAnimateSpeed;
+            LeanTween.moveLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
+            LeanTween.rotateLocal(recievedTile.gameObject, Vector3.zero, timeToAnimate);
+            LeanTween.scale(recievedTile.gameObject, Vector3.one, timeToAnimate);
+        }
 
         heldTile = recievedTile;
     }

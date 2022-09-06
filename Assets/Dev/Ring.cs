@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Ring : MonoBehaviour
 {
-    public int filledCells;
-    public int unsuccessfulConnections;
+    public int filledCellsCount;
+    public int unsuccessfulConnectionsCount;
 
+    public Cell[] ringCells;
 
     public void OnAddTileToRing()
     {
-        filledCells++;
+        filledCellsCount++;
 
-        if (filledCells == GameManager.instance.currentLevel.numOfCells && unsuccessfulConnections == 0)
+        if (filledCellsCount == GameManager.currentLevel.numOfCells && unsuccessfulConnectionsCount == 0)
         {
             Debug.Log("Win Level");
         }
@@ -20,7 +21,7 @@ public class Ring : MonoBehaviour
 
     public void OnRemoveTileFromRing()
     {
-        filledCells--;
+        filledCellsCount--;
     }
 
 }

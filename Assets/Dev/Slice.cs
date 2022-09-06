@@ -15,6 +15,6 @@ public enum SliceConditionsEnums
 public class Slice : MonoBehaviour
 {
     public SliceConditionsEnums connectionType;
-    public TileSymbol requiredSymbol;
-    public TileColor requiredColor;
+    public SubTileSymbol requiredSymbol;
+    public SubTileColor requiredColor;
 }

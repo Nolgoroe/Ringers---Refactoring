@@ -8,11 +8,8 @@ public class stoneTileDataStruct
 {
     public int cellIndex;
     public bool randomValues;
-    public bool noColors;
-    public TileColor rightTileColor;
-    public TileSymbol rightTileSymbol;
-    public TileColor leftTileColor;
-    public TileSymbol leftTileSymbol;
+    public SubTileSymbol rightTileSymbol;
+    public SubTileSymbol leftTileSymbol;
 }
 
 [System.Serializable]
@@ -23,8 +20,8 @@ public class sliceToSpawnDataStruct
     public bool isLoot;
     public bool isLimiter;
     public int specificSliceSpots;
-    public TileColor specificSlicesColors;
-    public TileSymbol specificSlicesShapes;
+    public SubTileColor specificSlicesColors;
+    public SubTileSymbol specificSlicesShapes;
     public LootPacks RewardBag;
 }
 
@@ -70,10 +67,10 @@ public enum LootPacks
 [System.Serializable]
 public class tileDataStruct
 {
-    public TileColor rightTileColor;
-    public TileSymbol rightTileSymbol;
-    public TileColor leftTileColor;
-    public TileSymbol leftTileSymbol;
+    public SubTileColor rightTileColor;
+    public SubTileSymbol rightTileSymbol;
+    public SubTileColor leftTileColor;
+    public SubTileSymbol leftTileSymbol;
 }
 
 [CreateAssetMenu(fileName = "Level", menuName ="ScriptableObjects/Create Level")]
@@ -88,9 +85,10 @@ public class LevelSO : ScriptableObject
     public GameObject tilePrefab;
     public GameObject levelSpecificUserControls;
     public UnityEvent beforeRingSpawnActions; // each function that will be called here will "subscribe" to it's relavent stage in the gamemanger action
+    public UnityEvent ringSpawnActions;
     public UnityEvent afterRingSpawnActions; 
-    public TileColor[] levelAvailableColors;
-    public TileSymbol[] levelAvailablesymbols;
+    public SubTileColor[] levelAvailableColors;
+    public SubTileSymbol[] levelAvailablesymbols;
 
     [Header("Statue")]
     public bool isUsingSpecificStatue;

@@ -9,12 +9,17 @@ public class Tile : TileParentLogic
         partOfBoard = true;
     }
 
-    public override void SetTileSpawnData(SubTileData subTile)
+    public override void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor)
     {
-        TileSymbol symbol = RollTileSymbol();
-        TileColor color = RollTileColor();
+        subTile.subTileSymbol = resultSymbol;
+        subTile.subTileColor = resultColor;
+    }
 
-        subTile.subTileSymbol = symbol;
-        subTile.subTileColor = color;
+    public void SetTileSpawnDisplayByTextures(SubTileData subTile, Texture colorSymbolTexture, Texture connectionTexture)
+    {
+        Material matToChange = subTile.subtileMesh.material;
+
+        matToChange.SetTexture("Tile_Albedo_Map", colorSymbolTexture);
+        matToChange.SetTexture("MatchedSymbolTex", connectionTexture);
     }
 }

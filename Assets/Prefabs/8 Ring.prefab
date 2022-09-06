@@ -139,8 +139,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15559eb47fac724b99cce04294c12cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filledCells: 0
-  unsuccessfulConnections: 0
+  filledCellsCount: 0
+  unsuccessfulConnectionsCount: 0
+  ringCells:
+  - {fileID: 8104563258270385523}
+  - {fileID: 169185671327898397}
+  - {fileID: 5468248009620775537}
+  - {fileID: 5442228926746812561}
+  - {fileID: 813221768984692589}
+  - {fileID: 5887269215266311576}
+  - {fileID: 1027193227858043542}
+  - {fileID: 7556747006808298380}
 --- !u!1 &2002839187472028824
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,7 +306,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0 (5)
+      value: Cell 5
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -374,6 +383,11 @@ PrefabInstance:
       propertyPath: rightCell
       value: 
       objectReference: {fileID: 1027193227858043542}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
     - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: tileGFXParent
@@ -934,7 +948,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0 (3)
+      value: Cell 3
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1013,6 +1027,11 @@ PrefabInstance:
       objectReference: {fileID: 813221768984692589}
     - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
       propertyPath: tileGFXParent
       value: 
       objectReference: {fileID: 2320511221628436625}
@@ -1046,7 +1065,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0 (2)
+      value: Cell 2
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1123,6 +1142,11 @@ PrefabInstance:
       propertyPath: rightCell
       value: 
       objectReference: {fileID: 5442228926746812561}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
     - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: tileGFXParent
@@ -1225,6 +1249,11 @@ PrefabInstance:
       propertyPath: rightCell
       value: 
       objectReference: {fileID: 169185671327898397}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad932c7e770de4645ae48efdeadbd022, type: 3}
 --- !u!4 &2002839188143236467 stripped
@@ -1330,7 +1359,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0 (7)
+      value: Cell 7
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1404,6 +1433,11 @@ PrefabInstance:
       objectReference: {fileID: 8104563258270385523}
     - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
       propertyPath: tileGFXParent
       value: 
       objectReference: {fileID: 246650880390067084}
@@ -1437,7 +1471,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0 (1)
+      value: Cell 1
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1516,6 +1550,11 @@ PrefabInstance:
       objectReference: {fileID: 5468248009620775537}
     - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
       propertyPath: tileGFXParent
       value: 
       objectReference: {fileID: 7632373825869724445}
@@ -1549,7 +1588,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0 (6)
+      value: Cell 6
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1628,6 +1667,11 @@ PrefabInstance:
       objectReference: {fileID: 7556747006808298380}
     - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
       propertyPath: tileGFXParent
       value: 
       objectReference: {fileID: 7346461960596849302}
@@ -1661,7 +1705,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0 (4)
+      value: Cell 4
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1738,6 +1782,11 @@ PrefabInstance:
       propertyPath: rightCell
       value: 
       objectReference: {fileID: 5887269215266311576}
+    - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
+        type: 3}
+      propertyPath: ringParent
+      value: 
+      objectReference: {fileID: 2002839186953646339}
     - target: {fileID: 6061325382724706207, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: tileGFXParent

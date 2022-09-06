@@ -64,7 +64,7 @@ public class GeneralSymbolCondition : ConditonsData
 [System.Serializable]
 public class SpecificColorCondition : ConditonsData
 {
-    public TileColor requiredColor;
+    public SubTileColor requiredColor;
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
@@ -80,7 +80,7 @@ public class SpecificColorCondition : ConditonsData
 [System.Serializable]
 public class SpecificSymbolCondition : ConditonsData
 {
-    public TileSymbol requiredSymbol;
+    public SubTileSymbol requiredSymbol;
 
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
