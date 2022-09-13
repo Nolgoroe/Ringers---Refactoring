@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Tile : TileParentLogic
 {
-    public override void OnPlaceTile()
+    public override void SetPlaceTileData(bool place)
     {
-        partOfBoard = true;
+        partOfBoard = place;
     }
 
     public override void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4588206656189153183}
   - component: {fileID: 6061325382724706207}
   - component: {fileID: 2894533852226957178}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Cell
   m_TagString: Cell
   m_Icon: {fileID: 0}
@@ -49,7 +49,6 @@ MonoBehaviour:
   tileGFXParent: {fileID: 4588206656189153183}
   leftCell: {fileID: 0}
   rightCell: {fileID: 0}
-  ringParent: {fileID: 0}
   sliceConditionLeft:
     conditionIsValidated: 0
   sliceConditionRight:
@@ -57,7 +56,7 @@ MonoBehaviour:
   goodConnectLeft: 0
   goodConnectRight: 0
   isLocked: 0
-  maxDistanceToAnimate: 4
+  amountUnsuccessfullConnections: 0
   maxAnimateSpeed: 20
   tilePrefab: {fileID: 1645121695642233041, guid: 9006b37d13737004a8954e6ed3236a5d,
     type: 3}

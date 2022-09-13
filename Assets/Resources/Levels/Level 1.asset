@@ -60,5 +60,5 @@ MonoBehaviour:
   - cellIndex: 2
     randomValues: 0
     rightTileSymbol: 0
-    leftTileSymbol: 0
+    leftTileSymbol: 3
   arrayOfSpecificTilesInClip: []

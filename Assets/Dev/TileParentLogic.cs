@@ -4,6 +4,15 @@ using UnityEngine;
 
 
 [System.Serializable]
+public class stoneTileDataStruct
+{
+    public int cellIndex;
+    public bool randomValues;
+    public SubTileSymbol rightTileSymbol;
+    public SubTileSymbol leftTileSymbol;
+}
+
+[System.Serializable]
 public class SubTileData
 {
     public SubTileSymbol subTileSymbol;
@@ -15,7 +24,7 @@ public abstract class TileParentLogic : MonoBehaviour
     public SubTileData subTileLeft, subTileRight;
     public bool partOfBoard;
 
-    public abstract void OnPlaceTile();
+    public abstract void SetPlaceTileData(bool place);
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
 
 

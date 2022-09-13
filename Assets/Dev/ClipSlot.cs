@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClipSlot : TileHolder
+public class ClipSlot : TileHolder, IGrabTileFrom
 {
     public override void AcceptTileToHolder(TileParentLogic recievedTile)
     {
@@ -15,11 +15,19 @@ public class ClipSlot : TileHolder
         heldTile = recievedTile;
     }
 
-    public override TileParentLogic OnRemoveTile()
+    public void GrabTileFrom()
     {
-        TileParentLogic temp = heldTile;
+    }
+
+    public override void RemoveTile()
+    {
         heldTile = null;
-        return temp;
+        GameManager.gameClip.RePopulateSpecificSlot(this);
+    }
+
+    public override void OnRemoveTileDisplay()
+    {
+
     }
 
     public override void RecieveTile(TileParentLogic recievedTile)

@@ -47,14 +47,18 @@ MonoBehaviour:
   tileLayer:
     serializedVersion: 2
     m_Bits: 128
-  tileHolderLayer:
+  tileGrabbingLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
+  tileInsertingLayer:
+    serializedVersion: 2
+    m_Bits: 512
   cellTag: Cell
   overlapRadius: 1
   pickupSpeed: 0.1
   tileFollowSpeed: 11
   tileFollowOffset: {x: 0, y: 0, z: -1}
   currentTileToMove: {fileID: 0}
-  tileParent: {fileID: 0}
+  tileOriginalHolder: {fileID: 0}
+  ringManager: {fileID: 0}
   clipManager: {fileID: 0}

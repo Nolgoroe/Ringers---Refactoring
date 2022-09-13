@@ -5,17 +5,19 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    //public static GameManager instance;
 
     [Header("In game Data")]
-    public Ring gameRing;
-    public ClipManager gameClip;
+    public static Ring gameRing;
+    public static ClipManager gameClip;
     public static LevelSO currentLevel;
-    public LevelSO tempcurrentlevel;
+    public LevelSO tempcurrentlevel; //temp
 
-    public static System.Action BeforeRingActions;
-    public static System.Action RingActions;
-    public static System.Action AfterRingActions;
+    private System.Action BeforeRingActions;
+    private System.Action RingActions;
+    private System.Action AfterRingActions;
+
+    private System.Action endLevelCleanup;
 
     void Start()
     {
@@ -23,7 +25,7 @@ public class GameManager : MonoBehaviour
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
 
-        instance = this;
+        //instance = this;
         currentLevel = tempcurrentlevel;
 
         SetLevel(currentLevel);
@@ -38,7 +40,8 @@ public class GameManager : MonoBehaviour
         // this will not actually invoke the unity event functions - it will add it's invoked functions to the action in the order they are created.
         BeforeRingActions += () => currentLevel.beforeRingSpawnActions.Invoke();
         RingActions += () => currentLevel.ringSpawnActions.Invoke();
-        AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke(); 
+        AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
+
 
         StartLevel();
     }
@@ -53,6 +56,10 @@ public class GameManager : MonoBehaviour
 
         //After Ring
         AfterRingActions?.Invoke();
+
+        endLevelCleanup += gameRing.ClearActions;
+
+        endLevelCleanup += LevelActionCleanup;// this has to be the last added func
     }
 
     private void LevelSetup()
@@ -65,6 +72,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("No ring!");
         }
+        gameRing.InitRing();
 
         // Spawn clip by type from level (or a general clip)
         gameClip = Instantiate(currentLevel.clipPrefab).GetComponent<ClipManager>();
@@ -89,11 +97,21 @@ public class GameManager : MonoBehaviour
         //Init slices that pass information to cells (run 2)
     }
 
-    private void LevelActionCleanup()
+    private void LevelActionCleanup()// this must be added last
     {
         BeforeRingActions = null;
         RingActions = null;
         AfterRingActions = null;
+        endLevelCleanup = null;
+    }
+
+    public void AddToEndlevelCleanup(System.Action actionToAdd)
+    {
+        endLevelCleanup -= LevelActionCleanup;// this has to be the last added func
+
+        endLevelCleanup += actionToAdd;
+
+        endLevelCleanup += LevelActionCleanup;// this has to be the last added func
 
     }
 }

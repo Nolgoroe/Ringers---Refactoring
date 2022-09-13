@@ -21,8 +21,8 @@ TagManager:
   - UI
   - BoardCell
   - TileParent
-  - TileHolder
-  - 
+  - tileGrabbingLayer
+  - tileInsertingLayer
   - 
   - 
   - 

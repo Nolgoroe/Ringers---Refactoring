@@ -9,7 +9,18 @@ public class Ring : MonoBehaviour
 
     public Cell[] ringCells;
 
-    public void OnAddTileToRing()
+    public System.Action onAddTile;
+    public System.Action onRemoveTile; // not yet implemented
+
+    public void InitRing()
+    {
+        onAddTile += OnAddTileToRing;
+        onAddTile += ChangeCellCountAndConnectionDataOnRemove;
+
+        onRemoveTile += UpdateFilledAndConnectDataCount;
+    }
+
+    private void OnAddTileToRing()
     {
         filledCellsCount++;
 
@@ -19,9 +30,51 @@ public class Ring : MonoBehaviour
         }
     }
 
-    public void OnRemoveTileFromRing()
+    public void InsertTileToCell(int cellIndex, TileParentLogic tile, bool isLocked)
+    {
+        ringCells[cellIndex].SetAsLocked(isLocked);
+
+        InsertTileToCell(ringCells[cellIndex], tile);
+
+    }
+
+    public void InsertTileToCell(Cell cell, TileParentLogic tile)
+    {
+        if (ringCells != null && ringCells.Length > 0)
+        {
+            cell.RecieveTile(tile);
+        }
+
+        onAddTile?.Invoke();
+    }
+
+    //this can currentlt only be called from cells.
+    public void CallOnRemoveTileFromRing()
+    {
+        onRemoveTile?.Invoke();
+    }
+
+    private void UpdateFilledAndConnectDataCount()
     {
         filledCellsCount--;
+
+        ChangeCellCountAndConnectionDataOnRemove();
+    }
+
+    private void ChangeCellCountAndConnectionDataOnRemove()
+    {
+        unsuccessfulConnectionsCount = 0;
+
+        foreach (Cell cell in ringCells)
+        {
+            unsuccessfulConnectionsCount += cell.GetUnsuccessfullConnections();
+        }
+    }
+
+    public void ClearActions()
+    {
+        onAddTile = null;
+        onRemoveTile = null;
     }
 
 }

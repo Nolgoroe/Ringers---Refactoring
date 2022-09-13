@@ -6,13 +6,10 @@ public class InLevelUserControls : MonoBehaviour
 {
     // THINK ABOUT MAYBE CRATING INHERITENCE FOR "CONTROLS"
 
-
-
-
-
     [Header("Raycast data")]
     public LayerMask tileLayer;
-    public LayerMask tileHolderLayer;
+    public LayerMask tileGrabbingLayer;
+    public LayerMask tileInsertingLayer;
     public string cellTag;
     public float overlapRadius;
 
@@ -67,20 +64,20 @@ public class InLevelUserControls : MonoBehaviour
                     OnTouchBegin();
                     break;
                 case TouchPhase.Moved:
-                    if(currentTileToMove) OnTouchMoveOrStationairy();
+                    if (currentTileToMove) OnTouchMoveOrStationairy();
                     break;
                 case TouchPhase.Stationary:
                     if (currentTileToMove) OnTouchMoveOrStationairy();
                     break;
                 case TouchPhase.Ended:
-                    if(currentTileToMove) OnTouchEnd();
+                    if (currentTileToMove) OnTouchEnd();
                     break;
                 case TouchPhase.Canceled:
                     Debug.LogError("Cancelled??");
                     break;
                 default:
                     break;
-            } 
+            }
         }
 
     }
@@ -88,14 +85,15 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchBegin()
     {
-        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
+        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileGrabbingLayer);
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
         if (intersectionsArea.Length > 0)
         {
+            IGrabTileFrom grabbedObject = intersectionsArea[0].transform.GetComponent<IGrabTileFrom>();
             TileHolder holder = intersectionsArea[0].transform.GetComponent<TileHolder>();
 
-            if (holder.heldTile)
+            if (grabbedObject != null && holder.heldTile)
             {
                 GrabTile(holder);
             }
@@ -103,16 +101,20 @@ public class InLevelUserControls : MonoBehaviour
     }
     private void GrabTile(TileHolder holder)
     {
-        currentTileToMove = holder.OnRemoveTile();
+        if(holder.heldTile)
+        {
+            currentTileToMove = holder.heldTile;
+            holder.OnRemoveTileDisplay();
+            tileOriginalHolder = holder;
 
-        tileOriginalHolder = holder;
+            OriginalPos = currentTileToMove.transform.position;
+            OriginalRot = currentTileToMove.transform.rotation;
 
-        OriginalPos = currentTileToMove.transform.position;
-        OriginalRot = currentTileToMove.transform.rotation;
+            LeanTween.move(currentTileToMove.gameObject, TargetPosOffset(), pickupSpeed);
 
-        LeanTween.move(currentTileToMove.gameObject, TargetPosOffset(), pickupSpeed);
+            RotateTileTowardsBoard();
+        }
 
-        RotateTileTowardsBoard();
     }
 
 
@@ -123,7 +125,7 @@ public class InLevelUserControls : MonoBehaviour
 
         SmoothPieceMover();
 
-        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
+        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
         /// do VFX according to hits here.
@@ -137,34 +139,19 @@ public class InLevelUserControls : MonoBehaviour
 
     private void OnTouchEnd()
     {
-        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileHolderLayer);
+        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
         // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
         if (intersectionsArea.Length > 0)
         {
-            Transform hit = intersectionsArea[0].transform;
+            IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
 
-            if (hit && hit != tileOriginalHolder.transform && hit.transform.CompareTag(cellTag))
+            if(tileOriginalHolder.heldTile)
             {
-                Cell cell = hit.transform.GetComponent<Cell>();
-
-                if (!cell.heldTile)
-                {
-                    cell.RecieveTile(currentTileToMove);
-                }
-                else
-                {
-                    ReturnHome();
-                }
-
-                if (tileOriginalHolder is ClipSlot) //if parent can be casted to a "ClipSlot" type, meanin it came from the clip
-                {
-                    clipManager.RePopulateSpecificSlot((ClipSlot)tileOriginalHolder);
-                }
-
-                ReleaseData();
+                tileOriginalHolder.RemoveTile();
             }
-            else
+
+            if (!droopedObject.DroopedOn(currentTileToMove))
             {
                 ReturnHome();
             }
@@ -173,7 +160,10 @@ public class InLevelUserControls : MonoBehaviour
         {
             ReturnHome();
         }
+
+        ReleaseData();
     }
+
 
 
 
@@ -220,8 +210,6 @@ public class InLevelUserControls : MonoBehaviour
         LeanTween.cancel(currentTileToMove.gameObject);
 
         tileOriginalHolder.RecieveTile(currentTileToMove);
-
-        ReleaseData();
     }
 
     private void ReleaseData()

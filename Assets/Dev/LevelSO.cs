@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[System.Serializable]
-public class stoneTileDataStruct
-{
-    public int cellIndex;
-    public bool randomValues;
-    public SubTileSymbol rightTileSymbol;
-    public SubTileSymbol leftTileSymbol;
-}
 
 [System.Serializable]
 public class sliceToSpawnDataStruct

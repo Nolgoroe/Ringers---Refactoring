@@ -10,14 +10,14 @@ public class TileVarientSummonActions : ScriptableObject
 
     public void SummonStoneTiles()
     {
-        Ring ring = FindObjectOfType<Ring>();
+        Ring ring = GameManager.gameRing;
 
         SubTileColor[] availableColors = new SubTileColor[] { SubTileColor.Stone };
 
         foreach (stoneTileDataStruct stoneTile in GameManager.currentLevel.stoneTiles)
         {           
             Tile tile = tileCreatorPreset.CreateTile(Tiletype.Normal, GameManager.currentLevel.levelAvailablesymbols, availableColors);
-            ring.ringCells[stoneTile.cellIndex].RecieveTile(tile);
+            ring.InsertTileToCell(stoneTile.cellIndex, tile, true);
         }
     }
 }
