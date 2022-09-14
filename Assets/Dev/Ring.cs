@@ -32,23 +32,15 @@ public class Ring : MonoBehaviour
 
     public void InsertTileToCell(int cellIndex, TileParentLogic tile, bool isLocked)
     {
+        ringCells[cellIndex].DroopedOn(tile);
         ringCells[cellIndex].SetAsLocked(isLocked);
-
-        InsertTileToCell(ringCells[cellIndex], tile);
-
     }
 
-    public void InsertTileToCell(Cell cell, TileParentLogic tile)
+    public void InsertTileToCell()
     {
-        if (ringCells != null && ringCells.Length > 0)
-        {
-            cell.RecieveTile(tile);
-        }
-
         onAddTile?.Invoke();
     }
 
-    //this can currentlt only be called from cells.
     public void CallOnRemoveTileFromRing()
     {
         onRemoveTile?.Invoke();

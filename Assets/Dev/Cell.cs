@@ -179,7 +179,9 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
     {
         if(!heldTile)
         {
-            GameManager.gameRing.InsertTileToCell(this, tile);
+            RecieveTile(tile);
+
+            GameManager.gameRing.InsertTileToCell();
             return true;
         }
 
