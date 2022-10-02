@@ -42,4 +42,14 @@ public class Slice : MonoBehaviour
         midIcon.sprite = sprite;
         midIcon.gameObject.SetActive(true);
     }
+
+    public bool CheckHasSlideData()
+    {
+        if (sliceData.onGoodConnectionActions == null)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }

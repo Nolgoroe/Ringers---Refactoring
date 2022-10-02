@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldName: 0
   levelNumInZone: 0
-  ringType: 0
+  ringType: 1
   clipPrefab: {fileID: 532036011073816198, guid: 076e25b3da1d9cf4f9a55a527c9e47c5,
     type: 3}
   levelSpecificUserControls: {fileID: 8724694532173668366, guid: a9f97b7cc35b8084ebd52e109551b2b1,
@@ -56,6 +56,7 @@ MonoBehaviour:
   levelAvailablesymbols: 0100000000000000
   isUsingSpecificStatue: 0
   specificStatueForLevel: {fileID: 0}
+  isRandomSlicePositions: 1
   allowRepeatSlices: 0
   slicesToSpawn:
   - sliceToSpawn: 1
@@ -67,40 +68,6 @@ MonoBehaviour:
     specificSlicesShape: 0
     RewardBag: 0
     isLock: 0
-    RandomSlicePositions: 0
-    RandomSliceValues: 0
-  - sliceToSpawn: 2
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 1
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    RewardBag: 0
-    isLock: 0
-    RandomSlicePositions: 0
-    RandomSliceValues: 0
-  - sliceToSpawn: 3
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 2
-    specificSlicesColor: 1
-    specificSlicesShape: 0
-    RewardBag: 0
-    isLock: 1
-    RandomSlicePositions: 0
-    RandomSliceValues: 0
-  - sliceToSpawn: 4
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 3
-    specificSlicesColor: 0
-    specificSlicesShape: 3
-    RewardBag: 0
-    isLock: 0
-    RandomSlicePositions: 0
     RandomSliceValues: 0
   powerupsForLevel: 
   stoneTiles:

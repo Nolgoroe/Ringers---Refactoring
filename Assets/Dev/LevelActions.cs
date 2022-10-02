@@ -12,6 +12,11 @@ public class LevelActions : ScriptableObject
     [Header("Required refrences")]
     public Sprite lockSprite;
 
+    
+    
+    int currentSummonIndex;
+    int summonedSliceCount = 0;
+    List<Slice> tempSlicesList;
     public void SummonStoneTiles()
     {
         SubTileColor[] availableColors = new SubTileColor[] { SubTileColor.Stone };
@@ -41,13 +46,21 @@ public class LevelActions : ScriptableObject
 
     public void SummonSlices()
     {
+        summonedSliceCount = 0;
+        currentSummonIndex = -1;
+
         LevelSO currentLevel = GameManager.currentLevel;
 
-        List<sliceToSpawnDataStruct> allSlices = currentLevel.slicesToSpawn.Where(x => x.RandomSlicePositions == false).ToList();
-        List<sliceToSpawnDataStruct> randomSlices = currentLevel.slicesToSpawn.Where(x => x.RandomSlicePositions == true).ToList();
+        //List<sliceToSpawnDataStruct> allSlices = currentLevel.slicesToSpawn.Where(x => x.RandomSlicePositions == false).ToList();
+        //List<sliceToSpawnDataStruct> randomSlices = currentLevel.slicesToSpawn.Where(x => x.RandomSlicePositions == true).ToList();
+
+        List<sliceToSpawnDataStruct> allSlices = currentLevel.slicesToSpawn.ToList();
+
+        tempSlicesList = new List<Slice>();
+        tempSlicesList.AddRange(GameManager.gameRing.ringSlices);
 
         //we do this to make sure that we first summon the Specific slices.
-        allSlices.AddRange(randomSlices);
+        //allSlices.AddRange(randomSlices);
 
 
         for (int i = 0; i < allSlices.Count; i++)
@@ -68,34 +81,91 @@ public class LevelActions : ScriptableObject
                     break;
                 case SliceConditionsEnums.SpecificColor:
                     sliceData = new SpecificColorCondition();
-                    (sliceData as SpecificColorCondition).requiredColor = currentLevel.slicesToSpawn[i].specificSlicesColor;
-                    color = currentLevel.slicesToSpawn[i].specificSlicesColor;
+
+                    if(allSlices[i].RandomSliceValues)
+                    {
+                        int randomIndex = Random.Range(0, GameManager.currentLevel.levelAvailableColors.Length);
+
+                        (sliceData as SpecificColorCondition).requiredColor = GameManager.currentLevel.levelAvailableColors[randomIndex];
+                        color = GameManager.currentLevel.levelAvailableColors[randomIndex];
+                    }
+                    else
+                    {
+                        (sliceData as SpecificColorCondition).requiredColor = currentLevel.slicesToSpawn[i].specificSlicesColor;
+                        color = currentLevel.slicesToSpawn[i].specificSlicesColor;
+                    }
                     break;
                 case SliceConditionsEnums.SpecificSymbol:
                     sliceData = new SpecificSymbolCondition();
-                    (sliceData as SpecificSymbolCondition).requiredSymbol = currentLevel.slicesToSpawn[i].specificSlicesShape;
-                    symbol = currentLevel.slicesToSpawn[i].specificSlicesShape;
+
+                    if (allSlices[i].RandomSliceValues)
+                    {
+                        int randomIndex = Random.Range(0, GameManager.currentLevel.levelAvailablesymbols.Length);
+
+                        (sliceData as SpecificSymbolCondition).requiredSymbol = GameManager.currentLevel.levelAvailablesymbols[randomIndex];
+                        symbol = GameManager.currentLevel.levelAvailablesymbols[randomIndex];
+                    }
+                    else
+                    {
+                        (sliceData as SpecificSymbolCondition).requiredSymbol = currentLevel.slicesToSpawn[i].specificSlicesShape;
+                        symbol = currentLevel.slicesToSpawn[i].specificSlicesShape;
+                    }
+
                     break;
                 default:
                     break;
             }
 
-            int summonIndex = -1;
+            //if(!allSlices[i].RandomSlicePositions)
+            //{
+            //    summonIndex = allSlices[i].specificSliceIndex;
+            //}
+            //else
+            //{
+            //    summonIndex = Random.Range(0, GameManager.gameRing.ringSlices.Length);
+            //}
 
-            if(!allSlices[i].RandomSlicePositions)
+            if (!GameManager.currentLevel.isRandomSlicePositions)
             {
-                summonIndex = allSlices[i].specificSliceIndex;
+                currentSummonIndex = allSlices[i].specificSliceIndex;
             }
             else
             {
-                summonIndex = Random.Range(0, GameManager.gameRing.ringSlices.Length);
+                if (summonedSliceCount > 0)
+                {
+                    currentSummonIndex += ReturnSliceSummonIndex();
+
+                    if (currentSummonIndex >= GameManager.gameRing.ringSlices.Length)
+                    {
+                        currentSummonIndex -= GameManager.gameRing.ringSlices.Length;
+                    }
+
+                    if (currentSummonIndex < 0)
+                    {
+                        currentSummonIndex *= -1;
+                    }
+
+                }
+                else
+                {
+                    // first summon is always random
+                    currentSummonIndex = Random.Range(0, GameManager.gameRing.ringSlices.Length);
+                }
             }
 
-            if (summonIndex > -1)
-            {
-                Cell sameIndexCell = GameManager.gameRing.ringCells[summonIndex];
+            Debug.Log(currentSummonIndex);
 
-                Cell leftNeighborCell = GetLeftOfCell(summonIndex);
+            if (currentSummonIndex > -1)
+            {
+                if (!GameManager.gameRing.ringSlices[currentSummonIndex].CheckHasSlideData())
+                {
+                    Debug.LogError("Tried to summon on exsisting slice");
+                    return;
+                }
+
+                Cell sameIndexCell = GameManager.gameRing.ringCells[currentSummonIndex];
+
+                Cell leftNeighborCell = GetLeftOfCell(currentSummonIndex);
 
                 if (sliceData == null)
                 {
@@ -119,25 +189,24 @@ public class LevelActions : ScriptableObject
                 {
                     sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
                     leftNeighborCell.rightSlice.sliceData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
-                    GameManager.gameRing.ringSlices[summonIndex].SetSprite(lockSprite);
+                    GameManager.gameRing.ringSlices[currentSummonIndex].SetSprite(lockSprite);
                 }
 
 
-                GameManager.gameRing.ringSlices[summonIndex].InitSlice(sliceData, allSlices[i].sliceToSpawn, symbol, color, allSlices[i].isLock);
+                GameManager.gameRing.ringSlices[currentSummonIndex].InitSlice(sliceData, allSlices[i].sliceToSpawn, symbol, color, allSlices[i].isLock);
 
 
                 // summon slice displays under slice transforms;
-                GameManager.gameRing.SetSliceDisplay(GameManager.gameRing.ringSlices[summonIndex], summonIndex);
+                GameManager.gameRing.SetSliceDisplay(GameManager.gameRing.ringSlices[currentSummonIndex], currentSummonIndex);
 
+                summonedSliceCount++;
+                tempSlicesList.Remove(GameManager.gameRing.ringSlices[currentSummonIndex]);
             }
             else
             {
                 Debug.LogError("Summon index wrong?");
             }
         }
-
-
-
     }
 
     private Cell GetLeftOfCell(int index)
@@ -150,6 +219,127 @@ public class LevelActions : ScriptableObject
         }
 
         return GameManager.gameRing.ringCells[index];
+    }
+
+    private int ReturnSliceSummonIndex()
+    {
+        int spacing = -1;
+
+        if (GameManager.currentLevel.slicesToSpawn.Length == 0)
+        {
+            Debug.LogError("Tried to summon 0 sices");
+            return -1;
+        }
+
+        switch (GameManager.currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+                return Ring8SlicesAlgo();
+            case Ringtype.ring12:
+                return Ring12SlicesAlgo();
+            case Ringtype.NoType:
+                break;
+            default:
+                break;
+        }
+        return spacing;
+    }
+
+    private int Ring8SlicesAlgo()
+    {
+        int spacing = -1;
+
+        if (GameManager.currentLevel.slicesToSpawn.Length == 2)
+        {
+            spacing = 4;
+        }
+        else if (GameManager.currentLevel.slicesToSpawn.Length == 3)
+        {
+            spacing = 3;
+        }
+        else if (GameManager.currentLevel.slicesToSpawn.Length == 4)
+        {
+            spacing = 2;
+        }
+        else
+        {
+            if(summonedSliceCount > 3)
+            {
+                spacing = FindEmptyIndexSliceSlot();
+            }
+            else
+            {
+                spacing = 2;
+            }
+        }
+
+        return spacing;
+    }
+    private int Ring12SlicesAlgo()
+    {
+        int spacing = -1;
+
+        if (GameManager.currentLevel.slicesToSpawn.Length == 2)
+        {
+            spacing = 6;
+        }
+        else if (GameManager.currentLevel.slicesToSpawn.Length == 3)
+        {
+            spacing = 4;
+        }
+        else if (GameManager.currentLevel.slicesToSpawn.Length == 4)
+        {
+            spacing = 3;
+        }
+        else if(GameManager.currentLevel.slicesToSpawn.Length == 5)
+        {
+            if (summonedSliceCount > 2 && summonedSliceCount < 5)
+            {
+                spacing = 2;
+            }
+            else
+            {
+                spacing = 3;
+            }
+        }
+        else
+        {
+            if (summonedSliceCount > 5)
+            {
+                spacing = FindEmptyIndexSliceSlot();
+            }
+            else
+            {
+                spacing = 2;
+            }
+        }
+        return spacing;
+    }
+
+    private int FindEmptyIndexSliceSlot()
+    {
+        int randomNum = Random.Range(0, tempSlicesList.Count());
+        int chosenSliceIndex = tempSlicesList[randomNum].index;
+
+        Debug.Log("Random: " + chosenSliceIndex);
+
+        int spacing = chosenSliceIndex - currentSummonIndex;
+
+        //if (chosenSliceIndex < currentSummonIndex)
+        //{
+        //    spacing = chosenSliceIndex - currentSummonIndex;
+        //}
+        //else
+        //{
+        //    spacing = currentSummonIndex + chosenSliceIndex;
+        //}
+
+        //if (spacing < 0)
+        //{
+        //    spacing = Mathf.Abs(currentSummonIndex - chosenSliceIndex);
+        //}
+
+        return spacing;
     }
 }
 

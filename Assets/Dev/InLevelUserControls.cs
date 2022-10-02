@@ -21,6 +21,7 @@ public class InLevelUserControls : MonoBehaviour
     [Header("General")]
     public TileParentLogic currentTileToMove;
     public TileHolder tileOriginalHolder;
+    public bool isSecondary;
 
     [Header("Needed Classes")]
     public Ring ringManager;
@@ -35,7 +36,14 @@ public class InLevelUserControls : MonoBehaviour
     {
         if (!UIDisplayer.USINGUI)
         {
-            NormalControls();
+            if (isSecondary)
+            {
+                SecondaryControls();
+            }
+            else
+            {
+                NormalControls();
+            }
             return;
         }
     }
@@ -82,6 +90,38 @@ public class InLevelUserControls : MonoBehaviour
 
     }
 
+    private void SecondaryControls()
+    {
+        Touch touch;
+
+
+        if (Input.touchCount > 0)
+        {
+            touch = Input.GetTouch(0);
+
+            touchPos = touch.position;
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    if (currentTileToMove)
+                    {
+                        OnTouchBeginSecondaryPlace();
+                    }
+                    else
+                    {
+                        OnTouchBegin();
+                    }
+                    break;
+                case TouchPhase.Canceled:
+                    Debug.LogError("Cancelled??");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
 
     private void OnTouchBegin()
     {
@@ -95,9 +135,43 @@ public class InLevelUserControls : MonoBehaviour
 
             if (grabbedObject != null && holder.heldTile)
             {
-                GrabTile(holder);
+                if(isSecondary)
+                {
+                    GrabTileSecondary(holder);
+                }
+                else
+                {
+                    GrabTile(holder);
+                }
             }
         }
+    }
+
+    private void OnTouchBeginSecondaryPlace()
+    {
+        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
+        // we also already have a point on raycast function called "GetIntersectionsAtPoint"
+
+        if (intersectionsArea.Length > 0)
+        {
+            IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
+
+            if (tileOriginalHolder.heldTile)
+            {
+                tileOriginalHolder.RemoveTile();
+            }
+
+            if (!droopedObject.DroopedOn(currentTileToMove))
+            {
+                ReturnHome();
+            }
+        }
+        else
+        {
+            ReturnHome();
+        }
+
+        ReleaseData();
     }
     private void GrabTile(TileHolder holder)
     {
@@ -115,6 +189,18 @@ public class InLevelUserControls : MonoBehaviour
             RotateTileTowardsBoard();
         }
 
+    }
+    private void GrabTileSecondary(TileHolder holder)
+    {
+        if(holder.heldTile)
+        {
+            currentTileToMove = holder.heldTile;
+            holder.OnRemoveTileDisplay();
+            tileOriginalHolder = holder;
+
+            OriginalPos = currentTileToMove.transform.position;
+            OriginalRot = currentTileToMove.transform.rotation;
+        }
     }
 
 

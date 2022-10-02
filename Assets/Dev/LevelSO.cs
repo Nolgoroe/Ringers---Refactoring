@@ -15,7 +15,6 @@ public class sliceToSpawnDataStruct
     public LootPacks RewardBag;
 
     public bool isLock;
-    public bool RandomSlicePositions;
     public bool RandomSliceValues;
 
 }
@@ -94,6 +93,7 @@ public class LevelSO : ScriptableObject
     public GameObject specificStatueForLevel;
 
     [Header("Slices")]
+    public bool isRandomSlicePositions;
     public bool allowRepeatSlices;
     public sliceToSpawnDataStruct[] slicesToSpawn;
 

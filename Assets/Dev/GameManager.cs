@@ -166,4 +166,25 @@ public class GameManager : MonoBehaviour
         }
         return type;
     }
+
+    [ContextMenu("Restart")]
+    public void CallRestartLevel()
+    {
+        StartCoroutine(RestartLevel());
+    }
+    public IEnumerator RestartLevel()
+    {
+        for (int k = 0; k < 25; k++)
+        {
+            yield return new WaitForSeconds(1);
+            for (int i = 0; i < gameParent.childCount; i++)
+            {
+                Destroy(gameParent.GetChild(i).gameObject);
+            }
+
+            yield return new WaitForEndOfFrame();
+
+            StartLevel();
+        }
+    }
 }
