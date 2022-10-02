@@ -50,10 +50,10 @@ MonoBehaviour:
     - {fileID: 2800000, guid: af4c1cf89afe50047be8c6d2657649a6, type: 3}
   - matColor: 5
     colorTex:
-    - {fileID: 2800000, guid: 7ee3e976bcc7e854eab62c6631371b8a, type: 3}
-    - {fileID: 2800000, guid: ca9389577abcde343b80b059def42a0c, type: 3}
-    - {fileID: 2800000, guid: 9844bc32e0e3ff645af11a5f571bca64, type: 3}
-    - {fileID: 2800000, guid: a62ac49bb9a02bf419a42268cbe0c6f5, type: 3}
+    - {fileID: 2800000, guid: 764b53635ac223549b0802e83086e76a, type: 3}
+    - {fileID: 2800000, guid: 059efb324e808464b81b6c608670b9f6, type: 3}
+    - {fileID: 2800000, guid: fecce0985035c03478ae57796fef11e1, type: 3}
+    - {fileID: 2800000, guid: f13e9d8b04fdf864596ff2bb0ccb5163, type: 3}
   - matColor: 6
     colorTex:
     - {fileID: 2800000, guid: 7ee3e976bcc7e854eab62c6631371b8a, type: 3}
@@ -71,5 +71,54 @@ MonoBehaviour:
     symbolTex: {fileID: 2800000, guid: a81236cf42fc5df4fad32321e3db9b48, type: 3}
   - mat: 4
     symbolTex: {fileID: 2800000, guid: a670c4ea7917d0d4281848413ed4e939, type: 3}
+  colorsToMats12:
+  - matColor: 0
+    colorTex:
+    - {fileID: 2800000, guid: 9732e69eb7fa053418a178d5bdddc1d3, type: 3}
+    - {fileID: 2800000, guid: b5c36a39806d0ea4c8cebd8df92fdea1, type: 3}
+    - {fileID: 2800000, guid: 07ccc8e3b67b8eb4e920bf300e0d37df, type: 3}
+    - {fileID: 2800000, guid: 9fbb74d7b7989ca41a3b8eb20d3633e0, type: 3}
+  - matColor: 1
+    colorTex:
+    - {fileID: 2800000, guid: f23b10a0a1010b241a239334d941c988, type: 3}
+    - {fileID: 2800000, guid: 48a6914fb2ec4b34a89d9141b5e50f1a, type: 3}
+    - {fileID: 2800000, guid: e8ea38a8ec7acca4487e75ae446a0b34, type: 3}
+    - {fileID: 2800000, guid: d4ad601dc8fa2454892b4709b1570ab7, type: 3}
+  - matColor: 2
+    colorTex:
+    - {fileID: 2800000, guid: 0f321f84eecc5f746a389f0472c95428, type: 3}
+    - {fileID: 2800000, guid: e4ceb677f92ef2f49be6701ca28794de, type: 3}
+    - {fileID: 2800000, guid: 1c53397909a4bc243a7c29c221136b29, type: 3}
+    - {fileID: 2800000, guid: a3646b64175ef89438253ac5a691c319, type: 3}
+  - matColor: 3
+    colorTex:
+    - {fileID: 2800000, guid: 9508bc114be13b246813f51ef8c1a21e, type: 3}
+    - {fileID: 2800000, guid: ec6681ac32f28454e81fb217ec4b5dd8, type: 3}
+    - {fileID: 2800000, guid: e9cc4884d72056a4eb1a48360a42269d, type: 3}
+    - {fileID: 2800000, guid: 86ce392bd1c40084fa4142b28482b023, type: 3}
+  - matColor: 4
+    colorTex:
+    - {fileID: 2800000, guid: 634826438328983429a23eda6da6dff5, type: 3}
+    - {fileID: 2800000, guid: 2a12f18ad5daa1f449dd6f08bd9897bc, type: 3}
+    - {fileID: 2800000, guid: 1d94fb1645650414a994eeb3dd53f7db, type: 3}
+    - {fileID: 2800000, guid: cb24d815f1bff65419f524422a98dad8, type: 3}
+  - matColor: 5
+    colorTex:
+    - {fileID: 2800000, guid: 4f417d9fb4aba52479ab2cbee01794f6, type: 3}
+    - {fileID: 2800000, guid: 07c121f702cc8e044900815e7dd355fa, type: 3}
+    - {fileID: 2800000, guid: bc9a6790d17863f40a612c1777bb6efd, type: 3}
+    - {fileID: 2800000, guid: d1ede988f56f58443a356c69b592dca4, type: 3}
+  symbolToMat12:
+  - mat: 0
+    symbolTex: {fileID: 2800000, guid: 061dbb31e1f692f4883f716822d1e2da, type: 3}
+  - mat: 1
+    symbolTex: {fileID: 2800000, guid: 6ac5752d654e5d544a4c7d376af49acc, type: 3}
+  - mat: 2
+    symbolTex: {fileID: 2800000, guid: 2203191f0c92dea4a84e713dcca4e4f1, type: 3}
+  - mat: 3
+    symbolTex: {fileID: 2800000, guid: 9373a7931ad3bc94c8cd89573df4c37a, type: 3}
   tilePrefabs:
   - {fileID: 1645121695642233041, guid: 9006b37d13737004a8954e6ed3236a5d, type: 3}
+  - {fileID: 1645121695642233041, guid: 5a8bc984086d51b46bf50f12284594b6, type: 3}
+  - {fileID: 1645121695642233041, guid: c6852248b223f8b4e94078a58f13eb9a, type: 3}
+  - {fileID: 1645121695642233041, guid: 97f6032ac012d204aad5aea1369b3b1f, type: 3}

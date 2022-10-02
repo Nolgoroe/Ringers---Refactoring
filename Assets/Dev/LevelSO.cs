@@ -8,13 +8,16 @@ using UnityEngine.Events;
 public class sliceToSpawnDataStruct
 {
     public SliceConditionsEnums sliceToSpawn;
-    public bool isLock;
-    public bool isLoot;
-    public bool isLimiter;
-    public int specificSliceSpots;
-    public SubTileColor specificSlicesColors;
-    public SubTileSymbol specificSlicesShapes;
+    public UnityEvent onConnectionEvents;
+    public int specificSliceIndex;
+    public SubTileColor specificSlicesColor;
+    public SubTileSymbol specificSlicesShape;
     public LootPacks RewardBag;
+
+    public bool isLock;
+    public bool RandomSlicePositions;
+    public bool RandomSliceValues;
+
 }
 
 
@@ -26,6 +29,7 @@ public enum PowerUp
     SliceBomb,
 }
 
+[System.Serializable]
 public enum LootPacks
 {
     None,
@@ -71,14 +75,17 @@ public class LevelSO : ScriptableObject
     [Header("Level Setup Settings")]
     public WorldEnum worldName;
     public int levelNumInZone;
-    public GameObject boardPrefab;
-    public int numOfCells;
+    //public int numOfCells;
+    //public int numOfSlices;
+    public Ringtype ringType;
+
     public GameObject clipPrefab;
-    public GameObject tilePrefab;
     public GameObject levelSpecificUserControls;
+
     public UnityEvent beforeRingSpawnActions; // each function that will be called here will "subscribe" to it's relavent stage in the gamemanger action
     public UnityEvent ringSpawnActions;
     public UnityEvent afterRingSpawnActions; 
+
     public SubTileColor[] levelAvailableColors;
     public SubTileSymbol[] levelAvailablesymbols;
 
@@ -87,7 +94,6 @@ public class LevelSO : ScriptableObject
     public GameObject specificStatueForLevel;
 
     [Header("Slices")]
-    public bool RandomSlicePositions;
     public bool allowRepeatSlices;
     public sliceToSpawnDataStruct[] slicesToSpawn;
 

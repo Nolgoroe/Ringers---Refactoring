@@ -18,6 +18,8 @@ public class SymbolToMat
 
 public class ClipManager : MonoBehaviour
 {
+    public int activeClipSlotsCount;
+
     [Header("Slots Zone")]
     public ClipSlot[] slots;
 
@@ -26,7 +28,9 @@ public class ClipManager : MonoBehaviour
 
     public void InitClipManager()
     {
-        for (int i = 0; i < slots.Length; i++)
+        activeClipSlotsCount = slots.Length;
+
+        for (int i = 0; i < activeClipSlotsCount; i++)
         {
             SpawnRandomTileInSlot(slots[i]);
         }
@@ -55,6 +59,31 @@ public class ClipManager : MonoBehaviour
     {
         Tile tile = tileCreatorPreset.CreateTile(Tiletype.Normal, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
         slot.AcceptTileToHolder(tile);
+    }
+
+    // called from event
+    public void CallDealAction()
+    {
+        StartCoroutine(DealAction());
+    }
+    public IEnumerator DealAction()
+    {
+        foreach (ClipSlot slot in slots)
+        {
+            for (int i = 0; i < slot.tileGFXParent.childCount; i++)
+            {
+                Destroy(slot.tileGFXParent.GetChild(i).gameObject);
+            }
+        }
+
+        activeClipSlotsCount--;
+
+        yield return new WaitForEndOfFrame();
+
+        for (int i = 0; i < activeClipSlotsCount; i++)
+        {
+            SpawnRandomTileInSlot(slots[i]);
+        }
     }
 
 }

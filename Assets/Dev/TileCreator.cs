@@ -24,7 +24,15 @@ public enum SubTileSymbol
 public enum Tiletype
 {
     Normal,
-    Stone,
+    Normal12,
+    Stone8,
+    Stone12,
+    NoType
+}
+public enum Ringtype
+{
+    ring8,
+    ring12,
     NoType
 }
 
@@ -33,21 +41,46 @@ public class TileCreator : ScriptableObject
 {
     [Header("Textures and Emission Maps")]
     public ColorsAndMats[] colorsToMats;
-    public SymbolToMat[] symbolToMat; //rename symbol to texture also class name
+    public SymbolToMat[] symbolToMat; 
+    public ColorsAndMats[] colorsToMats12;
+    public SymbolToMat[] symbolToMat12;
+    
     public GameObject[] tilePrefabs;
 
     public Tile CreateTile(Tiletype tileType, SubTileSymbol[] availableSymbols, SubTileColor[] availableColors)
     {
-        Tile tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<Tile>();
+        Tile tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<Tile>(); ;
 
-        //data set, then decide on textures, then display set
+        if(tile == null)
+        {
+            Debug.LogError("Error with tile generation");
+            return null;
+        }
+
+        //data set, then decide on textures, then display set - Left
         tile.SetSubTileSpawnData(tile.subTileLeft, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
-        Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft);
+        Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
         tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0], tempArray[1]);
 
-        //data set, then decide on textures, then display set
+        //data set, then decide on textures, then display set - Right
         tile.SetSubTileSpawnData(tile.subTileRight, RollTileSymbol(availableSymbols), RollTileColor(availableColors));
-        tempArray = ReturnTexturesByData(tile.subTileRight);
+        tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0], tempArray[1]);
+
+        return tile;
+    }
+    public Tile CreateTile(Tiletype tileType, SubTileSymbol symbolLeft, SubTileSymbol symbolRight, SubTileColor colorLeft, SubTileColor colorRight)
+    {
+        Tile tile = Instantiate(tilePrefabs[(int)tileType]).GetComponent<Tile>();
+
+        //data set, then decide on textures, then display set - Left
+        tile.SetSubTileSpawnData(tile.subTileLeft, symbolLeft, colorLeft);
+        Texture[] tempArray = ReturnTexturesByData(tile.subTileLeft, tileType);
+        tile.SetTileSpawnDisplayByTextures(tile.subTileLeft, tempArray[0], tempArray[1]);
+
+        //data set, then decide on textures, then display set - Right
+        tile.SetSubTileSpawnData(tile.subTileRight, symbolRight, colorRight);
+        tempArray = ReturnTexturesByData(tile.subTileRight, tileType);
         tile.SetTileSpawnDisplayByTextures(tile.subTileRight, tempArray[0], tempArray[1]);
 
         return tile;
@@ -80,13 +113,37 @@ public class TileCreator : ScriptableObject
         return randomColor;
     }
 
-    private Texture[] ReturnTexturesByData(SubTileData tileData)
+    private Texture[] ReturnTexturesByData(SubTileData tileData, Tiletype tileType)
     {
         SubTileSymbol tileSymbol = tileData.subTileSymbol;
         SubTileColor tileColor = tileData.subTileColor;
 
-        Texture colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
-        Texture connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
+        Texture colorSymbolTexture = null;
+        Texture connectionTex = null;
+
+        switch (tileType)
+        {
+            case Tiletype.Normal:
+                colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
+                break;
+            case Tiletype.Normal12:
+                colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
+                connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
+                break;
+            case Tiletype.Stone8:
+                colorSymbolTexture = colorsToMats[(int)tileColor].colorTex[(int)tileSymbol];
+                connectionTex = symbolToMat[(int)tileSymbol].symbolTex;
+                break;
+            case Tiletype.Stone12:
+                colorSymbolTexture = colorsToMats12[(int)tileColor].colorTex[(int)tileSymbol];
+                connectionTex = symbolToMat12[(int)tileSymbol].symbolTex;
+                break;
+            case Tiletype.NoType:
+                break;
+            default:
+                break;
+        }
 
         return new Texture[] { colorSymbolTexture, connectionTex };
     }

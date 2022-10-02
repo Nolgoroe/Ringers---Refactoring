@@ -28,21 +28,13 @@ public abstract class TileParentLogic : MonoBehaviour
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
 
 
-    virtual public void SetSubtilesAsConnectedGFX(SubTileData ownSubTile, SubTileData contestedSubTile)
+    virtual public void SetSubtilesConnectedGFX(bool isGoodConnect, SubTileData ownSubTile, SubTileData contestedSubTile)
     {
         Material matToChangeOwn = ownSubTile.subtileMesh.material;
         Material matToChangeContested = contestedSubTile.subtileMesh.material;
 
-        matToChangeOwn.SetInt("Is_Piece_Match", 1);
-        matToChangeContested.SetInt("Is_Piece_Match", 1);
-    }
-    virtual public void SetSubtilesAsNOTConnectedGFX(SubTileData ownSubTile, SubTileData contestedSubTile)
-    {
-        Material matToChangeOwn = ownSubTile.subtileMesh.material;
-        Material matToChangeContested = contestedSubTile.subtileMesh.material;
-
-        matToChangeOwn.SetInt("Is_Piece_Match", 0);
-        matToChangeContested.SetInt("Is_Piece_Match", 0);
+        matToChangeOwn.SetInt("Is_Piece_Match", isGoodConnect? 1 : 0);
+        matToChangeContested.SetInt("Is_Piece_Match", isGoodConnect ? 1 : 0);
     }
 
     /// set subtile display function (maybe materials)

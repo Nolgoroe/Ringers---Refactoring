@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
 {
-    [SerializeField] Cell leftCell, rightCell;
+    public Cell leftCell, rightCell;
 
-    //public List<SliceConditionsEnums> sliceConditionsLeft, sliceConditionsRight;
-    [SerializeField] ConditonsData sliceConditionLeft, sliceConditionRight;
+    public Slice leftSlice, rightSlice;
 
     // by default when we put a tile and there is no contested tile - it will be considered a "bad" connection
     // to prevent hightlights of "good connections".
@@ -15,7 +14,10 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
     [SerializeField] int amountUnsuccessfullConnections;
 
     Collider2D cellCollider;
+
     //TEMP
+
+    [SerializeField]
     int maxDistanceToAnimate;
     [SerializeField]
     int maxAnimateSpeed;
@@ -28,18 +30,6 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
     private void Awake()
     {
         cellCollider = GetComponent<Collider2D>();
-        // this will arrive from a slice when we're instantiating them!
-        //THIS IS A TEST!!!!
-        ConditonsData dataLeft = new ColorAndShapeCondition();
-        sliceConditionLeft = dataLeft;
-
-        ConditonsData dataRight = new ColorAndShapeCondition();
-        sliceConditionRight = dataRight;
-
-        ////example of specific color slice
-        //SpecificColorCondition dataRightT = new SpecificColorCondition();
-        //dataRightT.requiredColor = SubTileColor.Blue;
-        //sliceConditionRight = dataRightT;
     }
 
     public override void RecieveTile(TileParentLogic tileToPlace)
@@ -55,12 +45,12 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
     {
         if (leftCell.heldTile)
         {
-            heldTile.SetSubtilesAsNOTConnectedGFX(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
+            heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileLeft, leftCell.heldTile.subTileRight);
         }
 
         if (rightCell.heldTile)
         {
-            heldTile.SetSubtilesAsNOTConnectedGFX(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
+            heldTile.SetSubtilesConnectedGFX(false, heldTile.subTileRight, rightCell.heldTile.subTileLeft);
         }
     }
 
@@ -70,12 +60,12 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
 
         if (leftCell.heldTile)
         {
-            SetConnectData(false, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, sliceConditionLeft, leftCell.sliceConditionRight);
+            SetConnectData(false, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
         }
 
         if (rightCell.heldTile)
         {
-            SetConnectData(false, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, sliceConditionRight, rightCell.sliceConditionLeft);
+            SetConnectData(false, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
         }
 
         heldTile.SetPlaceTileData(false);
@@ -94,43 +84,37 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
 
         if (leftCell.heldTile)
         {
-            good = sliceConditionLeft.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
+            good = leftSlice.sliceData.CheckCondition(heldTile.subTileLeft, leftCell.heldTile.subTileRight);
             if (!good)
             {
                 //bad connection if we're inside here.
                 amountUnsuccessfullConnections++;
             }
 
-            SetConnectData(good, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, sliceConditionLeft, leftCell.sliceConditionRight);
+            SetConnectData(good, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
         }
 
         if (rightCell.heldTile)
         {
-            good = sliceConditionRight.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
+            good = rightSlice.sliceData.CheckCondition(heldTile.subTileRight, rightCell.heldTile.subTileLeft);
             if (!good)
             {
                 //bad connection if we're inside here.
                 amountUnsuccessfullConnections++;
             }
 
-            SetConnectData(good, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, sliceConditionRight, rightCell.sliceConditionLeft);
+            SetConnectData(good, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
+        
+        
         }
 
     }
 
-    private void SetConnectData(bool isGood, bool isLeft, SubTileData mySubtile, SubTileData contestedSubTile, ConditonsData sliceCondition, ConditonsData contestedCellsliceCondition)
+    private void SetConnectData(bool isGood, bool isLeft, SubTileData mySubtile, SubTileData contestedSubTile, Slice mySlice)
     {
-        if(isGood)
-        {
-            heldTile.SetSubtilesAsConnectedGFX(mySubtile, contestedSubTile);
-        }
-        else
-        {
-            heldTile.SetSubtilesAsNOTConnectedGFX(mySubtile, contestedSubTile);
-        }
+        heldTile.SetSubtilesConnectedGFX(isGood, mySubtile, contestedSubTile);
 
-        sliceCondition.conditionIsValidated = isGood;
-        contestedCellsliceCondition.conditionIsValidated = isGood;
+        mySlice.sliceData.conditionIsValidated = isGood;
 
         if (isLeft)
         {
@@ -141,6 +125,11 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
         {
             goodConnectRight = isGood;
             rightCell.goodConnectLeft = isGood;
+        }
+
+        if (isGood)
+        {
+            mySlice.sliceData.onGoodConnectionActions?.Invoke();
         }
     }
 
@@ -181,7 +170,7 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
         {
             RecieveTile(tile);
 
-            GameManager.gameRing.InsertTileToCell();
+            GameManager.gameRing.CallOnAddTileActions();
             return true;
         }
 

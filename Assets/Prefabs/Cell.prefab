@@ -47,16 +47,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heldTile: {fileID: 0}
   tileGFXParent: {fileID: 4588206656189153183}
+  isLocked: 0
   leftCell: {fileID: 0}
   rightCell: {fileID: 0}
-  sliceConditionLeft:
-    conditionIsValidated: 0
-  sliceConditionRight:
-    conditionIsValidated: 0
+  leftSlice: {fileID: 0}
+  rightSlice: {fileID: 0}
   goodConnectLeft: 0
   goodConnectRight: 0
-  isLocked: 0
   amountUnsuccessfullConnections: 0
+  maxDistanceToAnimate: 40
   maxAnimateSpeed: 20
   tilePrefab: {fileID: 1645121695642233041, guid: 9006b37d13737004a8954e6ed3236a5d,
     type: 3}

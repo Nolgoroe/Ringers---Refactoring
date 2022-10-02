@@ -7,16 +7,22 @@ public class ConditonsData
 {
     public bool conditionIsValidated;
 
+    public System.Action onGoodConnectionActions;
+
     public virtual bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
-        Debug.LogError("Coulden't find override for conditions");
-        return false;
+        Debug.Log("Coulden't find override for conditions - Doing basic");
+
+        ConditonsData sliceData = new ColorAndShapeCondition();
+
+        return sliceData.CheckCondition(subTileCurrent, subTileContested);
     }
 }
 
 [System.Serializable]
 public class ColorAndShapeCondition : ConditonsData
 {
+
     public override bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
         if(subTileCurrent.subTileColor == subTileContested.subTileColor)

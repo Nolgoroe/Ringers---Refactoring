@@ -14,12 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldName: 0
   levelNumInZone: 0
-  boardPrefab: {fileID: 2002839186953646366, guid: 4b9db729cb51b20449d6f52985b8b2fe,
-    type: 3}
-  numOfCells: 8
+  ringType: 0
   clipPrefab: {fileID: 532036011073816198, guid: 076e25b3da1d9cf4f9a55a527c9e47c5,
-    type: 3}
-  tilePrefab: {fileID: 1645121695642233041, guid: 9006b37d13737004a8954e6ed3236a5d,
     type: 3}
   levelSpecificUserControls: {fileID: 8724694532173668366, guid: a9f97b7cc35b8084ebd52e109551b2b1,
     type: 3}
@@ -44,19 +40,74 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 6c1af27584b9bb44d978880339ed062f, type: 2}
+        m_TargetAssemblyTypeName: LevelActions, Assembly-CSharp
+        m_MethodName: SummonSlices
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   levelAvailableColors: 0000000001000000
-  levelAvailablesymbols: 000000000200000001000000
+  levelAvailablesymbols: 0100000000000000
   isUsingSpecificStatue: 0
   specificStatueForLevel: {fileID: 0}
-  RandomSlicePositions: 0
   allowRepeatSlices: 0
-  slicesToSpawn: []
+  slicesToSpawn:
+  - sliceToSpawn: 1
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 0
+    RewardBag: 0
+    isLock: 0
+    RandomSlicePositions: 0
+    RandomSliceValues: 0
+  - sliceToSpawn: 2
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 1
+    specificSlicesColor: 0
+    specificSlicesShape: 0
+    RewardBag: 0
+    isLock: 0
+    RandomSlicePositions: 0
+    RandomSliceValues: 0
+  - sliceToSpawn: 3
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 2
+    specificSlicesColor: 1
+    specificSlicesShape: 0
+    RewardBag: 0
+    isLock: 1
+    RandomSlicePositions: 0
+    RandomSliceValues: 0
+  - sliceToSpawn: 4
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 3
+    specificSlicesColor: 0
+    specificSlicesShape: 3
+    RewardBag: 0
+    isLock: 0
+    RandomSlicePositions: 0
+    RandomSliceValues: 0
   powerupsForLevel: 
   stoneTiles:
   - cellIndex: 0
-    randomValues: 1
-    rightTileSymbol: 0
-    leftTileSymbol: 0
+    randomValues: 0
+    rightTileSymbol: 2
+    leftTileSymbol: 2
   - cellIndex: 2
     randomValues: 0
     rightTileSymbol: 0

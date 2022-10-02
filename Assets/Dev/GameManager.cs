@@ -16,8 +16,12 @@ public class GameManager : MonoBehaviour
     private System.Action BeforeRingActions;
     private System.Action RingActions;
     private System.Action AfterRingActions;
-
     private System.Action endLevelCleanup;
+
+    [SerializeField] Transform gameParent;
+    [SerializeField] CustomButton dealButton;
+
+    [SerializeField] GameObject[] gameRings;
 
     void Start()
     {
@@ -67,7 +71,7 @@ public class GameManager : MonoBehaviour
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
 
         // Spawn ring by type from level
-        gameRing = Instantiate(currentLevel.boardPrefab).GetComponent<Ring>();
+        gameRing = Instantiate(gameRings[(int)currentLevel.ringType], gameParent).GetComponent<Ring>();
         if (!gameRing)
         {
             Debug.LogError("No ring!");
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour
         gameRing.InitRing();
 
         // Spawn clip by type from level (or a general clip)
-        gameClip = Instantiate(currentLevel.clipPrefab).GetComponent<ClipManager>();
+        gameClip = Instantiate(currentLevel.clipPrefab, gameParent).GetComponent<ClipManager>();
         if (!gameClip)
         {
             Debug.LogError("No Clip!");
@@ -84,8 +88,10 @@ public class GameManager : MonoBehaviour
         // Init clip - spawn according to rules
         gameClip.InitClipManager();
 
+        AfterRingActions += AddDealEvent;
+
         //Spawn User Controls For Level
-        InLevelUserControls userControls = Instantiate(currentLevel.levelSpecificUserControls).GetComponent<InLevelUserControls>();
+        InLevelUserControls userControls = Instantiate(currentLevel.levelSpecificUserControls, gameParent).GetComponent<InLevelUserControls>();
         if (!userControls)
         {
             Debug.LogError("No User Controls!");
@@ -113,5 +119,51 @@ public class GameManager : MonoBehaviour
 
         endLevelCleanup += LevelActionCleanup;// this has to be the last added func
 
+    }
+
+    public void AddDealEvent()
+    {
+        dealButton.buttonEvents.AddListener(gameClip.CallDealAction);
+    }
+
+
+    public static Tiletype returnTileTypeStone()
+    {
+        Tiletype type = Tiletype.Normal;
+
+        switch (currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+                type = Tiletype.Stone8;
+                break;
+            case Ringtype.ring12:
+                type = Tiletype.Stone12;
+                break;
+            case Ringtype.NoType:
+                break;
+            default:
+                break;
+        }
+
+        return type;
+    }
+    public static Ringtype returnRingType()
+    {
+        Ringtype type = Ringtype.NoType;
+
+        switch (currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+                type = Ringtype.ring8;
+                break;
+            case Ringtype.ring12:
+                type = Ringtype.ring12;
+                break;
+            case Ringtype.NoType:
+                break;
+            default:
+                break;
+        }
+        return type;
     }
 }
