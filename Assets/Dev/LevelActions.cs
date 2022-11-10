@@ -12,11 +12,11 @@ public class LevelActions : ScriptableObject
     [Header("Required refrences")]
     public Sprite lockSprite;
 
-    
-    
+
+    List<int> tempIndexArray;
+
     int currentSummonIndex;
-    int summonedSliceCount = 0;
-    List<Slice> tempSlicesList;
+    List<Slice> ringSlicesList;
     public void SummonStoneTiles()
     {
         SubTileColor[] availableColors = new SubTileColor[] { SubTileColor.Stone };
@@ -46,68 +46,93 @@ public class LevelActions : ScriptableObject
 
     public void SummonSlices()
     {
-        summonedSliceCount = 0;
+        tempIndexArray = new List<int>();
+
         currentSummonIndex = -1;
 
         LevelSO currentLevel = GameManager.currentLevel;
 
-        //List<sliceToSpawnDataStruct> allSlices = currentLevel.slicesToSpawn.Where(x => x.RandomSlicePositions == false).ToList();
-        //List<sliceToSpawnDataStruct> randomSlices = currentLevel.slicesToSpawn.Where(x => x.RandomSlicePositions == true).ToList();
-
         List<sliceToSpawnDataStruct> allSlices = currentLevel.slicesToSpawn.ToList();
 
-        tempSlicesList = new List<Slice>();
-        tempSlicesList.AddRange(GameManager.gameRing.ringSlices);
+        ringSlicesList = new List<Slice>();
+        ringSlicesList.AddRange(GameManager.gameRing.ringSlices);
 
-        //we do this to make sure that we first summon the Specific slices.
-        //allSlices.AddRange(randomSlices);
 
+        // first summon is always random on ring
+        currentSummonIndex = Random.Range(0, ringSlicesList.Count);
+        tempIndexArray.Add(currentSummonIndex);
+        ringSlicesList.Remove(GameManager.gameRing.ringSlices[currentSummonIndex]);
+
+        // this for takes care of deciding indexes for slices
+        // start at index 1 since we already summoned first slice
+        for (int k = 1; k < allSlices.Count; k++)
+        {
+            // Decide on position for slices
+            if (!GameManager.currentLevel.isRandomSlicePositions)
+            {
+                currentSummonIndex = allSlices[k].specificSliceIndex;
+            }
+            else
+            {
+                currentSummonIndex += ReturnSliceSummonIndex();
+
+                if (currentSummonIndex >= GameManager.gameRing.ringSlices.Length)
+                {
+                    currentSummonIndex -= GameManager.gameRing.ringSlices.Length;
+                }
+            }
+
+
+            tempIndexArray.Add(currentSummonIndex);
+
+            ringSlicesList.Remove(GameManager.gameRing.ringSlices[currentSummonIndex]);
+        }
 
         for (int i = 0; i < allSlices.Count; i++)
         {
-            ConditonsData sliceData = null;
-
-            //TEMP
+            #region Set Slice Data
+            //initial data
+            ConditonsData sliceConnectionData = null;
             SubTileSymbol symbol = SubTileSymbol.NoShape;
             SubTileColor color = SubTileColor.NoColor;
 
             switch (allSlices[i].sliceToSpawn)
             {
                 case SliceConditionsEnums.GeneralColor:
-                    sliceData = new GeneralColorCondition();
+                    sliceConnectionData = new GeneralColorCondition();
                     break;
                 case SliceConditionsEnums.GeneralSymbol:
-                    sliceData = new GeneralSymbolCondition();
+                    sliceConnectionData = new GeneralSymbolCondition();
                     break;
                 case SliceConditionsEnums.SpecificColor:
-                    sliceData = new SpecificColorCondition();
+                    sliceConnectionData = new SpecificColorCondition();
 
                     if(allSlices[i].RandomSliceValues)
                     {
-                        int randomIndex = Random.Range(0, GameManager.currentLevel.levelAvailableColors.Length);
+                        int randomColorIndex = Random.Range(0, GameManager.currentLevel.levelAvailableColors.Length);
 
-                        (sliceData as SpecificColorCondition).requiredColor = GameManager.currentLevel.levelAvailableColors[randomIndex];
-                        color = GameManager.currentLevel.levelAvailableColors[randomIndex];
+                        (sliceConnectionData as SpecificColorCondition).requiredColor = GameManager.currentLevel.levelAvailableColors[randomColorIndex];
+                        color = GameManager.currentLevel.levelAvailableColors[randomColorIndex];
                     }
                     else
                     {
-                        (sliceData as SpecificColorCondition).requiredColor = currentLevel.slicesToSpawn[i].specificSlicesColor;
+                        (sliceConnectionData as SpecificColorCondition).requiredColor = currentLevel.slicesToSpawn[i].specificSlicesColor;
                         color = currentLevel.slicesToSpawn[i].specificSlicesColor;
                     }
                     break;
                 case SliceConditionsEnums.SpecificSymbol:
-                    sliceData = new SpecificSymbolCondition();
+                    sliceConnectionData = new SpecificSymbolCondition();
 
                     if (allSlices[i].RandomSliceValues)
                     {
-                        int randomIndex = Random.Range(0, GameManager.currentLevel.levelAvailablesymbols.Length);
+                        int randomSymbolIndex = Random.Range(0, GameManager.currentLevel.levelAvailablesymbols.Length);
 
-                        (sliceData as SpecificSymbolCondition).requiredSymbol = GameManager.currentLevel.levelAvailablesymbols[randomIndex];
-                        symbol = GameManager.currentLevel.levelAvailablesymbols[randomIndex];
+                        (sliceConnectionData as SpecificSymbolCondition).requiredSymbol = GameManager.currentLevel.levelAvailablesymbols[randomSymbolIndex];
+                        symbol = GameManager.currentLevel.levelAvailablesymbols[randomSymbolIndex];
                     }
                     else
                     {
-                        (sliceData as SpecificSymbolCondition).requiredSymbol = currentLevel.slicesToSpawn[i].specificSlicesShape;
+                        (sliceConnectionData as SpecificSymbolCondition).requiredSymbol = currentLevel.slicesToSpawn[i].specificSlicesShape;
                         symbol = currentLevel.slicesToSpawn[i].specificSlicesShape;
                     }
 
@@ -115,100 +140,58 @@ public class LevelActions : ScriptableObject
                 default:
                     break;
             }
+            #endregion
 
-            //if(!allSlices[i].RandomSlicePositions)
-            //{
-            //    summonIndex = allSlices[i].specificSliceIndex;
-            //}
-            //else
-            //{
-            //    summonIndex = Random.Range(0, GameManager.gameRing.ringSlices.Length);
-            //}
-
-            if (!GameManager.currentLevel.isRandomSlicePositions)
+            #region Spawn Slice According to data
+            if (!GameManager.gameRing.ringSlices[tempIndexArray[i]].CheckHasSlideData())
             {
-                currentSummonIndex = allSlices[i].specificSliceIndex;
-            }
-            else
-            {
-                if (summonedSliceCount > 0)
-                {
-                    currentSummonIndex += ReturnSliceSummonIndex();
-
-                    if (currentSummonIndex >= GameManager.gameRing.ringSlices.Length)
-                    {
-                        currentSummonIndex -= GameManager.gameRing.ringSlices.Length;
-                    }
-
-                    if (currentSummonIndex < 0)
-                    {
-                        currentSummonIndex *= -1;
-                    }
-
-                }
-                else
-                {
-                    // first summon is always random
-                    currentSummonIndex = Random.Range(0, GameManager.gameRing.ringSlices.Length);
-                }
+                Debug.LogError("Tried to summon on exsisting slice");
+                return;
             }
 
-            Debug.Log(currentSummonIndex);
+            Cell sameIndexCell = GameManager.gameRing.ringCells[tempIndexArray[i]];
 
-            if (currentSummonIndex > -1)
+            Cell leftNeighborCell = GetLeftOfCell(tempIndexArray[i]);
+
+            if (sliceConnectionData == null)
             {
-                if (!GameManager.gameRing.ringSlices[currentSummonIndex].CheckHasSlideData())
-                {
-                    Debug.LogError("Tried to summon on exsisting slice");
-                    return;
-                }
-
-                Cell sameIndexCell = GameManager.gameRing.ringCells[currentSummonIndex];
-
-                Cell leftNeighborCell = GetLeftOfCell(currentSummonIndex);
-
-                if (sliceData == null)
-                {
-                    Debug.LogError("No slice data accepted.");
-                    return;
-                }
-
-                sameIndexCell.leftSlice.sliceData = sliceData;
-                leftNeighborCell.rightSlice.sliceData = sliceData;
-
-                //slice is the same for both cells so no need for neighbor check
-
-                int tempInt = i;
-                // we use a temp int here because of the way actions work "Variable capture"
-                // "Capturing" the variable i in your lambda.
-                // C# captures the VARIABLE, not the VALUE at that moment.
-                // when run, the lambda uses the final post-for-loop exit value of i, which wil be beyond the index range."
-                sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => currentLevel.slicesToSpawn[tempInt].onConnectionEvents?.Invoke();
-                
-                if(allSlices[i].isLock)
-                {
-                    sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
-                    leftNeighborCell.rightSlice.sliceData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
-                    GameManager.gameRing.ringSlices[currentSummonIndex].SetSprite(lockSprite);
-                }
-
-
-                GameManager.gameRing.ringSlices[currentSummonIndex].InitSlice(sliceData, allSlices[i].sliceToSpawn, symbol, color, allSlices[i].isLock);
-
-
-                // summon slice displays under slice transforms;
-                GameManager.gameRing.SetSliceDisplay(GameManager.gameRing.ringSlices[currentSummonIndex], currentSummonIndex);
-
-                summonedSliceCount++;
-                tempSlicesList.Remove(GameManager.gameRing.ringSlices[currentSummonIndex]);
+                Debug.LogError("No slice data accepted.");
+                return;
             }
-            else
-            {
-                Debug.LogError("Summon index wrong?");
-            }
+
+            sameIndexCell.leftSlice.sliceData = sliceConnectionData;
+            leftNeighborCell.rightSlice.sliceData = sliceConnectionData;
+
+            int tempInt = i;
+            // we use a "temp int" here because of the way actions work - "Variable capture"
+            // "Capturing" the variable i in your lambda.
+            // C# captures the VARIABLE, not the VALUE at that moment.
+            // when run, the lambda uses the final post-for-loop exit value of i, which wil be beyond the index range."
+
+            //slice is the same for both "same index cell" and "left neighbor cell" - so no need to invoke event twice.
+            sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => currentLevel.slicesToSpawn[tempInt].onConnectionEvents?.Invoke();
+
+            SetOnConnectEventsSlice(sliceConnectionData, allSlices[i], sameIndexCell, leftNeighborCell, tempIndexArray[i]);
+
+            GameManager.gameRing.ringSlices[tempIndexArray[i]].InitSlice(sliceConnectionData, allSlices[i].sliceToSpawn, symbol, color, allSlices[i].isLock);
+
+
+            // summon slice displays under slice transforms;
+            GameManager.gameRing.SetSliceDisplay(GameManager.gameRing.ringSlices[tempIndexArray[i]], tempIndexArray[i]);
+            #endregion
         }
     }
 
+    private void SetOnConnectEventsSlice(ConditonsData sliceConnectionData, sliceToSpawnDataStruct sliceData, Cell sameIndexCell, Cell leftNeighborCell, int spawnIndex)
+    {
+        if (sliceData.isLock)
+        {
+            sliceConnectionData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
+            sliceConnectionData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
+            GameManager.gameRing.ringSlices[spawnIndex].SetSprite(lockSprite);
+        }
+    }
+    
     private Cell GetLeftOfCell(int index)
     {
         index -= 1;
@@ -242,6 +225,8 @@ public class LevelActions : ScriptableObject
             default:
                 break;
         }
+
+        //if we're here it's an error
         return spacing;
     }
 
@@ -263,7 +248,7 @@ public class LevelActions : ScriptableObject
         }
         else
         {
-            if(summonedSliceCount > 3)
+            if(tempIndexArray.Count > 3)
             {
                 spacing = FindEmptyIndexSliceSlot();
             }
@@ -293,7 +278,7 @@ public class LevelActions : ScriptableObject
         }
         else if(GameManager.currentLevel.slicesToSpawn.Length == 5)
         {
-            if (summonedSliceCount > 2 && summonedSliceCount < 5)
+            if (tempIndexArray.Count > 2 && tempIndexArray.Count < 5)
             {
                 spacing = 2;
             }
@@ -304,7 +289,7 @@ public class LevelActions : ScriptableObject
         }
         else
         {
-            if (summonedSliceCount > 5)
+            if (tempIndexArray.Count > 5)
             {
                 spacing = FindEmptyIndexSliceSlot();
             }
@@ -318,26 +303,12 @@ public class LevelActions : ScriptableObject
 
     private int FindEmptyIndexSliceSlot()
     {
-        int randomNum = Random.Range(0, tempSlicesList.Count());
-        int chosenSliceIndex = tempSlicesList[randomNum].index;
+        int randomNum = Random.Range(0, ringSlicesList.Count());
+        int chosenSliceIndex = ringSlicesList[randomNum].index;
 
         Debug.Log("Random: " + chosenSliceIndex);
 
         int spacing = chosenSliceIndex - currentSummonIndex;
-
-        //if (chosenSliceIndex < currentSummonIndex)
-        //{
-        //    spacing = chosenSliceIndex - currentSummonIndex;
-        //}
-        //else
-        //{
-        //    spacing = currentSummonIndex + chosenSliceIndex;
-        //}
-
-        //if (spacing < 0)
-        //{
-        //    spacing = Mathf.Abs(currentSummonIndex - chosenSliceIndex);
-        //}
 
         return spacing;
     }

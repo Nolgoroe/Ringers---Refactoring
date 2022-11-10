@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8694947058511115897}
   - component: {fileID: 8916469044400526503}
   m_Layer: 0
-  m_Name: 8 Ring Slice Display  1
+  m_Name: 8 Ring Slice Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

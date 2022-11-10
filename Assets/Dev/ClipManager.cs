@@ -68,13 +68,7 @@ public class ClipManager : MonoBehaviour
     }
     public IEnumerator DealAction()
     {
-        foreach (ClipSlot slot in slots)
-        {
-            for (int i = 0; i < slot.tileGFXParent.childCount; i++)
-            {
-                Destroy(slot.tileGFXParent.GetChild(i).gameObject);
-            }
-        }
+        DestroySlotTiles();
 
         activeClipSlotsCount--;
 
@@ -86,4 +80,14 @@ public class ClipManager : MonoBehaviour
         }
     }
 
+    private void DestroySlotTiles()
+    {
+        foreach (ClipSlot slot in slots)
+        {
+            if (slot.heldTile)
+            {
+                Destroy(slot.heldTile.gameObject);
+            }
+        }
+    }
 }

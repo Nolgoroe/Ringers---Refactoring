@@ -164,7 +164,7 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
         return amountUnsuccessfullConnections;
     }
 
-    public bool DroopedOn(TileParentLogic tile)
+    public virtual bool DroopedOn(TileParentLogic tile)
     {
         if(!heldTile)
         {

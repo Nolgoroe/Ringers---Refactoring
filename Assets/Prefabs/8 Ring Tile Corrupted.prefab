@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1707590453129716748}
   - component: {fileID: 3608196929416577028}
   - component: {fileID: 4764239165698675282}
-  - component: {fileID: 8920212215316814738}
   m_Layer: 0
   m_Name: Right_Wing_Tile
   m_TagString: Untagged
@@ -99,22 +98,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -689406408450205330, guid: 71b8bb03f4a069c459c836a61e806e7b, type: 3}
---- !u!114 &8920212215316814738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 772844705618137394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0001f5d4c529d4cb17a9291a7d2ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: {x: 0.015, y: 0.015, z: 0}
-  Duration: 0.3
-  Speed: 5
-  ResetPosition: 1
 --- !u!1 &1645121695642233041
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,7 +182,6 @@ GameObject:
   - component: {fileID: 7135984497555699276}
   - component: {fileID: 3120019251313842015}
   - component: {fileID: 1366526319158492904}
-  - component: {fileID: 4370489997454094907}
   m_Layer: 0
   m_Name: Left_Wing_Tile
   m_TagString: Untagged
@@ -286,19 +268,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1308064327287094486, guid: 71b8bb03f4a069c459c836a61e806e7b, type: 3}
---- !u!114 &4370489997454094907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3511628377651697941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c0001f5d4c529d4cb17a9291a7d2ce4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Amount: {x: 0.015, y: 0.015, z: 0}
-  Duration: 0
-  Speed: 5
-  ResetPosition: 1

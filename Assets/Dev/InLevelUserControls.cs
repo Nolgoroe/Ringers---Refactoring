@@ -21,7 +21,6 @@ public class InLevelUserControls : MonoBehaviour
     [Header("General")]
     public TileParentLogic currentTileToMove;
     public TileHolder tileOriginalHolder;
-    public bool isSecondary;
 
     [Header("Needed Classes")]
     public Ring ringManager;
@@ -36,7 +35,7 @@ public class InLevelUserControls : MonoBehaviour
     {
         if (!UIDisplayer.USINGUI)
         {
-            if (isSecondary)
+            if (GameManager.isTapControls)
             {
                 SecondaryControls();
             }
@@ -135,7 +134,7 @@ public class InLevelUserControls : MonoBehaviour
 
             if (grabbedObject != null && holder.heldTile)
             {
-                if(isSecondary)
+                if(GameManager.isTapControls)
                 {
                     GrabTileSecondary(holder);
                 }
@@ -156,15 +155,15 @@ public class InLevelUserControls : MonoBehaviour
         {
             IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
 
-            if (tileOriginalHolder.heldTile)
-            {
-                tileOriginalHolder.RemoveTile();
-            }
-
             if (!droopedObject.DroopedOn(currentTileToMove))
             {
                 ReturnHome();
             }
+            else if(tileOriginalHolder.heldTile)
+            {
+                tileOriginalHolder.RemoveTile();
+            }
+
         }
         else
         {
@@ -232,14 +231,13 @@ public class InLevelUserControls : MonoBehaviour
         {
             IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
 
-            if(tileOriginalHolder.heldTile)
-            {
-                tileOriginalHolder.RemoveTile();
-            }
-
             if (!droopedObject.DroopedOn(currentTileToMove))
             {
                 ReturnHome();
+            }
+            else if (tileOriginalHolder.heldTile)
+            {
+                tileOriginalHolder.RemoveTile();
             }
         }
         else

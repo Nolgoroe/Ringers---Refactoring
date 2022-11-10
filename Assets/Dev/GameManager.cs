@@ -16,12 +16,19 @@ public class GameManager : MonoBehaviour
     private System.Action BeforeRingActions;
     private System.Action RingActions;
     private System.Action AfterRingActions;
-    private System.Action endLevelCleanup;
+    /// <summary>
+    /// Never add to this directly - always use the function "AddToEndlevelCleanup(action to add) with the action we want to add".
+    /// We do this since we REQUIRE that the last action will be a specific one.
+    /// </summary>
+    private System.Action endLevelActions;
 
     [SerializeField] Transform gameParent;
     [SerializeField] CustomButton dealButton;
 
     [SerializeField] GameObject[] gameRings;
+
+    //move to a settings script
+    public static bool isTapControls;
 
     void Start()
     {
@@ -37,6 +44,11 @@ public class GameManager : MonoBehaviour
 
     public void SetLevel(LevelSO level)
     {
+        //first clean all subscribes if there are any.
+        endLevelActions?.Invoke();
+
+
+
         //this is the only place in code where we add delegates to the actions of before, during and after ring.
         RingActions += LevelSetup;
         currentLevel = level; //choose level here
@@ -47,7 +59,7 @@ public class GameManager : MonoBehaviour
         AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
 
 
-        StartLevel();
+        //StartLevel();
     }
 
     public void StartLevel()
@@ -61,9 +73,9 @@ public class GameManager : MonoBehaviour
         //After Ring
         AfterRingActions?.Invoke();
 
-        endLevelCleanup += gameRing.ClearActions;
-
-        endLevelCleanup += LevelActionCleanup;// this has to be the last added func
+       
+        AddToEndlevelActions(gameRing.ClearActions);
+        AddToEndlevelActions(CleaLevelActions);
     }
 
     private void LevelSetup()
@@ -103,21 +115,22 @@ public class GameManager : MonoBehaviour
         //Init slices that pass information to cells (run 2)
     }
 
-    private void LevelActionCleanup()// this must be added last
+    private void CleaLevelActions()// this must be added last to "endLevelCleanup"
     {
         BeforeRingActions = null;
         RingActions = null;
         AfterRingActions = null;
-        endLevelCleanup = null;
+        endLevelActions = null;
     }
 
-    public void AddToEndlevelCleanup(System.Action actionToAdd)
+    // This function makes sure that we have "LevelActionCleanup" set as the last action to be made
+    public void AddToEndlevelActions(System.Action actionToAdd)
     {
-        endLevelCleanup -= LevelActionCleanup;// this has to be the last added func
+        endLevelActions -= CleaLevelActions;// this has to be the last added func
 
-        endLevelCleanup += actionToAdd;
+        endLevelActions += actionToAdd;
 
-        endLevelCleanup += LevelActionCleanup;// this has to be the last added func
+        endLevelActions += CleaLevelActions;// this has to be the last added func
 
     }
 
