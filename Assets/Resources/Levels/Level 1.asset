@@ -15,10 +15,6 @@ MonoBehaviour:
   worldName: 0
   levelNumInZone: 0
   ringType: 1
-  clipPrefab: {fileID: 532036011073816198, guid: 076e25b3da1d9cf4f9a55a527c9e47c5,
-    type: 3}
-  levelSpecificUserControls: {fileID: 8724694532173668366, guid: a9f97b7cc35b8084ebd52e109551b2b1,
-    type: 3}
   beforeRingSpawnActions:
     m_PersistentCalls:
       m_Calls: []
@@ -62,19 +58,7 @@ MonoBehaviour:
   - sliceToSpawn: 1
     onConnectionEvents:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 11400000, guid: e6545bd533ea8f949aaa3d33d1fa36c6, type: 2}
-          m_TargetAssemblyTypeName: SliceActionVariations, Assembly-CSharp
-          m_MethodName: LockCells
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     specificSliceIndex: 0
     specificSlicesColor: 0
     specificSlicesShape: 0

@@ -30,7 +30,7 @@ public class ClipSlot : TileHolder, IGrabTileFrom
 
     }
 
-    public override void RecieveTile(TileParentLogic recievedTile)
+    public override void RecieveTileDisplayer(TileParentLogic recievedTile)
     {
         AcceptTileToHolder(recievedTile);
     }

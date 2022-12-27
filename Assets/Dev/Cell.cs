@@ -32,7 +32,7 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
         cellCollider = GetComponent<Collider2D>();
     }
 
-    public override void RecieveTile(TileParentLogic tileToPlace)
+    public override void RecieveTileDisplayer(TileParentLogic tileToPlace)
     {
         AcceptTileToHolder(tileToPlace); 
 
@@ -168,7 +168,7 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
     {
         if(!heldTile)
         {
-            RecieveTile(tile);
+            RecieveTileDisplayer(tile);
 
             GameManager.gameRing.CallOnAddTileActions();
             return true;

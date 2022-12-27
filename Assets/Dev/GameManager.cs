@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    //public static GameManager instance;
+    public static GameManager instance;
 
     [Header("In game Data")]
     public static Ring gameRing;
@@ -25,10 +25,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] Transform gameParent;
     [SerializeField] CustomButton dealButton;
 
-    [SerializeField] GameObject[] gameRings;
+    [SerializeField] GameObject[] gameRingsPrefabs;
+    [SerializeField] GameObject[] gameRingsSlicePrefabs;
+    [SerializeField] GameObject[] gameRingsClipPrefabs;
+    [SerializeField] GameObject[] gameRingsUserControlsPrefabs;
 
     //move to a settings script
-    public static bool isTapControls;
+    //public static bool isTapControls;
 
     void Start()
     {
@@ -36,7 +39,7 @@ public class GameManager : MonoBehaviour
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
 
-        //instance = this;
+        instance = this;
         currentLevel = tempcurrentlevel;
 
         SetLevel(currentLevel);
@@ -59,7 +62,7 @@ public class GameManager : MonoBehaviour
         AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
 
 
-        //StartLevel();
+        StartLevel();
     }
 
     public void StartLevel()
@@ -75,7 +78,7 @@ public class GameManager : MonoBehaviour
 
        
         AddToEndlevelActions(gameRing.ClearActions);
-        AddToEndlevelActions(CleaLevelActions);
+        AddToEndlevelActions(ClearLevelActions);
     }
 
     private void LevelSetup()
@@ -83,7 +86,7 @@ public class GameManager : MonoBehaviour
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
 
         // Spawn ring by type from level
-        gameRing = Instantiate(gameRings[(int)currentLevel.ringType], gameParent).GetComponent<Ring>();
+        gameRing = Instantiate(gameRingsPrefabs[(int)currentLevel.ringType], gameParent).GetComponent<Ring>();
         if (!gameRing)
         {
             Debug.LogError("No ring!");
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
         gameRing.InitRing();
 
         // Spawn clip by type from level (or a general clip)
-        gameClip = Instantiate(currentLevel.clipPrefab, gameParent).GetComponent<ClipManager>();
+        gameClip = Instantiate(gameRingsClipPrefabs[(int)currentLevel.ringType], gameParent).GetComponent<ClipManager>();
         if (!gameClip)
         {
             Debug.LogError("No Clip!");
@@ -103,7 +106,7 @@ public class GameManager : MonoBehaviour
         AfterRingActions += AddDealEvent;
 
         //Spawn User Controls For Level
-        InLevelUserControls userControls = Instantiate(currentLevel.levelSpecificUserControls, gameParent).GetComponent<InLevelUserControls>();
+        InLevelUserControls userControls = Instantiate(gameRingsUserControlsPrefabs[(int)currentLevel.ringType], gameParent).GetComponent<InLevelUserControls>();
         if (!userControls)
         {
             Debug.LogError("No User Controls!");
@@ -115,7 +118,7 @@ public class GameManager : MonoBehaviour
         //Init slices that pass information to cells (run 2)
     }
 
-    private void CleaLevelActions()// this must be added last to "endLevelCleanup"
+    private void ClearLevelActions()// this must be added last to "endLevelCleanup"
     {
         BeforeRingActions = null;
         RingActions = null;
@@ -126,11 +129,11 @@ public class GameManager : MonoBehaviour
     // This function makes sure that we have "LevelActionCleanup" set as the last action to be made
     public void AddToEndlevelActions(System.Action actionToAdd)
     {
-        endLevelActions -= CleaLevelActions;// this has to be the last added func
+        endLevelActions -= ClearLevelActions;// this has to be the last added func
 
         endLevelActions += actionToAdd;
 
-        endLevelActions += CleaLevelActions;// this has to be the last added func
+        endLevelActions += ClearLevelActions;// this has to be the last added func
 
     }
 
@@ -187,7 +190,7 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator RestartLevel()
     {
-        for (int k = 0; k < 25; k++)
+        for (int k = 0; k < 1; k++)
         {
             yield return new WaitForSeconds(1);
             for (int i = 0; i < gameParent.childCount; i++)

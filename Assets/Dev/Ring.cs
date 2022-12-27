@@ -18,11 +18,11 @@ public class Ring : MonoBehaviour
     public Slice[] ringSlices;
 
     public System.Action onAddTile;
-    public System.Action onRemoveTile; // not yet implemented
+    public System.Action onRemoveTile;
 
-    public GameObject sliceDisplayPrefab;
+    public GameObject sliceDisplayPrefab; // move somewhere else?
 
-    public SliceSpriteSetter[] sliceDisplayArray;
+    public SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
     public void InitRing()
     {
         onAddTile += OnAddTileToRing;

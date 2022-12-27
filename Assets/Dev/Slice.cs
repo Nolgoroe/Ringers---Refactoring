@@ -16,15 +16,18 @@ public class Slice : MonoBehaviour
 {
     public int index;
 
-    [Header("Debug data, delete later")]
-    public SliceConditionsEnums connectionType;
-    public SubTileSymbol requiredSymbol;
-    public SubTileColor requiredColor;
-    public bool isLocking;
 
     [Header("permanent data")]
     public ConditonsData sliceData;
+    public SliceConditionsEnums connectionType;
+    public SubTileSymbol requiredSymbol;
+    public SubTileColor requiredColor;
 
+
+    [Header("need?")]
+    public bool isLocking;
+
+    [Header("temp here?")]
     //TEMP - will maybe change to lock sprite animation.
     public SpriteRenderer midIcon;
 
@@ -37,13 +40,13 @@ public class Slice : MonoBehaviour
         isLocking = isLock;
     }
 
-    public void SetSprite(Sprite sprite)
+    public void SetMidSprite(Sprite sprite)
     {
         midIcon.sprite = sprite;
         midIcon.gameObject.SetActive(true);
     }
 
-    public bool CheckHasSlideData()
+    public bool CheckHasSliceData()
     {
         if (sliceData.onGoodConnectionActions == null)
         {

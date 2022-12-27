@@ -7,10 +7,9 @@ public class InLevelUserControls : MonoBehaviour
     // THINK ABOUT MAYBE CRATING INHERITENCE FOR "CONTROLS"
 
     [Header("Raycast data")]
-    public LayerMask tileLayer;
+    //public LayerMask tileLayer;
     public LayerMask tileGrabbingLayer;
     public LayerMask tileInsertingLayer;
-    public string cellTag;
     public float overlapRadius;
 
     [Header("Follow settings")]
@@ -27,22 +26,22 @@ public class InLevelUserControls : MonoBehaviour
     public ClipManager clipManager;
 
     Vector3 touchPos;
-    float tileDragDist;
-    Vector3 OriginalPos;
-    Quaternion OriginalRot;
+    //float tileDragDist;
+    Vector3 tileOriginalPos;
+    Quaternion tileOriginalRot;
 
     void Update()
     {
         if (!UIDisplayer.USINGUI)
         {
-            if (GameManager.isTapControls)
-            {
-                SecondaryControls();
-            }
-            else
-            {
+            //if (GameManager.isTapControls)
+            //{
+            //    //SecondaryControls();
+            //}
+            //else
+            //{
                 NormalControls();
-            }
+            //}
             return;
         }
     }
@@ -89,38 +88,38 @@ public class InLevelUserControls : MonoBehaviour
 
     }
 
-    private void SecondaryControls()
-    {
-        Touch touch;
+    //private void SecondaryControls()
+    //{
+    //    Touch touch;
 
 
-        if (Input.touchCount > 0)
-        {
-            touch = Input.GetTouch(0);
+    //    if (Input.touchCount > 0)
+    //    {
+    //        touch = Input.GetTouch(0);
 
-            touchPos = touch.position;
+    //        touchPos = touch.position;
 
-            switch (touch.phase)
-            {
-                case TouchPhase.Began:
-                    if (currentTileToMove)
-                    {
-                        OnTouchBeginSecondaryPlace();
-                    }
-                    else
-                    {
-                        OnTouchBegin();
-                    }
-                    break;
-                case TouchPhase.Canceled:
-                    Debug.LogError("Cancelled??");
-                    break;
-                default:
-                    break;
-            }
-        }
+    //        switch (touch.phase)
+    //        {
+    //            case TouchPhase.Began:
+    //                if (currentTileToMove)
+    //                {
+    //                    //OnTouchBeginSecondaryPlace();
+    //                }
+    //                else
+    //                {
+    //                    OnTouchBegin();
+    //                }
+    //                break;
+    //            case TouchPhase.Canceled:
+    //                Debug.LogError("Cancelled??");
+    //                break;
+    //            default:
+    //                break;
+    //        }
+    //    }
 
-    }
+    //}
 
     private void OnTouchBegin()
     {
@@ -129,80 +128,81 @@ public class InLevelUserControls : MonoBehaviour
 
         if (intersectionsArea.Length > 0)
         {
-            IGrabTileFrom grabbedObject = intersectionsArea[0].transform.GetComponent<IGrabTileFrom>();
             TileHolder holder = intersectionsArea[0].transform.GetComponent<TileHolder>();
 
-            if (grabbedObject != null && holder.heldTile)
+            if (holder.heldTile)
             {
-                if(GameManager.isTapControls)
-                {
-                    GrabTileSecondary(holder);
-                }
-                else
-                {
+                //if(GameManager.isTapControls)
+                //{
+                //    //GrabTileSecondary(holder);
+                //}
+                //else
+                //{
                     GrabTile(holder);
-                }
+                //}
             }
         }
     }
 
-    private void OnTouchBeginSecondaryPlace()
-    {
-        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
-        // we also already have a point on raycast function called "GetIntersectionsAtPoint"
+    //private void OnTouchBeginSecondaryPlace()
+    //{
+    //    RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
+    //    // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
-        if (intersectionsArea.Length > 0)
-        {
-            IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
+    //    if (intersectionsArea.Length > 0)
+    //    {
+    //        IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
 
-            if (!droopedObject.DroopedOn(currentTileToMove))
-            {
-                ReturnHome();
-            }
-            else if(tileOriginalHolder.heldTile)
-            {
-                tileOriginalHolder.RemoveTile();
-            }
+    //        if (!droopedObject.DroopedOn(currentTileToMove))
+    //        {
+    //            ReturnHome();
+    //        }
+    //        else if (tileOriginalHolder.heldTile)
+    //        {
+    //            tileOriginalHolder.RemoveTile();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        ReturnHome();
+    //    }
 
-        }
-        else
-        {
-            ReturnHome();
-        }
-
-        ReleaseData();
-    }
+    //    ReleaseData();
+    //}
     private void GrabTile(TileHolder holder)
     {
-        if(holder.heldTile)
+        IGrabTileFrom grabbedObject = holder.transform.GetComponent<IGrabTileFrom>();
+
+        if(grabbedObject != null)
         {
             currentTileToMove = holder.heldTile;
             holder.OnRemoveTileDisplay();
             tileOriginalHolder = holder;
-
-            OriginalPos = currentTileToMove.transform.position;
-            OriginalRot = currentTileToMove.transform.rotation;
+            grabbedObject.GrabTileFrom();
+            tileOriginalPos = currentTileToMove.transform.position;
+            tileOriginalRot = currentTileToMove.transform.rotation;
 
             LeanTween.move(currentTileToMove.gameObject, TargetPosOffset(), pickupSpeed);
 
             RotateTileTowardsBoard();
         }
-
-    }
-    private void GrabTileSecondary(TileHolder holder)
-    {
-        if(holder.heldTile)
+        else
         {
-            currentTileToMove = holder.heldTile;
-            holder.OnRemoveTileDisplay();
-            tileOriginalHolder = holder;
-
-            OriginalPos = currentTileToMove.transform.position;
-            OriginalRot = currentTileToMove.transform.rotation;
+            Debug.LogError("Tried to grab object that doesn't have grabbable interface");
         }
     }
+    //private void GrabTileSecondary(TileHolder holder)
+    //{
+    //    if(holder.heldTile)
+    //    {
+    //        currentTileToMove = holder.heldTile;
+    //        holder.OnRemoveTileDisplay();
+    //        tileOriginalHolder = holder;
 
-
+    //        OriginalPos = currentTileToMove.transform.position;
+    //        OriginalRot = currentTileToMove.transform.rotation;
+    //    }
+    //}
 
     private void OnTouchMoveOrStationairy()
     {
@@ -220,8 +220,6 @@ public class InLevelUserControls : MonoBehaviour
         currentTileToMove.transform.position = Vector3.Lerp(currentTileToMove.transform.position, TargetPosOffset(), Time.deltaTime * tileFollowSpeed);
     }
 
-
-
     private void OnTouchEnd()
     {
         RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
@@ -229,13 +227,20 @@ public class InLevelUserControls : MonoBehaviour
 
         if (intersectionsArea.Length > 0)
         {
+            //IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
             IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
+
+            if(droopedObject == null)
+            {
+                Debug.LogError("no interface of type dropped on.");
+                return;
+            }
 
             if (!droopedObject.DroopedOn(currentTileToMove))
             {
                 ReturnHome();
             }
-            else if (tileOriginalHolder.heldTile)
+            else
             {
                 tileOriginalHolder.RemoveTile();
             }
@@ -247,10 +252,6 @@ public class InLevelUserControls : MonoBehaviour
 
         ReleaseData();
     }
-
-
-
-
 
     private RaycastHit2D[] GetIntersectionsArea(Vector3 touchPos, LayerMask layerToHit)
     {
@@ -278,7 +279,6 @@ public class InLevelUserControls : MonoBehaviour
 
     }
 
-
     private void RotateTileTowardsBoard()
     {
         float difY = ringManager.transform.position.y - currentTileToMove.transform.position.y;
@@ -293,26 +293,25 @@ public class InLevelUserControls : MonoBehaviour
     {
         LeanTween.cancel(currentTileToMove.gameObject);
 
-        tileOriginalHolder.RecieveTile(currentTileToMove);
+        tileOriginalHolder.RecieveTileDisplayer(currentTileToMove);
     }
 
     private void ReleaseData()
     {
-        OriginalPos = Vector3.zero;
-        OriginalRot = Quaternion.identity;
+        tileOriginalPos = Vector3.zero;
+        tileOriginalRot = Quaternion.identity;
         currentTileToMove = null;
         tileOriginalHolder = null;
     }
 
     private Vector3 TargetPosOffset()
     {
-        float targetPosClacZ = OriginalPos.z + tileFollowOffset.z;
+        float targetPosClacZ = tileOriginalPos.z + tileFollowOffset.z;
 
         Vector3 targetPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x + tileFollowOffset.x, touchPos.y + tileFollowOffset.y, targetPosClacZ));
 
         return targetPos;
     }
-
 
     private void OnDrawGizmos()
     {

@@ -19,7 +19,6 @@ public class sliceToSpawnDataStruct
 
 }
 
-
 public enum PowerUp
 {
     Switch,
@@ -78,9 +77,6 @@ public class LevelSO : ScriptableObject
     //public int numOfSlices;
     public Ringtype ringType;
 
-    public GameObject clipPrefab;
-    public GameObject levelSpecificUserControls;
-
     public UnityEvent beforeRingSpawnActions; // each function that will be called here will "subscribe" to it's relavent stage in the gamemanger action
     public UnityEvent ringSpawnActions;
     public UnityEvent afterRingSpawnActions; 
@@ -88,7 +84,7 @@ public class LevelSO : ScriptableObject
     public SubTileColor[] levelAvailableColors;
     public SubTileSymbol[] levelAvailablesymbols;
 
-    [Header("Statue")]
+    [Header("Statue")]// will most liely move to cluster
     public bool isUsingSpecificStatue;
     public GameObject specificStatueForLevel;
 
@@ -104,5 +100,5 @@ public class LevelSO : ScriptableObject
     public stoneTileDataStruct[] stoneTiles;
 
     [Header("Percise Position Settings")]
-    public List<tileDataStruct> arrayOfSpecificTilesInClip;
+    public tileDataStruct[] arrayOfSpecificTilesInClip;
 }

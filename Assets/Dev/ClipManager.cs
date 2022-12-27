@@ -66,7 +66,7 @@ public class ClipManager : MonoBehaviour
     {
         StartCoroutine(DealAction());
     }
-    public IEnumerator DealAction()
+    private IEnumerator DealAction()
     {
         DestroySlotTiles();
 

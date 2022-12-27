@@ -305,9 +305,18 @@ MonoBehaviour:
   tempcurrentlevel: {fileID: 11400000, guid: 2252b973e6cdd544f95352cb822b2fda, type: 2}
   gameParent: {fileID: 1879860837}
   dealButton: {fileID: 701351802}
-  gameRings:
+  gameRingsPrefabs:
   - {fileID: 2002839186953646366, guid: 4b9db729cb51b20449d6f52985b8b2fe, type: 3}
   - {fileID: 2002839186953646366, guid: e327cf9c3552eb94cb38d2641d87f44a, type: 3}
+  gameRingsSlicePrefabs:
+  - {fileID: 8963770417993236029, guid: 8e6413f9e31f6b843bdb62de6f5bfa25, type: 3}
+  - {fileID: 8963770417993236029, guid: 23b14b113e09aba428a7afbe232de3c0, type: 3}
+  gameRingsClipPrefabs:
+  - {fileID: 532036011073816198, guid: 076e25b3da1d9cf4f9a55a527c9e47c5, type: 3}
+  - {fileID: 532036011073816198, guid: 076e25b3da1d9cf4f9a55a527c9e47c5, type: 3}
+  gameRingsUserControlsPrefabs:
+  - {fileID: 8724694532173668366, guid: a9f97b7cc35b8084ebd52e109551b2b1, type: 3}
+  - {fileID: 8724694532173668366, guid: a9f97b7cc35b8084ebd52e109551b2b1, type: 3}
 --- !u!4 &382796454
 Transform:
   m_ObjectHideFlags: 0

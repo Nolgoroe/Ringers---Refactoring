@@ -12,6 +12,6 @@ public abstract class TileHolder : MonoBehaviour
 
     public abstract void RemoveTile();
     public abstract void OnRemoveTileDisplay();
-    public abstract void RecieveTile(TileParentLogic tileToPlace);
+    public abstract void RecieveTileDisplayer(TileParentLogic tileToPlace);
     public abstract void AcceptTileToHolder(TileParentLogic recievedTile);
 }

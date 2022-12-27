@@ -8,8 +8,6 @@ public class LevelActions : ScriptableObject
 {
     [Header("Required refrences")]
     public TileCreator tileCreatorPreset;
-
-    [Header("Required refrences")]
     public Sprite lockSprite;
 
 
@@ -143,7 +141,7 @@ public class LevelActions : ScriptableObject
             #endregion
 
             #region Spawn Slice According to data
-            if (!GameManager.gameRing.ringSlices[tempIndexArray[i]].CheckHasSlideData())
+            if (!GameManager.gameRing.ringSlices[tempIndexArray[i]].CheckHasSliceData())
             {
                 Debug.LogError("Tried to summon on exsisting slice");
                 return;
@@ -188,7 +186,7 @@ public class LevelActions : ScriptableObject
         {
             sliceConnectionData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
             sliceConnectionData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
-            GameManager.gameRing.ringSlices[spawnIndex].SetSprite(lockSprite);
+            GameManager.gameRing.ringSlices[spawnIndex].SetMidSprite(lockSprite);
         }
     }
     
