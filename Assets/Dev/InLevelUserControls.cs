@@ -7,50 +7,40 @@ public class InLevelUserControls : MonoBehaviour
     // THINK ABOUT MAYBE CRATING INHERITENCE FOR "CONTROLS"
 
     [Header("Raycast data")]
-    //public LayerMask tileLayer;
-    public LayerMask tileGrabbingLayer;
-    public LayerMask tileInsertingLayer;
-    public float overlapRadius;
+    [SerializeField] private LayerMask tileGrabbingLayer;
+    [SerializeField] private LayerMask tileInsertingLayer;
+    [SerializeField] private float overlapRadius;
 
     [Header("Follow settings")]
-    public float pickupSpeed;
-    public float tileFollowSpeed;
-    public Vector3 tileFollowOffset;
+    [SerializeField] private float pickupSpeed;
+    [SerializeField] private float tileFollowSpeed;
+    [SerializeField] private Vector3 tileFollowOffset;
 
     [Header("General")]
-    public TileParentLogic currentTileToMove;
-    public TileHolder tileOriginalHolder;
+    [SerializeField] private TileParentLogic currentTileToMove;
+    [SerializeField] private TileHolder tileOriginalHolder;
 
     [Header("Needed Classes")]
-    public Ring ringManager;
-    public ClipManager clipManager;
+    [SerializeField] private Ring gameRing;
+    [SerializeField] private ClipManager gameClip;
 
-    Vector3 touchPos;
-    //float tileDragDist;
-    Vector3 tileOriginalPos;
-    Quaternion tileOriginalRot;
+    private Vector3 touchPos;
+    private Vector3 tileOriginalPos;
 
-    void Update()
+    private void Update()
     {
         if (!UIDisplayer.USINGUI)
         {
-            //if (GameManager.isTapControls)
-            //{
-            //    //SecondaryControls();
-            //}
-            //else
-            //{
-                NormalControls();
-            //}
+            NormalControls();
             return;
         }
     }
 
 
-    public void UserControlsSetter(Ring gameRing, ClipManager gameClip)
+    public void InitUserControls(Ring _gameRing, ClipManager _gameClip)
     {
-        ringManager = gameRing;
-        clipManager = gameClip;
+        gameRing = _gameRing;
+        gameClip = _gameClip;
     }
 
     private void NormalControls()
@@ -88,39 +78,6 @@ public class InLevelUserControls : MonoBehaviour
 
     }
 
-    //private void SecondaryControls()
-    //{
-    //    Touch touch;
-
-
-    //    if (Input.touchCount > 0)
-    //    {
-    //        touch = Input.GetTouch(0);
-
-    //        touchPos = touch.position;
-
-    //        switch (touch.phase)
-    //        {
-    //            case TouchPhase.Began:
-    //                if (currentTileToMove)
-    //                {
-    //                    //OnTouchBeginSecondaryPlace();
-    //                }
-    //                else
-    //                {
-    //                    OnTouchBegin();
-    //                }
-    //                break;
-    //            case TouchPhase.Canceled:
-    //                Debug.LogError("Cancelled??");
-    //                break;
-    //            default:
-    //                break;
-    //        }
-    //    }
-
-    //}
-
     private void OnTouchBegin()
     {
         RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileGrabbingLayer);
@@ -132,46 +89,14 @@ public class InLevelUserControls : MonoBehaviour
 
             if (holder.heldTile)
             {
-                //if(GameManager.isTapControls)
-                //{
-                //    //GrabTileSecondary(holder);
-                //}
-                //else
-                //{
-                    GrabTile(holder);
-                //}
+                GrabTile(holder);
             }
         }
     }
 
-    //private void OnTouchBeginSecondaryPlace()
-    //{
-    //    RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
-    //    // we also already have a point on raycast function called "GetIntersectionsAtPoint"
-
-    //    if (intersectionsArea.Length > 0)
-    //    {
-    //        IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
-
-    //        if (!droopedObject.DroopedOn(currentTileToMove))
-    //        {
-    //            ReturnHome();
-    //        }
-    //        else if (tileOriginalHolder.heldTile)
-    //        {
-    //            tileOriginalHolder.RemoveTile();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        ReturnHome();
-    //    }
-
-    //    ReleaseData();
-    //}
     private void GrabTile(TileHolder holder)
     {
-        IGrabTileFrom grabbedObject = holder.transform.GetComponent<IGrabTileFrom>();
+        IGrabTileFrom grabbedObject = holder.GetComponent<IGrabTileFrom>();
 
         if(grabbedObject != null)
         {
@@ -180,7 +105,6 @@ public class InLevelUserControls : MonoBehaviour
             tileOriginalHolder = holder;
             grabbedObject.GrabTileFrom();
             tileOriginalPos = currentTileToMove.transform.position;
-            tileOriginalRot = currentTileToMove.transform.rotation;
 
             LeanTween.move(currentTileToMove.gameObject, TargetPosOffset(), pickupSpeed);
 
@@ -191,27 +115,12 @@ public class InLevelUserControls : MonoBehaviour
             Debug.LogError("Tried to grab object that doesn't have grabbable interface");
         }
     }
-    //private void GrabTileSecondary(TileHolder holder)
-    //{
-    //    if(holder.heldTile)
-    //    {
-    //        currentTileToMove = holder.heldTile;
-    //        holder.OnRemoveTileDisplay();
-    //        tileOriginalHolder = holder;
-
-    //        OriginalPos = currentTileToMove.transform.position;
-    //        OriginalRot = currentTileToMove.transform.rotation;
-    //    }
-    //}
 
     private void OnTouchMoveOrStationairy()
     {
         RotateTileTowardsBoard();
 
         SmoothPieceMover();
-
-        RaycastHit2D[] intersectionsArea = GetIntersectionsArea(touchPos, tileInsertingLayer);
-        // we also already have a point on raycast function called "GetIntersectionsAtPoint"
 
         /// do VFX according to hits here.
     }
@@ -228,15 +137,15 @@ public class InLevelUserControls : MonoBehaviour
         if (intersectionsArea.Length > 0)
         {
             //IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
-            IDroppedTileOn droopedObject = intersectionsArea[0].transform.GetComponent<IDroppedTileOn>();
+            CellBase droopedOnObject = intersectionsArea[0].transform.GetComponent<CellBase>();
 
-            if(droopedObject == null)
+            if(droopedOnObject == null)
             {
                 Debug.LogError("no interface of type dropped on.");
                 return;
             }
 
-            if (!droopedObject.DroopedOn(currentTileToMove))
+            if (!droopedOnObject.DroppedOn(currentTileToMove))
             {
                 ReturnHome();
             }
@@ -255,8 +164,8 @@ public class InLevelUserControls : MonoBehaviour
 
     private RaycastHit2D[] GetIntersectionsArea(Vector3 touchPos, LayerMask layerToHit)
     {
-        Vector3 pointToCheck = Input.mousePosition;
-        pointToCheck.z = 35;
+        Vector3 pointToCheck = touchPos;
+        pointToCheck.z = gameRing.transform.position.z;
 
         Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
 
@@ -281,8 +190,8 @@ public class InLevelUserControls : MonoBehaviour
 
     private void RotateTileTowardsBoard()
     {
-        float difY = ringManager.transform.position.y - currentTileToMove.transform.position.y;
-        float difX = ringManager.transform.position.x - currentTileToMove.transform.position.x;
+        float difY = gameRing.transform.position.y - currentTileToMove.transform.position.y;
+        float difX = gameRing.transform.position.x - currentTileToMove.transform.position.x;
 
         float angle = Mathf.Atan2(difY, difX) * Mathf.Rad2Deg;
 
@@ -299,7 +208,6 @@ public class InLevelUserControls : MonoBehaviour
     private void ReleaseData()
     {
         tileOriginalPos = Vector3.zero;
-        tileOriginalRot = Quaternion.identity;
         currentTileToMove = null;
         tileOriginalHolder = null;
     }
@@ -320,7 +228,7 @@ public class InLevelUserControls : MonoBehaviour
         pointToCheck.z = 35;
 
         Vector3 posCheck = Camera.main.ScreenToWorldPoint(pointToCheck);
-        //Debug.Log(posCheck);
+
         Gizmos.DrawWireSphere(posCheck + transform.right * 0, overlapRadius);
     }
 }

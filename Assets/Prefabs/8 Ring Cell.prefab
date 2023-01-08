@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4588206656189153183}
-  - component: {fileID: 6061325382724706207}
+  - component: {fileID: 8510066571914538273}
   - component: {fileID: 2894533852226957178}
   m_Layer: 9
-  m_Name: Cell
+  m_Name: 8 Ring Cell
   m_TagString: Cell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6061325382724706207
+--- !u!114 &8510066571914538273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4588206656189153180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15a64d21ca5fa04f96fe3f16293742c, type: 3}
+  m_Script: {fileID: 11500000, guid: 46fa5b15690207a4c977f07af3375860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   heldTile: {fileID: 0}
@@ -57,8 +57,6 @@ MonoBehaviour:
   amountUnsuccessfullConnections: 0
   maxDistanceToAnimate: 40
   maxAnimateSpeed: 20
-  tilePrefab: {fileID: 1645121695642233041, guid: 9006b37d13737004a8954e6ed3236a5d,
-    type: 3}
 --- !u!60 &2894533852226957178
 PolygonCollider2D:
   m_ObjectHideFlags: 0

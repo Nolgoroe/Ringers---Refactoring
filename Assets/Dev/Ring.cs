@@ -11,18 +11,18 @@ public class SliceSpriteSetter
 }
 public class Ring : MonoBehaviour
 {
-    public int filledCellsCount;
-    public int unsuccessfulConnectionsCount;
-
-    public Cell[] ringCells;
+    public CellBase[] ringCells;
     public Slice[] ringSlices;
 
-    public System.Action onAddTile;
-    public System.Action onRemoveTile;
+    [SerializeField] private int filledCellsCount;
+    [SerializeField] private int unsuccessfulConnectionsCount;
 
-    public GameObject sliceDisplayPrefab; // move somewhere else?
+    [SerializeField] private System.Action onAddTile;
+    [SerializeField] private System.Action onRemoveTile;
 
-    public SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
+    [SerializeField] private GameObject sliceDisplayPrefab; // move somewhere else?
+
+    [SerializeField] private SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
     public void InitRing()
     {
         onAddTile += OnAddTileToRing;
@@ -31,19 +31,9 @@ public class Ring : MonoBehaviour
         onRemoveTile += UpdateFilledAndConnectDataCount;
     }
 
-    private void OnAddTileToRing()
+    public void SpawnTileInCell(int cellIndex, TileParentLogic tile, bool isLocked)
     {
-        filledCellsCount++;
-
-        if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount == 0)
-        {
-            Debug.Log("Win Level");
-        }
-    }
-
-    public void DropTileIntoCell(int cellIndex, TileParentLogic tile, bool isLocked)
-    {
-        ringCells[cellIndex].DroopedOn(tile);
+        ringCells[cellIndex].DroppedOn(tile);
         ringCells[cellIndex].SetAsLocked(isLocked);
     }
 
@@ -57,61 +47,10 @@ public class Ring : MonoBehaviour
         onRemoveTile?.Invoke();
     }
 
-    private void UpdateFilledAndConnectDataCount()
-    {
-        filledCellsCount--;
-
-        ChangeCellCountAndConnectionDataOnRemove();
-    }
-
-    private void ChangeCellCountAndConnectionDataOnRemove()
-    {
-        unsuccessfulConnectionsCount = 0;
-
-        foreach (Cell cell in ringCells)
-        {
-            unsuccessfulConnectionsCount += cell.GetUnsuccessfullConnections();
-        }
-    }
-
     public void ClearActions()
     {
         onAddTile = null;
         onRemoveTile = null;
-    }
-
-    [ContextMenu("Auto set cell neighbors")]
-    private void AutoSetCellNeighbors()
-    {
-        int counter = 0;
-
-        foreach (Cell cell in ringCells)
-        {
-            cell.rightCell = ringCells[CheckCellIntInRange(counter + 1, ringCells)];
-            cell.leftCell = ringCells[CheckCellIntInRange(counter - 1, ringCells)];
-
-            cell.leftSlice = ringSlices[CheckCellIntInRange(counter, ringSlices)];
-            cell.rightSlice = ringSlices[CheckCellIntInRange(counter + 1, ringSlices)];
-            counter++;
-        }
-
-    }
-
-    private int CheckCellIntInRange<T>(int index, T[] array)
-    {
-        int returnNum = index;
-
-        if(returnNum < 0)
-        {
-            returnNum = array.Length - 1;
-        }
-
-        if(returnNum > array.Length - 1)
-        {
-            returnNum = 0;
-        }
-
-        return returnNum;
     }
 
     public void SetSliceDisplay(Slice sliceData, int sliceIndex)
@@ -145,4 +84,66 @@ public class Ring : MonoBehaviour
                 break;
         }
     }
+
+    private void OnAddTileToRing()
+    {
+        filledCellsCount++;
+
+        if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount == 0)
+        {
+            Debug.Log("Win Level");
+        }
+    }
+
+    private void UpdateFilledAndConnectDataCount()
+    {
+        filledCellsCount--;
+
+        ChangeCellCountAndConnectionDataOnRemove();
+    }
+
+    private void ChangeCellCountAndConnectionDataOnRemove()
+    {
+        unsuccessfulConnectionsCount = 0;
+
+        foreach (CellBase cell in ringCells)
+        {
+            unsuccessfulConnectionsCount += cell.GetUnsuccessfullConnections();
+        }
+    }
+
+    private int CheckIndexIntInRange<T>(int index, T[] array) // this is a generic action - might want to move to different script
+    {
+        int returnNum = index;
+
+        if (returnNum < 0)
+        {
+            returnNum = array.Length - 1;
+        }
+
+        if (returnNum > array.Length - 1)
+        {
+            returnNum = 0;
+        }
+
+        return returnNum;
+    }
+
+    [ContextMenu("Auto set cell neighbors")]
+    private void AutoSetCellNeighbors()
+    {
+        int counter = 0;
+
+        foreach (CellBase cell in ringCells)
+        {
+            cell.rightCell = ringCells[CheckIndexIntInRange(counter + 1, ringCells)];
+            cell.leftCell = ringCells[CheckIndexIntInRange(counter - 1, ringCells)];
+
+            cell.leftSlice = ringSlices[CheckIndexIntInRange(counter, ringSlices)];
+            cell.rightSlice = ringSlices[CheckIndexIntInRange(counter + 1, ringSlices)];
+            counter++;
+        }
+
+    }
+
 }

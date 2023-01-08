@@ -4,15 +4,6 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class stoneTileDataStruct
-{
-    public int cellIndex;
-    public bool randomValues;
-    public SubTileSymbol rightTileSymbol;
-    public SubTileSymbol leftTileSymbol;
-}
-
-[System.Serializable]
 public class SubTileData
 {
     public SubTileSymbol subTileSymbol;
@@ -28,7 +19,7 @@ public abstract class TileParentLogic : MonoBehaviour
     public abstract void SetSubTileSpawnData(SubTileData subTile, SubTileSymbol resultSymbol, SubTileColor resultColor);
 
 
-    virtual public void SetSubtilesConnectedGFX(bool isGoodConnect, SubTileData ownSubTile, SubTileData contestedSubTile)
+    public virtual void SetSubtilesConnectedGFX(bool isGoodConnect, SubTileData ownSubTile, SubTileData contestedSubTile)
     {
         Material matToChangeOwn = ownSubTile.subtileMesh.material;
         Material matToChangeContested = contestedSubTile.subtileMesh.material;

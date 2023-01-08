@@ -67,26 +67,28 @@ public class tileDataStruct
     public SubTileSymbol leftTileSymbol;
 }
 
+[System.Serializable]
+public class stoneTileDataStruct
+{
+    public int cellIndex;
+    public bool randomValues;
+    public SubTileSymbol rightTileSymbol;
+    public SubTileSymbol leftTileSymbol;
+}
 [CreateAssetMenu(fileName = "Level", menuName ="ScriptableObjects/Create Level")]
 public class LevelSO : ScriptableObject
 {
     [Header("Level Setup Settings")]
     public WorldEnum worldName;
     public int levelNumInZone;
-    //public int numOfCells;
-    //public int numOfSlices;
     public Ringtype ringType;
 
-    public UnityEvent beforeRingSpawnActions; // each function that will be called here will "subscribe" to it's relavent stage in the gamemanger action
+    public UnityEvent beforeRingSpawnActions; // each function that will be called here will "subscribe" to it's relevant stage in the gamemanger action
     public UnityEvent ringSpawnActions;
     public UnityEvent afterRingSpawnActions; 
 
     public SubTileColor[] levelAvailableColors;
     public SubTileSymbol[] levelAvailablesymbols;
-
-    [Header("Statue")]// will most liely move to cluster
-    public bool isUsingSpecificStatue;
-    public GameObject specificStatueForLevel;
 
     [Header("Slices")]
     public bool isRandomSlicePositions;

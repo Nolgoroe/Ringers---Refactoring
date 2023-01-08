@@ -16,7 +16,6 @@ public class Slice : MonoBehaviour
 {
     public int index;
 
-
     [Header("permanent data")]
     public ConditonsData sliceData;
     public SliceConditionsEnums connectionType;
@@ -24,12 +23,9 @@ public class Slice : MonoBehaviour
     public SubTileColor requiredColor;
 
 
-    [Header("need?")]
-    public bool isLocking;
-
     [Header("temp here?")]
     //TEMP - will maybe change to lock sprite animation.
-    public SpriteRenderer midIcon;
+    [SerializeField] private SpriteRenderer midIcon;
 
     public void InitSlice(ConditonsData data, SliceConditionsEnums type, SubTileSymbol symbol, SubTileColor color, bool isLock)
     {
@@ -37,7 +33,6 @@ public class Slice : MonoBehaviour
         connectionType = type;
         requiredSymbol = symbol;
         requiredColor = color;
-        isLocking = isLock;
     }
 
     public void SetMidSprite(Sprite sprite)

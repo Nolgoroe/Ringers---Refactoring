@@ -7,14 +7,14 @@ using System.Linq;
 public class LevelActions : ScriptableObject
 {
     [Header("Required refrences")]
-    public TileCreator tileCreatorPreset;
-    public Sprite lockSprite;
+    [SerializeField] private TileCreator tileCreatorPreset;
+    [SerializeField] private SliceActionVariations sliceActions;
 
 
-    List<int> tempIndexArray;
+    private List<int> tempIndexArray;
 
-    int currentSummonIndex;
-    List<Slice> ringSlicesList;
+    private int currentSummonIndex;
+    private List<Slice> ringSlicesList;
     public void SummonStoneTiles()
     {
         SubTileColor[] availableColors = new SubTileColor[] { SubTileColor.Stone };
@@ -25,11 +25,11 @@ public class LevelActions : ScriptableObject
 
             if (stoneTile.randomValues)
             {
-                tile = tileCreatorPreset.CreateTile(GameManager.returnTileTypeStone(), GameManager.currentLevel.levelAvailablesymbols, availableColors);
+                tile = tileCreatorPreset.CreateTile(returnTileTypeStone(), GameManager.currentLevel.levelAvailablesymbols, availableColors);
             }
             else
             {
-                tile = tileCreatorPreset.CreateTile(GameManager.returnTileTypeStone(), stoneTile.leftTileSymbol, stoneTile.rightTileSymbol, SubTileColor.Stone, SubTileColor.Stone);
+                tile = tileCreatorPreset.CreateTile(returnTileTypeStone(), stoneTile.leftTileSymbol, stoneTile.rightTileSymbol, SubTileColor.Stone, SubTileColor.Stone);
             }
 
             if(!tile)
@@ -38,7 +38,7 @@ public class LevelActions : ScriptableObject
                 return;
             }
 
-            GameManager.gameRing.DropTileIntoCell(stoneTile.cellIndex, tile, true);
+            GameManager.gameRing.SpawnTileInCell(stoneTile.cellIndex, tile, true);
         }
     }
 
@@ -62,7 +62,7 @@ public class LevelActions : ScriptableObject
         ringSlicesList.Remove(GameManager.gameRing.ringSlices[currentSummonIndex]);
 
         // this for takes care of deciding indexes for slices
-        // start at index 1 since we already summoned first slice
+        // start at index k = 1 since we already summoned first slice
         for (int k = 1; k < allSlices.Count; k++)
         {
             // Decide on position for slices
@@ -147,9 +147,9 @@ public class LevelActions : ScriptableObject
                 return;
             }
 
-            Cell sameIndexCell = GameManager.gameRing.ringCells[tempIndexArray[i]];
+            CellBase sameIndexCell = GameManager.gameRing.ringCells[tempIndexArray[i]];
 
-            Cell leftNeighborCell = GetLeftOfCell(tempIndexArray[i]);
+            CellBase leftNeighborCell = GetLeftOfCell(tempIndexArray[i]);
 
             if (sliceConnectionData == null)
             {
@@ -169,7 +169,7 @@ public class LevelActions : ScriptableObject
             //slice is the same for both "same index cell" and "left neighbor cell" - so no need to invoke event twice.
             sameIndexCell.leftSlice.sliceData.onGoodConnectionActions += () => currentLevel.slicesToSpawn[tempInt].onConnectionEvents?.Invoke();
 
-            SetOnConnectEventsSlice(sliceConnectionData, allSlices[i], sameIndexCell, leftNeighborCell, tempIndexArray[i]);
+            sliceActions.SetOnConnectEventsSlice(sliceConnectionData, allSlices[i], sameIndexCell, leftNeighborCell, tempIndexArray[i]);
 
             GameManager.gameRing.ringSlices[tempIndexArray[i]].InitSlice(sliceConnectionData, allSlices[i].sliceToSpawn, symbol, color, allSlices[i].isLock);
 
@@ -179,18 +179,8 @@ public class LevelActions : ScriptableObject
             #endregion
         }
     }
-
-    private void SetOnConnectEventsSlice(ConditonsData sliceConnectionData, sliceToSpawnDataStruct sliceData, Cell sameIndexCell, Cell leftNeighborCell, int spawnIndex)
-    {
-        if (sliceData.isLock)
-        {
-            sliceConnectionData.onGoodConnectionActions += () => sameIndexCell.SetAsLocked(true);
-            sliceConnectionData.onGoodConnectionActions += () => leftNeighborCell.SetAsLocked(true);
-            GameManager.gameRing.ringSlices[spawnIndex].SetMidSprite(lockSprite);
-        }
-    }
     
-    private Cell GetLeftOfCell(int index)
+    private CellBase GetLeftOfCell(int index)
     {
         index -= 1;
 
@@ -309,6 +299,27 @@ public class LevelActions : ScriptableObject
         int spacing = chosenSliceIndex - currentSummonIndex;
 
         return spacing;
+    }
+
+    private Tiletype returnTileTypeStone()
+    {
+        Tiletype type = Tiletype.Normal;
+
+        switch (GameManager.currentLevel.ringType)
+        {
+            case Ringtype.ring8:
+                type = Tiletype.Stone8;
+                break;
+            case Ringtype.ring12:
+                type = Tiletype.Stone12;
+                break;
+            case Ringtype.NoType:
+                break;
+            default:
+                break;
+        }
+
+        return type;
     }
 }
 

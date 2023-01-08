@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    //public static GameManager instance;
 
     [Header("In game Data")]
     public static Ring gameRing;
@@ -39,33 +39,35 @@ public class GameManager : MonoBehaviour
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
 
-        instance = this;
+        //instance = this;
         currentLevel = tempcurrentlevel;
 
         SetLevel(currentLevel);
     }
 
-    public void SetLevel(LevelSO level)
+    private void SetLevel(LevelSO level)
     {
         //first clean all subscribes if there are any.
         endLevelActions?.Invoke();
 
-
+        currentLevel = level; //choose level here
 
         //this is the only place in code where we add delegates to the actions of before, during and after ring.
-        RingActions += LevelSetup;
-        currentLevel = level; //choose level here
 
         // this will not actually invoke the unity event functions - it will add it's invoked functions to the action in the order they are created.
         BeforeRingActions += () => currentLevel.beforeRingSpawnActions.Invoke();
+
+        RingActions += BuildLevel;
         RingActions += () => currentLevel.ringSpawnActions.Invoke();
+
         AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
+        AfterRingActions += AddDealEvent;
 
 
         StartLevel();
     }
 
-    public void StartLevel()
+    private void StartLevel()
     {
         //Before Ring
         BeforeRingActions?.Invoke();
@@ -78,10 +80,9 @@ public class GameManager : MonoBehaviour
 
        
         AddToEndlevelActions(gameRing.ClearActions);
-        AddToEndlevelActions(ClearLevelActions);
     }
 
-    private void LevelSetup()
+    private void BuildLevel()
     {
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
 
@@ -103,7 +104,6 @@ public class GameManager : MonoBehaviour
         // Init clip - spawn according to rules
         gameClip.InitClipManager();
 
-        AfterRingActions += AddDealEvent;
 
         //Spawn User Controls For Level
         InLevelUserControls userControls = Instantiate(gameRingsUserControlsPrefabs[(int)currentLevel.ringType], gameParent).GetComponent<InLevelUserControls>();
@@ -113,12 +113,12 @@ public class GameManager : MonoBehaviour
         }
 
         //local Init User Controls For Level - we don't do enoguh to merit own Init function
-        userControls.UserControlsSetter(gameRing, gameClip);
+        userControls.InitUserControls(gameRing, gameClip);
 
         //Init slices that pass information to cells (run 2)
     }
 
-    private void ClearLevelActions()// this must be added last to "endLevelCleanup"
+    private void ClearLevelActions()// this must be added last to "endLevelActions"
     {
         BeforeRingActions = null;
         RingActions = null;
@@ -126,8 +126,8 @@ public class GameManager : MonoBehaviour
         endLevelActions = null;
     }
 
-    // This function makes sure that we have "LevelActionCleanup" set as the last action to be made
-    public void AddToEndlevelActions(System.Action actionToAdd)
+    // This function makes sure that we have "ClearLevelActions" set as the last action to be made
+    private void AddToEndlevelActions(System.Action actionToAdd)
     {
         endLevelActions -= ClearLevelActions;// this has to be the last added func
 
@@ -137,58 +137,19 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void AddDealEvent()
+    private void AddDealEvent()
     {
         dealButton.buttonEvents.AddListener(gameClip.CallDealAction);
     }
 
 
-    public static Tiletype returnTileTypeStone()
-    {
-        Tiletype type = Tiletype.Normal;
-
-        switch (currentLevel.ringType)
-        {
-            case Ringtype.ring8:
-                type = Tiletype.Stone8;
-                break;
-            case Ringtype.ring12:
-                type = Tiletype.Stone12;
-                break;
-            case Ringtype.NoType:
-                break;
-            default:
-                break;
-        }
-
-        return type;
-    }
-    public static Ringtype returnRingType()
-    {
-        Ringtype type = Ringtype.NoType;
-
-        switch (currentLevel.ringType)
-        {
-            case Ringtype.ring8:
-                type = Ringtype.ring8;
-                break;
-            case Ringtype.ring12:
-                type = Ringtype.ring12;
-                break;
-            case Ringtype.NoType:
-                break;
-            default:
-                break;
-        }
-        return type;
-    }
 
     [ContextMenu("Restart")]
     public void CallRestartLevel()
     {
         StartCoroutine(RestartLevel());
     }
-    public IEnumerator RestartLevel()
+    private IEnumerator RestartLevel()
     {
         for (int k = 0; k < 1; k++)
         {
@@ -200,7 +161,7 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
 
-            StartLevel();
+            SetLevel(currentLevel);
         }
     }
 }

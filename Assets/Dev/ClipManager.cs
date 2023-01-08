@@ -2,26 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class ColorsAndMats
-{
-    public SubTileColor matColor;
-    public Texture[] colorTex;
-}
-
-[System.Serializable]
-public class SymbolToMat
-{
-    public SubTileSymbol mat;
-    public Texture symbolTex;
-}
 
 public class ClipManager : MonoBehaviour
 {
-    public int activeClipSlotsCount;
+    [SerializeField] private int activeClipSlotsCount;
 
     [Header("Slots Zone")]
-    public ClipSlot[] slots;
+    [SerializeField] private ClipSlot[] slots;
 
     [Header("Required refrences")]
     public TileCreator tileCreatorPreset;
@@ -58,7 +45,7 @@ public class ClipManager : MonoBehaviour
     private void SpawnRandomTileInSlot(ClipSlot slot)
     {
         Tile tile = tileCreatorPreset.CreateTile(Tiletype.Normal, GameManager.currentLevel.levelAvailablesymbols, GameManager.currentLevel.levelAvailableColors);
-        slot.AcceptTileToHolder(tile);
+        slot.RecieveTileDisplayer(tile);
     }
 
     // called from event

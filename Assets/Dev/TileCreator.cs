@@ -15,7 +15,7 @@ public enum SubTileColor
 public enum SubTileSymbol
 {
     DragonFly,
-    Bear,
+    Badger,
     Ram,
     Turtle,
     NoShape,
@@ -36,16 +36,30 @@ public enum Ringtype
     NoType
 }
 
+[System.Serializable]
+public class ColorsAndMats
+{
+    public SubTileColor matColor;
+    public Texture[] colorTex;
+}
+
+[System.Serializable]
+public class SymbolToMat
+{
+    public SubTileSymbol mat;
+    public Texture symbolTex;
+}
+
 [CreateAssetMenu(fileName = "Tile creator preset", menuName = "ScriptableObjects/Create tile creator")]
 public class TileCreator : ScriptableObject
 {
     [Header("Textures and Emission Maps")]
-    public ColorsAndMats[] colorsToMats;
-    public SymbolToMat[] symbolToMat; 
-    public ColorsAndMats[] colorsToMats12;
-    public SymbolToMat[] symbolToMat12;
-    
-    public GameObject[] tilePrefabs;
+    [SerializeField] private ColorsAndMats[] colorsToMats;
+    [SerializeField] private SymbolToMat[] symbolToMat;
+    [SerializeField] private ColorsAndMats[] colorsToMats12;
+    [SerializeField] private SymbolToMat[] symbolToMat12;
+
+    [SerializeField] private GameObject[] tilePrefabs;
 
     public Tile CreateTile(Tiletype tileType, SubTileSymbol[] availableSymbols, SubTileColor[] availableColors)
     {

@@ -50,8 +50,6 @@ MonoBehaviour:
         m_CallState: 2
   levelAvailableColors: 0000000001000000
   levelAvailablesymbols: 0100000000000000
-  isUsingSpecificStatue: 0
-  specificStatueForLevel: {fileID: 0}
   isRandomSlicePositions: 1
   allowRepeatSlices: 0
   slicesToSpawn:
@@ -105,10 +103,30 @@ MonoBehaviour:
     RewardBag: 0
     isLock: 1
     RandomSliceValues: 0
+  - sliceToSpawn: 1
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 0
+    RewardBag: 0
+    isLock: 1
+    RandomSliceValues: 0
+  - sliceToSpawn: 1
+    onConnectionEvents:
+      m_PersistentCalls:
+        m_Calls: []
+    specificSliceIndex: 0
+    specificSlicesColor: 0
+    specificSlicesShape: 0
+    RewardBag: 0
+    isLock: 1
+    RandomSliceValues: 0
   powerupsForLevel: 
   stoneTiles:
   - cellIndex: 0
-    randomValues: 0
+    randomValues: 1
     rightTileSymbol: 2
     leftTileSymbol: 2
   - cellIndex: 2

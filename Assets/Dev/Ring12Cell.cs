@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ring12Cell : Cell, IDroppedTileOn
+public class Ring12Cell : CellBase
 {
-    public override bool DroopedOn(TileParentLogic tile)
+    public override bool DroppedOn(TileParentLogic tileToPlace)
     {
-        Tile tile12Ring = GameManager.gameClip.tileCreatorPreset.CreateTile(Tiletype.Normal12, tile.subTileLeft.subTileSymbol, tile.subTileRight.subTileSymbol, tile.subTileLeft.subTileColor, tile.subTileRight.subTileColor);
-        
+        Tile tile12Ring = GameManager.gameClip.tileCreatorPreset.CreateTile(Tiletype.Normal12, tileToPlace.subTileLeft.subTileSymbol, tileToPlace.subTileRight.subTileSymbol, tileToPlace.subTileLeft.subTileColor, tileToPlace.subTileRight.subTileColor);
+
         // Make sure that the new 12 ring tile spawned is located exactly where the 8 ring tile was released.
         // we do this to make sure the tile activates the drop in animation from the correct position.
-        tile12Ring.transform.position = tile.transform.position;
-        tile12Ring.transform.rotation = tile.transform.rotation;
+        tile12Ring.transform.position = tileToPlace.transform.position;
+        tile12Ring.transform.rotation = tileToPlace.transform.rotation;
 
-        if (base.DroopedOn(tile12Ring))
+        if (DroopedOnDispatch(tile12Ring))
         {
-            Destroy(tile.gameObject);
+            Destroy(tileToPlace.gameObject);
             return true;
         }
 

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
+public abstract class CellBase : TileHolder, IGrabTileFrom
 {
-    public Cell leftCell, rightCell;
+    public CellBase leftCell, rightCell;
 
     public Slice leftSlice, rightSlice;
 
@@ -24,9 +24,6 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
 
     // think about creating an action system here aswell for "on good connection" + "on bad connection" - look at gamemanger as example.
 
-    [Header("Testing")]
-    public GameObject tilePrefab;
-
     private void Awake()
     {
         cellCollider = GetComponent<Collider2D>();
@@ -37,8 +34,6 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
         AcceptTileToHolder(tileToPlace); 
 
         CheckConnections();
-
-        tileToPlace.SetPlaceTileData(true);
     }
 
     public override void OnRemoveTileDisplay()
@@ -68,10 +63,7 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
             SetConnectData(false, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
         }
 
-        heldTile.SetPlaceTileData(false);
-
         heldTile = null;
-
 
         GameManager.gameRing.CallOnRemoveTileFromRing();
     }
@@ -114,7 +106,7 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
     {
         heldTile.SetSubtilesConnectedGFX(isGood, mySubtile, contestedSubTile);
 
-        mySlice.sliceData.conditionIsValidated = isGood;
+        //mySlice.sliceData.conditionIsValidated = isGood;
 
         if (isLeft)
         {
@@ -164,11 +156,14 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
         return amountUnsuccessfullConnections;
     }
 
-    public virtual bool DroopedOn(TileParentLogic tile)
+    public abstract bool DroppedOn(TileParentLogic tileToPlace);
+    public bool DroopedOnDispatch(TileParentLogic tileToPlace)
     {
-        if(!heldTile)
+        if (!heldTile)
         {
-            RecieveTileDisplayer(tile);
+            RecieveTileDisplayer(tileToPlace);
+
+            tileToPlace.SetPlaceTileData(true);
 
             GameManager.gameRing.CallOnAddTileActions();
             return true;
@@ -187,4 +182,5 @@ public class Cell : TileHolder, IDroppedTileOn, IGrabTileFrom
 
         cellCollider.enabled = !locked;
     }
+
 }

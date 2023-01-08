@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ConditonsData
+public class ConditonsData // this is the main class - parent of all other checks.
 {
-    public bool conditionIsValidated;
+    //public bool conditionIsValidated;
 
     public System.Action onGoodConnectionActions;
 
     public virtual bool CheckCondition(SubTileData subTileCurrent, SubTileData subTileContested)
     {
+        // if there is no override spawned for the slice - this is what will be called.
+        // empty slices will also have this basic check by default
         Debug.Log("Coulden't find override for conditions - Doing basic");
 
         ConditonsData sliceData = new ColorAndShapeCondition();
