@@ -29,7 +29,7 @@ public class InLevelUserControls : MonoBehaviour
 
     private void Update()
     {
-        if (!UIDisplayer.USINGUI)
+        if (!UIManager.ISUSINGUI)
         {
             NormalControls();
             return;

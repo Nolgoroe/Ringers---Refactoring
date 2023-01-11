@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    //public static GameManager instance;
+    public static GameManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     [Header("In game Data")]
     public static Ring gameRing;
@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     private System.Action endLevelActions;
 
     [SerializeField] Transform gameParent;
-    [SerializeField] CustomButton dealButton;
+    [SerializeField] CustomButtonParent dealButton;
 
     [SerializeField] GameObject[] gameRingsPrefabs;
     [SerializeField] GameObject[] gameRingsSlicePrefabs;
@@ -39,10 +39,10 @@ public class GameManager : MonoBehaviour
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
 
-        //instance = this;
-        currentLevel = tempcurrentlevel;
+        instance = this;
+        //currentLevel = tempcurrentlevel;
 
-        SetLevel(currentLevel);
+        //SetLevel(currentLevel);
     }
 
     private void SetLevel(LevelSO level)
@@ -164,4 +164,35 @@ public class GameManager : MonoBehaviour
             SetLevel(currentLevel);
         }
     }
+
+    public void ClickOnLevelIconMapSetData(LevelSO levelSO)
+    {
+        currentLevel = levelSO;
+        Debug.Log("here");
+    }
+
+
+
+
+    /**/
+    // general methods area - methods that can be dropped and used in any class - mostly inspector things for now
+    /**/
+
+    //public GameObject preafabToInstantiateInspector;
+
+    //[ContextMenu("Instantiate prefab under object")]
+    //public void InstantiatePrefabUnderObject ()
+    //{
+    //    GameObject go = PrefabUtility.InstantiatePrefab(preafabToInstantiateInspector, transform) as GameObject;
+    //    go.GetComponent<Image>().sprite = GetComponent<Image>().sprite;
+    //}
+
+    //[ContextMenu("Destroy self and move child 1 up in herarchy")]
+    //public void DestroySelfAndMoveChildUpInHerarchy()
+    //{
+    //    transform.GetChild(0).SetParent(transform.parent);
+    //    DestroyImmediate(gameObject);
+    //}
 }
+
+

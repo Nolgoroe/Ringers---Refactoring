@@ -12,7 +12,6 @@ public class sliceToSpawnDataStruct
     public int specificSliceIndex;
     public SubTileColor specificSlicesColor;
     public SubTileSymbol specificSlicesShape;
-    public LootPacks RewardBag;
 
     public bool isLock;
     public bool RandomSliceValues;
@@ -27,36 +26,6 @@ public enum PowerUp
     SliceBomb,
 }
 
-[System.Serializable]
-public enum LootPacks
-{
-    None,
-    R1,
-    R2,
-    R3,
-    R4,
-    R5,
-    LT1,
-    LT2,
-    LT3,
-    LT4,
-    LT5,
-    LT6,
-    LT7,
-    LT8,
-    LT9,
-    LT10,
-    LT11,
-    LT12,
-    LT13,
-    LT14,
-    LT15,
-    LT16,
-    LT17,
-    LT18,
-    LT19,
-    LT20,
-}
 
 [System.Serializable]
 public class tileDataStruct
@@ -75,6 +44,7 @@ public class stoneTileDataStruct
     public SubTileSymbol rightTileSymbol;
     public SubTileSymbol leftTileSymbol;
 }
+
 [CreateAssetMenu(fileName = "Level", menuName ="ScriptableObjects/Create Level")]
 public class LevelSO : ScriptableObject
 {
