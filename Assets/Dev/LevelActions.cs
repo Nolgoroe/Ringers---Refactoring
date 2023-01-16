@@ -294,8 +294,6 @@ public class LevelActions : ScriptableObject
         int randomNum = Random.Range(0, ringSlicesList.Count());
         int chosenSliceIndex = ringSlicesList[randomNum].index;
 
-        Debug.Log("Random: " + chosenSliceIndex);
-
         int spacing = chosenSliceIndex - currentSummonIndex;
 
         return spacing;

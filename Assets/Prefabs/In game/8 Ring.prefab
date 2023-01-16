@@ -65,7 +65,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002839186953646366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 35}
+  m_LocalPosition: {x: 0, y: -4, z: 35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -139,8 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15559eb47fac724b99cce04294c12cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filledCellsCount: 0
-  unsuccessfulConnectionsCount: 0
   ringCells:
   - {fileID: 5944402347896256461}
   - {fileID: 2332550558837959075}
@@ -159,6 +157,8 @@ MonoBehaviour:
   - {fileID: 1824785275163615087}
   - {fileID: 1824785275862796950}
   - {fileID: 1824785275689153735}
+  filledCellsCount: 0
+  unsuccessfulConnectionsCount: 0
   sliceDisplayPrefab: {fileID: 8963770417993236029, guid: 8e6413f9e31f6b843bdb62de6f5bfa25,
     type: 3}
   sliceDisplayArray:

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class WorldDisplayCombo
@@ -22,11 +23,12 @@ public class RefWorldDisplayCombo
 }
 public class UIManager : MonoBehaviour
 {
-    public static bool ISUSINGUI;
+    //public static bool ISUSINGUI;
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
     [SerializeField] private List<BasicUIElement> currentAdditiveScreens;
+    [SerializeField] private List<BasicUIElement> currentPermanentScreens;
 
 
     [Header("Map setup")]
@@ -35,11 +37,18 @@ public class UIManager : MonoBehaviour
 
 
     [Header("Map Screen")]
+    public BasicUIElement levelScrollRect;
     public BasicUIElement levelMapPopUp;
+
+    [Header("In level Screen")]
+    public BasicUIElement inLevelUI;
+    public BasicUIElement inLevelSettingsWindow;
 
     private void Start()
     {
         instance = this;
+
+        AddAdditiveElement(levelScrollRect);
     }
 
 
@@ -58,12 +67,15 @@ public class UIManager : MonoBehaviour
             {
                 foreach (BasicUIElement element in currentAdditiveScreens)
                 {
-                    element.gameObject.SetActive(false); //or destory!!!
-                    currentAdditiveScreens.Remove(element);
+                    if(!element.isPermanent)
+                    {
+                        CloseElement(element);
+                    }
                 }
             }
 
-            UIElement.gameObject.SetActive(true);
+            UIElement.gameObject.SetActive(true); // or Instantiate
+            currentlyOpenSoloElement = UIElement;
         }
         else
         {
@@ -71,7 +83,8 @@ public class UIManager : MonoBehaviour
             {
                 currentlyOpenSoloElement.gameObject.SetActive(false); // or derstroy!!!
 
-                UIElement.gameObject.SetActive(true);
+                UIElement.gameObject.SetActive(true); // or Instantiate
+                currentlyOpenSoloElement = UIElement;
             }
             else
             {
@@ -84,43 +97,125 @@ public class UIManager : MonoBehaviour
     {
         if(!currentAdditiveScreens.Contains(UIElement))
         {
-            currentAdditiveScreens.Add(UIElement);
+            if(UIElement.isPermanent)
+            {
+                currentPermanentScreens.Add(UIElement);
+            }
+            else
+            {
+                currentAdditiveScreens.Add(UIElement);
+            }
+
+            UIElement.gameObject.SetActive(true); // or instantiate
         }
     }
     public void CloseElement(BasicUIElement UIElement)
     {
+        //if (UIElement.isPermanent) return;
+
         if (UIElement.isSolo)
         {
             currentlyOpenSoloElement = null;
-
-            ISUSINGUI = false;
         }
 
         if (currentAdditiveScreens.Contains(UIElement))
         {
             currentAdditiveScreens.Remove(UIElement);
+        }
 
-            if(currentAdditiveScreens.Count == 0)
+        if (currentPermanentScreens.Contains(UIElement))
+        {
+            currentPermanentScreens.Remove(UIElement);
+        }
+
+        UIElement.gameObject.SetActive(false); //(OR destory it!!)
+    }
+
+    public void CloseAllCurrentScreens()
+    {
+        if(currentlyOpenSoloElement)
+        {
+            CloseElement(currentlyOpenSoloElement);
+        }
+        
+        if(currentAdditiveScreens.Count > 0)
+        {
+            // reverse for
+            for (int i = currentAdditiveScreens.Count - 1; i >= 0; i--)
             {
-                ISUSINGUI = false;
+                CloseElement(currentAdditiveScreens[i]);
             }
         }
 
-
-        UIElement.gameObject.SetActive(false); //(OR destory it!!)
-
-
+        if (currentPermanentScreens.Count > 0)
+        {
+            // reverse for
+            for (int i = currentPermanentScreens.Count - 1; i >= 0; i--)
+            {
+                CloseElement(currentPermanentScreens[i]);
+            }
+        }
     }
 
     /**/
-    //Level map related actions
+    // Inside Level related actions
     /**/
-    public void DisplayLevelMapPopUp(LevelSO levelSO)
+    public void DisplayInLevelUI()
+    {
+        CloseAllCurrentScreens(); // close all screens open before level launch
+
+        AddAdditiveElement(inLevelUI);
+
+        System.Action[] actions = new System.Action[10];
+        actions[0] += GameManager.gameClip.CallDealAction; //deal action
+        actions[1] += GameManager.TestButtonDelegationWorks; //potion 1 action
+        actions[2] += GameManager.TestButtonDelegationWorks; //potion 2 action
+        actions[3] += GameManager.TestButtonDelegationWorks; //potion 3 action
+        actions[4] += GameManager.TestButtonDelegationWorks; //potion 4 action
+        actions[5] += GameManager.TestButtonDelegationWorks; //Options button
+        actions[6] += GameManager.TestButtonDelegationWorks; //Music icon level
+        actions[7] += GameManager.TestButtonDelegationWorks; //SFX icon level
+        actions[8] += GameManager.instance.InitiateDestrucionOfLevel; // to level map icon - delete all current level data
+        actions[8] += OpenLevelMap; //to level map icon - display
+        actions[9] += GameManager.instance.CallRestartLevel; //restart level icon
+
+        inLevelUI.OverrideSetMe(null, null, actions);
+    }
+
+    public void DisplayInLevelSettings()
+    {
+        if(inLevelSettingsWindow.gameObject.activeInHierarchy)
+        {
+            CloseElement(inLevelSettingsWindow);
+        }
+        else
+        {
+            AddAdditiveElement(inLevelSettingsWindow);
+        }
+    }
+
+    /**/
+    // Level map related actions
+    /**/
+    public void DisplayLaunchLevelPopUp(LevelSO levelSO)
     {
         OpenSolo(levelMapPopUp);
-        string[] texts = new string[] { levelSO.levelNumInZone.ToString(), levelSO.worldName.ToString() };
+        string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), levelSO.worldName.ToString() };
 
-        levelMapPopUp.SetMe(texts, null);
+        System.Action[] actions = new System.Action[1];
+        actions[0] += GameManager.instance.SetLevel;
+        actions[0] += DisplayInLevelUI;
+
+        //actions += GameManager.instance.SetLevel;
+        //actions += DisplayInLevelUI;
+
+        levelMapPopUp.OverrideSetMe(texts, null, actions);
+    }
+    public void OpenLevelMap()
+    {
+        CloseAllCurrentScreens(); // close all screens open before going to map
+
+        AddAdditiveElement(levelScrollRect);
     }
 
 

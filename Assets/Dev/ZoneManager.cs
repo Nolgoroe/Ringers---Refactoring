@@ -26,6 +26,16 @@ public class ZoneManager : MonoBehaviour
             BGEnumToResource.Add((WorldEnum)i, BGPaths[i]);
         }
     }
+
+    public string ReturnBGPathByType(WorldEnum world)
+    {
+        if(BGEnumToResource.ContainsKey(world))
+        {
+            return BGEnumToResource[world];
+        }
+
+        return "";
+    }
 }
 
 

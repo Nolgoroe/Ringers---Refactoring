@@ -92,17 +92,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSolo: 0
   isOverrideSolo: 0
+  isPermanent: 0
   isInteractable: 1
   textRefrences: []
   imageRefrences:
   - {fileID: 2943108366022302870}
+  buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  buttonEvents:
+  buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2943108366022302872}

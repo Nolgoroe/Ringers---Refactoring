@@ -22,16 +22,14 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private System.Action endLevelActions;
 
-    [SerializeField] Transform gameParent;
-    [SerializeField] CustomButtonParent dealButton;
+    [Header("General Data")]
+    [SerializeField] Transform inLevelParent;
+    [SerializeField] ZoneManager zoneManager;
 
     [SerializeField] GameObject[] gameRingsPrefabs;
     [SerializeField] GameObject[] gameRingsSlicePrefabs;
     [SerializeField] GameObject[] gameRingsClipPrefabs;
     [SerializeField] GameObject[] gameRingsUserControlsPrefabs;
-
-    //move to a settings script
-    //public static bool isTapControls;
 
     void Start()
     {
@@ -45,23 +43,31 @@ public class GameManager : MonoBehaviour
         //SetLevel(currentLevel);
     }
 
-    private void SetLevel(LevelSO level)
+    private void Update()
+    {
+        if(gameClip)
+        {
+            Debug.Log("game clip is summoned");
+        }
+    }
+
+    //called from button click
+    public void SetLevel()
     {
         //first clean all subscribes if there are any.
         endLevelActions?.Invoke();
 
-        currentLevel = level; //choose level here
+        //currentLevel = level; //choose level here
 
         //this is the only place in code where we add delegates to the actions of before, during and after ring.
-
         // this will not actually invoke the unity event functions - it will add it's invoked functions to the action in the order they are created.
         BeforeRingActions += () => currentLevel.beforeRingSpawnActions.Invoke();
+        BeforeRingActions += SpawnLevelBG;
 
         RingActions += BuildLevel;
         RingActions += () => currentLevel.ringSpawnActions.Invoke();
 
         AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
-        AfterRingActions += AddDealEvent;
 
 
         StartLevel();
@@ -79,6 +85,7 @@ public class GameManager : MonoBehaviour
         AfterRingActions?.Invoke();
 
        
+        AddToEndlevelActions(DestroyAllCurrentLevel);
         AddToEndlevelActions(gameRing.ClearActions);
     }
 
@@ -87,7 +94,7 @@ public class GameManager : MonoBehaviour
         //// All of these should be part of the list "Before ring spawn actions" or "after...."???? (either? or? none?)
 
         // Spawn ring by type from level
-        gameRing = Instantiate(gameRingsPrefabs[(int)currentLevel.ringType], gameParent).GetComponent<Ring>();
+        gameRing = Instantiate(gameRingsPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<Ring>();
         if (!gameRing)
         {
             Debug.LogError("No ring!");
@@ -95,7 +102,7 @@ public class GameManager : MonoBehaviour
         gameRing.InitRing();
 
         // Spawn clip by type from level (or a general clip)
-        gameClip = Instantiate(gameRingsClipPrefabs[(int)currentLevel.ringType], gameParent).GetComponent<ClipManager>();
+        gameClip = Instantiate(gameRingsClipPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<ClipManager>();
         if (!gameClip)
         {
             Debug.LogError("No Clip!");
@@ -106,7 +113,7 @@ public class GameManager : MonoBehaviour
 
 
         //Spawn User Controls For Level
-        InLevelUserControls userControls = Instantiate(gameRingsUserControlsPrefabs[(int)currentLevel.ringType], gameParent).GetComponent<InLevelUserControls>();
+        InLevelUserControls userControls = Instantiate(gameRingsUserControlsPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<InLevelUserControls>();
         if (!userControls)
         {
             Debug.LogError("No User Controls!");
@@ -118,12 +125,37 @@ public class GameManager : MonoBehaviour
         //Init slices that pass information to cells (run 2)
     }
 
+    private void SpawnLevelBG()
+    {
+        GameObject go = Resources.Load<GameObject>(zoneManager.ReturnBGPathByType(currentLevel.worldName));
+        Instantiate(go, inLevelParent);
+    }
     private void ClearLevelActions()// this must be added last to "endLevelActions"
     {
         BeforeRingActions = null;
         RingActions = null;
         AfterRingActions = null;
         endLevelActions = null;
+    }
+
+    public void InitiateDestrucionOfLevel()
+    {
+        endLevelActions?.Invoke();
+    }
+
+    private void DestroyAllCurrentLevel()
+    {
+        if(inLevelParent.childCount > 0)
+        {
+            for (int i = 0; i < inLevelParent.childCount; i++)
+            {
+                Destroy(inLevelParent.GetChild(i).gameObject);
+            }
+        }
+
+        //gameRing = null;
+        //gameClip = null;
+        //currentLevel = null;
     }
 
     // This function makes sure that we have "ClearLevelActions" set as the last action to be made
@@ -137,12 +169,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void AddDealEvent()
-    {
-        dealButton.buttonEvents.AddListener(gameClip.CallDealAction);
-    }
-
-
 
     [ContextMenu("Restart")]
     public void CallRestartLevel()
@@ -154,24 +180,28 @@ public class GameManager : MonoBehaviour
         for (int k = 0; k < 1; k++)
         {
             yield return new WaitForSeconds(1);
-            for (int i = 0; i < gameParent.childCount; i++)
+            for (int i = 0; i < inLevelParent.childCount; i++)
             {
-                Destroy(gameParent.GetChild(i).gameObject);
+                Destroy(inLevelParent.GetChild(i).gameObject);
             }
 
             yield return new WaitForEndOfFrame();
 
-            SetLevel(currentLevel);
+            SetLevel();
         }
     }
 
     public void ClickOnLevelIconMapSetData(LevelSO levelSO)
     {
         currentLevel = levelSO;
-        Debug.Log("here");
+        tempcurrentlevel = levelSO; // this is temp
     }
 
-
+    public static void TestButtonDelegationWorks()
+    {
+        //THIS IS TEMP
+        Debug.Log("Works!");
+    }
 
 
     /**/

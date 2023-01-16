@@ -29,11 +29,13 @@ public class InLevelUserControls : MonoBehaviour
 
     private void Update()
     {
-        if (!UIManager.ISUSINGUI)
-        {
-            NormalControls();
-            return;
-        }
+        NormalControls();
+
+        //if (!UIManager.ISUSINGUI)
+        //{
+        //    NormalControls();
+        //    return;
+        //}
     }
 
 

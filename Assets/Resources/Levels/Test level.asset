@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Test level
   m_EditorClassIdentifier: 
-  worldName: 2
-  levelNumInZone: 100
-  ringType: 1
+  worldName: 4
+  levelNumInZone: 1
+  ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
       m_Calls: []
