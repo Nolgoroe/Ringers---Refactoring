@@ -1045,6 +1045,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7370377364071860749}
+  - component: {fileID: 3661843032108637104}
   m_Layer: 16
   m_Name: RedRootCovert
   m_TagString: Untagged
@@ -1074,6 +1075,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3661843032108637104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7370377364071860755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9845179b2d6b7c7408a2f6577fe1f4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurUnblurPerZone:
+    planesToChangeFront:
+    - {fileID: 5123241921143398982}
+    - {fileID: 2501539905552776509}
+    - {fileID: 2048292566892139419}
+    - {fileID: 4778104685709574518}
+    planesToChangeMiddle:
+    - {fileID: 1054574999927464299}
+    - {fileID: 6957866973785700010}
+    - {fileID: 2803064367749348973}
+    - {fileID: 1401978642899298124}
+    BGToChange:
+    - {fileID: 5964398901323422291}
+    blurMat: {fileID: 2100000, guid: 2e6706be9538de941924a5c27a4c9e8c, type: 2}
+    normalMat: {fileID: 2100000, guid: c279411956316bf4fb8be16b36d1964b, type: 2}
+    blurBGSprite: {fileID: 21300000, guid: d3366da765b51f643b3f8507ecffbb58, type: 3}
+    normalBGSprite: {fileID: 21300000, guid: 0145e3e797fb4744083575887d9da0a3, type: 3}
 --- !u!1 &7370377364858626344
 GameObject:
   m_ObjectHideFlags: 0

@@ -1041,6 +1041,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1869380002121277322}
+  - component: {fileID: 7890218282922722576}
   m_Layer: 0
   m_Name: WalnutGrove
   m_TagString: Untagged
@@ -1071,6 +1072,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7890218282922722576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869380002121277325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9845179b2d6b7c7408a2f6577fe1f4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurUnblurPerZone:
+    world: 0
+    planesToChangeFront:
+    - {fileID: 8144455642550267440}
+    - {fileID: 4157803776629046652}
+    - {fileID: 6334371326147811655}
+    - {fileID: 1869380002855418197}
+    - {fileID: 7439512464150816806}
+    planesToChangeMiddle:
+    - {fileID: 1869380001999050823}
+    - {fileID: 4882807965206878907}
+    - {fileID: 3562769246809869723}
+    BGToChange:
+    - {fileID: 1869380002228046236}
+    blurMat: {fileID: 2100000, guid: faf81e3c57c82644ea1f23e9f5e6eaf1, type: 2}
+    normalMat: {fileID: 2100000, guid: b0f42d3db23011441badb06608309fb4, type: 2}
+    blurBGSprite: {fileID: 21300000, guid: 01c3cc8bed6d6e24d8d74181cb13ef5b, type: 3}
+    normalBGSprite: {fileID: 21300000, guid: 282d8a1133cb49a4cb77ef5f70ac930e, type: 3}
 --- !u!1 &1869380002228046238
 GameObject:
   m_ObjectHideFlags: 0

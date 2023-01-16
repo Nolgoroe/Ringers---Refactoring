@@ -128,7 +128,15 @@ public class GameManager : MonoBehaviour
     private void SpawnLevelBG()
     {
         GameObject go = Resources.Load<GameObject>(zoneManager.ReturnBGPathByType(currentLevel.worldName));
-        Instantiate(go, inLevelParent);
+        GameObject levelBG = Instantiate(go, inLevelParent);
+
+        ZoneMaterialData zoneData;
+        levelBG.TryGetComponent(out zoneData);
+
+        if(zoneData)
+        {
+            zoneData.ChangeZoneToBlurryZoneDisplay();
+        }
     }
     private void ClearLevelActions()// this must be added last to "endLevelActions"
     {

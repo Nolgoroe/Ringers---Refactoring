@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum WorldEnum
 {
@@ -11,11 +12,25 @@ public enum WorldEnum
     ThornberryWoods
 }
 
+[System.Serializable]
+public class ZoneAndObjectToBlurUnblur
+{
+    public GameObject[] planesToChangeFront;
+    public GameObject[] planesToChangeMiddle;
+    public SpriteRenderer[] BGToChange;
+
+    public Material blurMat;
+    public Material normalMat;
+    public Sprite blurBGSprite;
+    public Sprite normalBGSprite;
+}
+
 public class ZoneManager : MonoBehaviour
 {
-    public string[] BGPaths;
+    [SerializeField] private string[] BGPaths;
 
-    public Dictionary<WorldEnum, string> BGEnumToResource;
+    private Dictionary<WorldEnum, string> BGEnumToResource;
+
 
     private void Start()
     {
@@ -36,6 +51,7 @@ public class ZoneManager : MonoBehaviour
 
         return "";
     }
+
 }
 
 

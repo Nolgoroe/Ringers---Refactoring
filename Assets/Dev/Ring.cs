@@ -93,6 +93,11 @@ public class Ring : MonoBehaviour
         {
             Debug.Log("Win Level");
         }
+
+        if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount > 0)
+        {
+            Debug.Log("lose Level");
+        }
     }
 
     private void UpdateFilledAndConnectDataCount()

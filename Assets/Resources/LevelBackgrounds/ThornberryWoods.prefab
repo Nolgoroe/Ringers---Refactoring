@@ -175,7 +175,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4141028644421715373}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2929426126853288438
 SpriteRenderer:
@@ -297,7 +297,7 @@ Transform:
   - {fileID: 886052802950436105}
   - {fileID: 7964871927334867631}
   m_Father: {fileID: 4141028644421715373}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2929426127917540320
 GameObject:
@@ -479,7 +479,7 @@ Transform:
   - {fileID: 6363305494509993276}
   - {fileID: 7700143248378082784}
   m_Father: {fileID: 4141028644421715373}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3217662988739462312
 GameObject:
@@ -573,6 +573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4141028644421715373}
+  - component: {fileID: 7449096764179057033}
   m_Layer: 0
   m_Name: ThornberryWoods
   m_TagString: Untagged
@@ -593,9 +594,9 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2929426127981341258}
+  - {fileID: 2929426126853288439}
   - {fileID: 2929426127738354430}
   - {fileID: 2929426128233042322}
-  - {fileID: 2929426126853288439}
   - {fileID: 2929426127058096873}
   - {fileID: 7411381376213716956}
   - {fileID: 7012172125639491077}
@@ -603,6 +604,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &7449096764179057033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3619824482585747223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9845179b2d6b7c7408a2f6577fe1f4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurUnblurPerZone:
+    planesToChangeFront:
+    - {fileID: 6244518223667216093}
+    - {fileID: 5148646126694533597}
+    - {fileID: 2153526029843180775}
+    - {fileID: 5131387718408991104}
+    - {fileID: 3217662988739462312}
+    planesToChangeMiddle:
+    - {fileID: 7214771203370961456}
+    - {fileID: 5547601701356740368}
+    - {fileID: 8162219231538610994}
+    BGToChange:
+    - {fileID: 2929426126853288438}
+    blurMat: {fileID: 2100000, guid: bfb9bb29f08e0ba418e583fcc924f2b3, type: 2}
+    normalMat: {fileID: 2100000, guid: 3954fecd3b19f6f479e137218b0c11d6, type: 2}
+    blurBGSprite: {fileID: 21300000, guid: 4b3ff423a172008488203571c36dcfcb, type: 3}
+    normalBGSprite: {fileID: 21300000, guid: 98effab03b8257848a57ea7c2158bcd2, type: 3}
 --- !u!1 &5131387718408991104
 GameObject:
   m_ObjectHideFlags: 0

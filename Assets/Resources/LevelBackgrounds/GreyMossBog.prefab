@@ -100,6 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2143239024243111772}
+  - component: {fileID: 7954050705246910329}
   m_Layer: 16
   m_Name: GreyMossBog
   m_TagString: Untagged
@@ -130,6 +131,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7954050705246910329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2143239024243111773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9845179b2d6b7c7408a2f6577fe1f4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blurUnblurPerZone:
+    planesToChangeFront:
+    - {fileID: 6379088103216873215}
+    planesToChangeMiddle:
+    - {fileID: 4824973113567465972}
+    BGToChange:
+    - {fileID: 2143239025854587015}
+    blurMat: {fileID: 2100000, guid: c73517ae666900648960b80a6ec3462e, type: 2}
+    normalMat: {fileID: 2100000, guid: cc25de694e7107f41ac44ab1a6737a12, type: 2}
+    blurBGSprite: {fileID: 21300000, guid: 73c8a733ae534464980edfdb9a5f853c, type: 3}
+    normalBGSprite: {fileID: 21300000, guid: 6cc3485327b2f8647b8a80a17d802d15, type: 3}
 --- !u!1 &2143239025305370177
 GameObject:
   m_ObjectHideFlags: 0
