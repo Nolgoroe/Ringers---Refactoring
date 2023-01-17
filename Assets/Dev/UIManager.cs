@@ -37,21 +37,24 @@ public class UIManager : MonoBehaviour
 
 
     [Header("Map Screen")]
-    public BasicUIElement levelScrollRect;
-    public BasicUIElement levelMapPopUp;
+    [SerializeField] private BasicUIElement levelScrollRect;
+    [SerializeField] private BasicUIElement generalMapUI;
+    [SerializeField] private BasicUIElement levelMapPopUp;
 
     [Header("In level Screen")]
-    public BasicUIElement inLevelUI;
-    public BasicUIElement inLevelSettingsWindow;
+    [SerializeField] private BasicUIElement inLevelUI;
+    [SerializeField] private BasicUIElement inLevelSettingsWindow;
+
+    [Header("map screen general windows")]
+    [SerializeField] private BasicUIElement generalSettings;
 
     private void Start()
     {
         instance = this;
 
         AddAdditiveElement(levelScrollRect);
+        AddAdditiveElement(generalMapUI);
     }
-
-
 
 
     /**/
@@ -131,7 +134,7 @@ public class UIManager : MonoBehaviour
         UIElement.gameObject.SetActive(false); //(OR destory it!!)
     }
 
-    public void CloseAllCurrentScreens()
+    private void CloseAllCurrentScreens()
     {
         if(currentlyOpenSoloElement)
         {
@@ -160,7 +163,7 @@ public class UIManager : MonoBehaviour
     /**/
     // Inside Level related actions
     /**/
-    public void DisplayInLevelUI()
+    private void DisplayInLevelUI()
     {
         CloseAllCurrentScreens(); // close all screens open before level launch
 
@@ -172,9 +175,9 @@ public class UIManager : MonoBehaviour
         actions[2] += GameManager.TestButtonDelegationWorks; //potion 2 action
         actions[3] += GameManager.TestButtonDelegationWorks; //potion 3 action
         actions[4] += GameManager.TestButtonDelegationWorks; //potion 4 action
-        actions[5] += GameManager.TestButtonDelegationWorks; //Options button
-        actions[6] += GameManager.TestButtonDelegationWorks; //Music icon level
-        actions[7] += GameManager.TestButtonDelegationWorks; //SFX icon level
+        actions[5] += OpenInLevelSettingsWindow; //Options button
+        actions[6] += SoundManager.instance.MuteMusic; //Music icon level
+        actions[7] += SoundManager.instance.MuteSFX; //SFX icon level
         actions[8] += GameManager.instance.InitiateDestrucionOfLevel; // to level map icon - delete all current level data
         actions[8] += OpenLevelMap; //to level map icon - display
         actions[9] += GameManager.instance.CallRestartLevel; //restart level icon
@@ -182,7 +185,14 @@ public class UIManager : MonoBehaviour
         inLevelUI.OverrideSetMe(null, null, actions);
     }
 
-    public void DisplayInLevelSettings()
+    private void OpenInLevelSettingsWindow()
+    {
+        DisplayInLevelSettings();
+        Debug.Log("Open options window");
+
+    }
+
+    private void DisplayInLevelSettings()
     {
         if(inLevelSettingsWindow.gameObject.activeInHierarchy)
         {
@@ -192,6 +202,26 @@ public class UIManager : MonoBehaviour
         {
             AddAdditiveElement(inLevelSettingsWindow);
         }
+    }
+    public void DisplayMapSettings()
+    {
+        //called from button
+
+        OpenSolo(generalSettings);
+    }
+    public void OpenAnimalAlbum()
+    {
+        //called from button
+
+        Debug.Log("test button 1");
+        //OpenSolo(generalSettings);
+    }
+    public void OpenPlayerInventory()
+    {
+        //called from button
+
+        Debug.Log("test button 2");
+        //OpenSolo(generalSettings);
     }
 
     /**/
@@ -211,11 +241,14 @@ public class UIManager : MonoBehaviour
 
         levelMapPopUp.OverrideSetMe(texts, null, actions);
     }
-    public void OpenLevelMap()
+    private void OpenLevelMap()
     {
         CloseAllCurrentScreens(); // close all screens open before going to map
 
         AddAdditiveElement(levelScrollRect);
+        AddAdditiveElement(generalMapUI);
+
+        generalMapUI.SetMe(null, null);
     }
 
 

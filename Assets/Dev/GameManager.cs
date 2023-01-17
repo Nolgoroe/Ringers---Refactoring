@@ -23,13 +23,13 @@ public class GameManager : MonoBehaviour
     private System.Action endLevelActions;
 
     [Header("General Data")]
-    [SerializeField] Transform inLevelParent;
-    [SerializeField] ZoneManager zoneManager;
+    [SerializeField] private Transform inLevelParent;
+    [SerializeField] private ZoneManager zoneManager;
 
-    [SerializeField] GameObject[] gameRingsPrefabs;
-    [SerializeField] GameObject[] gameRingsSlicePrefabs;
-    [SerializeField] GameObject[] gameRingsClipPrefabs;
-    [SerializeField] GameObject[] gameRingsUserControlsPrefabs;
+    [SerializeField] private GameObject[] gameRingsPrefabs;
+    [SerializeField] private GameObject[] gameRingsSlicePrefabs;
+    [SerializeField] private GameObject[] gameRingsClipPrefabs;
+    [SerializeField] private GameObject[] gameRingsUserControlsPrefabs;
 
     void Start()
     {

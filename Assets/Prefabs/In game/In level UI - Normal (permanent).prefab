@@ -495,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2603348070765558574
 Transform:
   m_ObjectHideFlags: 0
@@ -553,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3887683064978143066
 Transform:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3887683064978143067}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -3, z: 35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -598,8 +598,8 @@ MonoBehaviour:
   - {fileID: 6843081931419061554}
   - {fileID: 7947633266122372733}
   - {fileID: 2648578831801183454}
-  - {fileID: 6029190024962039362}
-  - {fileID: 5043954013586356248}
+  - {fileID: 1872662272}
+  - {fileID: 145742567}
   - {fileID: 539532491288072594}
   - {fileID: 1382028686043734036}
   HoverOverMeToGetInfo:
@@ -749,7 +749,7 @@ GameObject:
   - component: {fileID: 8388491672100033469}
   - component: {fileID: 2787379646846028884}
   - component: {fileID: 7036130180186452864}
-  - component: {fileID: 6029190024962039362}
+  - component: {fileID: 1872662272}
   m_Layer: 0
   m_Name: Music icon level
   m_TagString: Untagged
@@ -841,7 +841,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.7
---- !u!114 &6029190024962039362
+--- !u!114 &1872662272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -850,7 +850,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4842835412407288374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4bfdfd7eb4af14d8f528fef383fc81, type: 3}
+  m_Script: {fileID: 11500000, guid: eec8a3adc4fc43c43a4d64db6bd7ca93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isSolo: 0
@@ -868,7 +868,52 @@ MonoBehaviour:
     m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: MuteMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1872662272}
+        m_TargetAssemblyTypeName: SoundSpriteSwappingCustomButton, Assembly-CSharp
+        m_MethodName: CheckSoundManagerMusicState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spriteVerMuted: {fileID: 7576808671540472329, guid: 37b17f6b9dddc9745ba248fce3584246,
+    type: 3}
+  spriteVerUnMuted: {fileID: -6178443674090856121, guid: 37b17f6b9dddc9745ba248fce3584246,
+    type: 3}
+  buttonEventsOnEnable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1872662272}
+        m_TargetAssemblyTypeName: SoundSpriteSwappingCustomButton, Assembly-CSharp
+        m_MethodName: CheckSoundManagerMusicState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  connectedImage: {fileID: 0}
+  connectedSpriteRenderer: {fileID: 2787379646846028884}
 --- !u!1 &5276108477592535531
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +925,7 @@ GameObject:
   - component: {fileID: 39137333520983087}
   - component: {fileID: 56690840867043887}
   - component: {fileID: 3331183102176932856}
-  - component: {fileID: 5043954013586356248}
+  - component: {fileID: 145742567}
   m_Layer: 0
   m_Name: SFX icon level
   m_TagString: Untagged
@@ -972,7 +1017,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.7
---- !u!114 &5043954013586356248
+--- !u!114 &145742567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -981,7 +1026,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5276108477592535531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4bfdfd7eb4af14d8f528fef383fc81, type: 3}
+  m_Script: {fileID: 11500000, guid: eec8a3adc4fc43c43a4d64db6bd7ca93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isSolo: 0
@@ -999,7 +1044,52 @@ MonoBehaviour:
     m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: MuteSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 145742567}
+        m_TargetAssemblyTypeName: SoundSpriteSwappingCustomButton, Assembly-CSharp
+        m_MethodName: CheckSoundManagerSFXState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spriteVerMuted: {fileID: 1523794141591672057, guid: 37b17f6b9dddc9745ba248fce3584246,
+    type: 3}
+  spriteVerUnMuted: {fileID: 3836822384296169468, guid: 37b17f6b9dddc9745ba248fce3584246,
+    type: 3}
+  buttonEventsOnEnable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 145742567}
+        m_TargetAssemblyTypeName: SoundSpriteSwappingCustomButton, Assembly-CSharp
+        m_MethodName: CheckSoundManagerSFXState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  connectedImage: {fileID: 0}
+  connectedSpriteRenderer: {fileID: 56690840867043887}
 --- !u!1 &7010490035626241248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,19 +1220,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3887683064978143069}
-        m_TargetAssemblyTypeName: InLevelUICustomWindow, Assembly-CSharp
-        m_MethodName: OpenOptionsWindow
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &7199726007259066269
 GameObject:
   m_ObjectHideFlags: 0

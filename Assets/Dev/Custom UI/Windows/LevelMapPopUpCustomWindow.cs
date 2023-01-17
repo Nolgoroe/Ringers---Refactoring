@@ -7,10 +7,10 @@ using TMPro;
 
 public class LevelMapPopUpCustomWindow : CustomWindowParent
 {
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
+    //private void Start()
+    //{
+    //    gameObject.SetActive(false);
+    //}
 
     public override void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions)
     {

@@ -5,11 +5,6 @@ using UnityEngine.Events;
 
 public class InLevelUICustomWindow : CustomWindowParent
 {
-    void Start()
-    {
-        gameObject.SetActive(false);
-    }
-
     public override void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions)
     {
         base.SetMe(texts, sprites);
@@ -32,13 +27,5 @@ public class InLevelUICustomWindow : CustomWindowParent
     public override void OverrideResetAllButtonEvents()
     {
         base.ResetAllButtonEvents();
-    }
-
-    public void OpenOptionsWindow()
-    {
-        // called from button
-        UIManager.instance.DisplayInLevelSettings();
-        Debug.Log("Open options window");
-        
     }
 }
