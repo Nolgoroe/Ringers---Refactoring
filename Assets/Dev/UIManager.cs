@@ -23,7 +23,7 @@ public class RefWorldDisplayCombo
 }
 public class UIManager : MonoBehaviour
 {
-    //public static bool ISUSINGUI;
+    public static bool ISUSINGUI;
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -44,6 +44,8 @@ public class UIManager : MonoBehaviour
     [Header("In level Screen")]
     [SerializeField] private BasicUIElement inLevelUI;
     [SerializeField] private BasicUIElement inLevelSettingsWindow;
+    [SerializeField] private BasicUIElement inLevelNonMatchTilesMessage;
+    [SerializeField] private BasicUIElement inLevelLostLevelMessage;
 
     [Header("map screen general windows")]
     [SerializeField] private BasicUIElement generalSettings;
@@ -95,6 +97,8 @@ public class UIManager : MonoBehaviour
                 // do nothing
             }
         }
+
+        ISUSINGUI = true;
     }
     private void AddAdditiveElement(BasicUIElement UIElement)
     {
@@ -119,6 +123,8 @@ public class UIManager : MonoBehaviour
         if (UIElement.isSolo)
         {
             currentlyOpenSoloElement = null;
+
+            ISUSINGUI = false;
         }
 
         if (currentAdditiveScreens.Contains(UIElement))
@@ -175,17 +181,18 @@ public class UIManager : MonoBehaviour
         actions[2] += GameManager.TestButtonDelegationWorks; //potion 2 action
         actions[3] += GameManager.TestButtonDelegationWorks; //potion 3 action
         actions[4] += GameManager.TestButtonDelegationWorks; //potion 4 action
-        actions[5] += OpenInLevelSettingsWindow; //Options button
+        actions[5] += DisplayInLevelSettingsWindow; //Options button
         actions[6] += SoundManager.instance.MuteMusic; //Music icon level
         actions[7] += SoundManager.instance.MuteSFX; //SFX icon level
         actions[8] += GameManager.instance.InitiateDestrucionOfLevel; // to level map icon - delete all current level data
-        actions[8] += OpenLevelMap; //to level map icon - display
+        actions[8] += DisplayLevelMap; //to level map icon - display
         actions[9] += GameManager.instance.CallRestartLevel; //restart level icon
+        actions[9] += DisplayInLevelSettings; //restart level icon
 
         inLevelUI.OverrideSetMe(null, null, actions);
     }
 
-    private void OpenInLevelSettingsWindow()
+    private void DisplayInLevelSettingsWindow()
     {
         DisplayInLevelSettings();
         Debug.Log("Open options window");
@@ -208,15 +215,18 @@ public class UIManager : MonoBehaviour
         //called from button
 
         OpenSolo(generalSettings);
+
+        string[] texts = new string[] {"Name of player: Avishy"};
+        generalSettings.SetMe(texts, null);
     }
-    public void OpenAnimalAlbum()
+    public void DisplayAnimalAlbum()
     {
         //called from button
 
         Debug.Log("test button 1");
         //OpenSolo(generalSettings);
     }
-    public void OpenPlayerInventory()
+    public void DisplayPlayerInventory()
     {
         //called from button
 
@@ -224,6 +234,23 @@ public class UIManager : MonoBehaviour
         //OpenSolo(generalSettings);
     }
 
+    public void DisplayRingHasNonMatchingMessage()
+    {
+        OpenSolo(inLevelNonMatchTilesMessage);
+        System.Action[] actions = new System.Action[2];
+        //actions[0] += () => GameManager.gameControls.ret;
+        actions[0] += () => CloseElement(inLevelNonMatchTilesMessage);
+        actions[1] += DisplayLevelLostMessage;
+
+    }
+    public void DisplayLevelLostMessage()
+    {
+        OpenSolo(inLevelLostLevelMessage);
+        System.Action[] actions = new System.Action[2];
+        actions[0] += GameManager.instance.CallRestartLevel;
+        actions[1] += DisplayLevelMap;
+
+    }
     /**/
     // Level map related actions
     /**/
@@ -241,7 +268,7 @@ public class UIManager : MonoBehaviour
 
         levelMapPopUp.OverrideSetMe(texts, null, actions);
     }
-    private void OpenLevelMap()
+    private void DisplayLevelMap()
     {
         CloseAllCurrentScreens(); // close all screens open before going to map
 

@@ -51,21 +51,6 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     public override void RemoveTile()
     {
-        amountUnsuccessfullConnections = 0;
-
-        if (leftCell.heldTile)
-        {
-            SetConnectData(false, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
-        }
-
-        if (rightCell.heldTile)
-        {
-            SetConnectData(false, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
-        }
-
-        heldTile = null;
-
-        GameManager.gameRing.CallOnRemoveTileFromRing();
     }
 
     private void CheckConnections()
@@ -83,7 +68,7 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
                 amountUnsuccessfullConnections++;
             }
 
-            SetConnectData(good, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
+            SetConnectDataOnPlace(good, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
         }
 
         if (rightCell.heldTile)
@@ -95,33 +80,65 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
                 amountUnsuccessfullConnections++;
             }
 
-            SetConnectData(good, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
-        
-        
+            SetConnectDataOnPlace(good, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);     
         }
-
     }
 
-    private void SetConnectData(bool isGood, bool isLeft, SubTileData mySubtile, SubTileData contestedSubTile, Slice mySlice)
+    private void SetConnectDataOnPlace(bool isGood, bool isLeft, SubTileData mySubtile, SubTileData contestedSubTile, Slice mySlice)
     {
         heldTile.SetSubtilesConnectedGFX(isGood, mySubtile, contestedSubTile);
-
-        //mySlice.sliceData.conditionIsValidated = isGood;
 
         if (isLeft)
         {
             goodConnectLeft = isGood;
+
             leftCell.goodConnectRight = isGood;
+
+            if (!leftCell.goodConnectRight)
+            {
+                leftCell.amountUnsuccessfullConnections++;
+            }
         }
         else
         {
             goodConnectRight = isGood;
+
             rightCell.goodConnectLeft = isGood;
+
+            if (!rightCell.goodConnectLeft)
+            {
+                rightCell.amountUnsuccessfullConnections++;
+            }
         }
 
         if (isGood)
         {
             mySlice.sliceData.onGoodConnectionActions?.Invoke();
+        }
+    }
+    private void SetConnectDataOnRemove(bool isGood, bool isLeft, SubTileData mySubtile, SubTileData contestedSubTile, Slice mySlice)
+    {
+        if (isLeft)
+        {
+            goodConnectLeft = isGood;
+
+            if(!leftCell.goodConnectRight)
+            {
+                leftCell.amountUnsuccessfullConnections--;
+            }
+
+            leftCell.goodConnectRight = isGood;
+        }
+        else
+        {
+            goodConnectRight = isGood;
+
+            if (!rightCell.goodConnectLeft)
+            {
+                rightCell.amountUnsuccessfullConnections--;
+            }
+
+            rightCell.goodConnectLeft = isGood;
         }
     }
 
@@ -174,6 +191,21 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     public void GrabTileFrom()
     {
+        amountUnsuccessfullConnections = 0;
+
+        if (leftCell.heldTile)
+        {
+            SetConnectDataOnRemove(false, true, heldTile.subTileLeft, leftCell.heldTile.subTileRight, leftSlice);
+        }
+
+        if (rightCell.heldTile)
+        {
+            SetConnectDataOnRemove(false, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
+        }
+
+        heldTile = null;
+
+        GameManager.gameRing.CallOnRemoveTileFromRing();
     }
 
     public void SetAsLocked(bool locked)

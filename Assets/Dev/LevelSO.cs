@@ -62,7 +62,7 @@ public class LevelSO : ScriptableObject
 
     [Header("Slices")]
     public bool isRandomSlicePositions;
-    public bool allowRepeatSlices;
+    //public bool allowRepeatSlices;
     public sliceToSpawnDataStruct[] slicesToSpawn;
 
     [Header("PowerUps")]

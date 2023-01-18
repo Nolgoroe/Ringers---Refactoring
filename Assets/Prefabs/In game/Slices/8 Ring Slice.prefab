@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 187307489136601550}
   - component: {fileID: 512623661245076792}
   m_Layer: 0
-  m_Name: Slice
+  m_Name: 8 Ring Slice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,9 +50,6 @@ MonoBehaviour:
   connectionType: 0
   requiredSymbol: 0
   requiredColor: 0
-  isLocking: 0
-  sliceData:
-    conditionIsValidated: 0
   midIcon: {fileID: 3215022308059311265}
 --- !u!60 &512623661245076792
 PolygonCollider2D:

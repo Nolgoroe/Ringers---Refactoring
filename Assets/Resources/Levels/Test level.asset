@@ -48,10 +48,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 0000000001000000
-  levelAvailablesymbols: 0100000000000000
+  levelAvailableColors: 00000000010000000200000003000000
+  levelAvailablesymbols: 01000000000000000200000003000000
   isRandomSlicePositions: 1
-  allowRepeatSlices: 0
   slicesToSpawn:
   - sliceToSpawn: 1
     onConnectionEvents:
@@ -62,68 +61,6 @@ MonoBehaviour:
     specificSlicesShape: 0
     isLock: 1
     RandomSliceValues: 0
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
-  - sliceToSpawn: 1
-    onConnectionEvents:
-      m_PersistentCalls:
-        m_Calls: []
-    specificSliceIndex: 0
-    specificSlicesColor: 0
-    specificSlicesShape: 0
-    isLock: 1
-    RandomSliceValues: 0
   powerupsForLevel: 
-  stoneTiles:
-  - cellIndex: 0
-    randomValues: 1
-    rightTileSymbol: 2
-    leftTileSymbol: 2
-  - cellIndex: 2
-    randomValues: 0
-    rightTileSymbol: 0
-    leftTileSymbol: 3
+  stoneTiles: []
   arrayOfSpecificTilesInClip: []

@@ -96,6 +96,7 @@ public class Ring : MonoBehaviour
 
         if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount > 0)
         {
+            UIManager.instance.DisplayRingHasNonMatchingMessage();
             Debug.Log("lose Level");
         }
     }

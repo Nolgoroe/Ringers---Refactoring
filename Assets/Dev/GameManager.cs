@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static Ring gameRing;
     public static ClipManager gameClip;
     public static LevelSO currentLevel;
+    public static InLevelUserControls gameControls;
     public LevelSO tempcurrentlevel; //temp
 
     private System.Action BeforeRingActions;
@@ -45,10 +46,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(gameClip)
-        {
-            Debug.Log("game clip is summoned");
-        }
+        //if(gameClip)
+        //{
+        //    Debug.Log("game clip is summoned");
+        //}
     }
 
     //called from button click
@@ -113,14 +114,14 @@ public class GameManager : MonoBehaviour
 
 
         //Spawn User Controls For Level
-        InLevelUserControls userControls = Instantiate(gameRingsUserControlsPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<InLevelUserControls>();
-        if (!userControls)
+        gameControls = Instantiate(gameRingsUserControlsPrefabs[(int)currentLevel.ringType], inLevelParent).GetComponent<InLevelUserControls>();
+        if (!gameControls)
         {
             Debug.LogError("No User Controls!");
         }
 
         //local Init User Controls For Level - we don't do enoguh to merit own Init function
-        userControls.InitUserControls(gameRing, gameClip);
+        gameControls.InitUserControls(gameRing, gameClip);
 
         //Init slices that pass information to cells (run 2)
     }

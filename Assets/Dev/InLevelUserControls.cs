@@ -29,13 +29,11 @@ public class InLevelUserControls : MonoBehaviour
 
     private void Update()
     {
-        NormalControls();
-
-        //if (!UIManager.ISUSINGUI)
-        //{
-        //    NormalControls();
-        //    return;
-        //}
+        if (!UIManager.ISUSINGUI)
+        {
+            NormalControls();
+            return;
+        }
     }
 
 
@@ -93,6 +91,10 @@ public class InLevelUserControls : MonoBehaviour
             {
                 GrabTile(holder);
             }
+        }
+        else
+        {
+            ReleaseData();
         }
     }
 
@@ -161,7 +163,7 @@ public class InLevelUserControls : MonoBehaviour
             ReturnHome();
         }
 
-        ReleaseData();
+        //ReleaseData();
     }
 
     private RaycastHit2D[] GetIntersectionsArea(Vector3 touchPos, LayerMask layerToHit)
@@ -201,6 +203,12 @@ public class InLevelUserControls : MonoBehaviour
     }
 
     private void ReturnHome()
+    {
+        LeanTween.cancel(currentTileToMove.gameObject);
+
+        tileOriginalHolder.RecieveTileDisplayer(currentTileToMove);
+    }
+    public void ReturnHomeBadRingConnections()
     {
         LeanTween.cancel(currentTileToMove.gameObject);
 

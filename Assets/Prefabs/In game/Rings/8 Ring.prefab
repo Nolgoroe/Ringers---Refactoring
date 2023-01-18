@@ -262,7 +262,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 0
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -354,7 +354,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 5
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -461,7 +461,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 7
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -615,7 +615,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 6
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -769,7 +769,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 4
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -923,7 +923,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 1
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -1077,7 +1077,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 5
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -1231,7 +1231,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 3
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -1385,7 +1385,7 @@ PrefabInstance:
     - target: {fileID: 1995715952788758468, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
       propertyPath: m_Name
-      value: Slice 2
+      value: 8 Ring Slice
       objectReference: {fileID: 0}
     - target: {fileID: 1995715952788758469, guid: 4b57412b62c866b408db054b252be28f,
         type: 3}
@@ -1533,7 +1533,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 3
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1635,7 +1635,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 2
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1737,7 +1737,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 0
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -1919,7 +1919,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 7
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -2021,7 +2021,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 1
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -2123,7 +2123,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 6
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
@@ -2225,7 +2225,7 @@ PrefabInstance:
     - target: {fileID: 4588206656189153180, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
       propertyPath: m_Name
-      value: Cell 4
+      value: 8 Ring Cell
       objectReference: {fileID: 0}
     - target: {fileID: 4588206656189153183, guid: ad932c7e770de4645ae48efdeadbd022,
         type: 3}
