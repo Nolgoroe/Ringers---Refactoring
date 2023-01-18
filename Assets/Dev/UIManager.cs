@@ -123,8 +123,7 @@ public class UIManager : MonoBehaviour
         if (UIElement.isSolo)
         {
             currentlyOpenSoloElement = null;
-
-            ISUSINGUI = false;
+            StartCoroutine(ResetUsingUI());
         }
 
         if (currentAdditiveScreens.Contains(UIElement))
@@ -140,6 +139,11 @@ public class UIManager : MonoBehaviour
         UIElement.gameObject.SetActive(false); //(OR destory it!!)
     }
 
+    private IEnumerator ResetUsingUI()
+    {
+        yield return new WaitForEndOfFrame();
+        ISUSINGUI = false;
+    }
     private void CloseAllCurrentScreens()
     {
         if(currentlyOpenSoloElement)
@@ -238,9 +242,11 @@ public class UIManager : MonoBehaviour
     {
         OpenSolo(inLevelNonMatchTilesMessage);
         System.Action[] actions = new System.Action[2];
-        //actions[0] += () => GameManager.gameControls.ret;
+        actions[0] += GameManager.gameControls.ReturnHomeBadRingConnections;
         actions[0] += () => CloseElement(inLevelNonMatchTilesMessage);
         actions[1] += DisplayLevelLostMessage;
+
+        inLevelNonMatchTilesMessage.OverrideSetMe(null, null, actions);
 
     }
     public void DisplayLevelLostMessage()
@@ -249,6 +255,8 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = new System.Action[2];
         actions[0] += GameManager.instance.CallRestartLevel;
         actions[1] += DisplayLevelMap;
+
+        inLevelLostLevelMessage.OverrideSetMe(null, null, actions);
 
     }
     /**/

@@ -100,6 +100,12 @@ public class Ring : MonoBehaviour
             Debug.Log("lose Level");
         }
     }
+    public bool LastPieceRingProblems()
+    {
+        return filledCellsCount == GameManager.gameRing.ringCells.Length - 1
+            &&
+            unsuccessfulConnectionsCount > 0;
+    }
 
     private void UpdateFilledAndConnectDataCount()
     {

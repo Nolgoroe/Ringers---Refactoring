@@ -20442,16 +20442,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 379948431}
     m_Modifications:
-    - target: {fileID: 4624532259960549124, guid: 76f41847312836c4e849063ca71d7f42,
-        type: 3}
-      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1572170055}
-    - target: {fileID: 4624532260178857021, guid: 76f41847312836c4e849063ca71d7f42,
-        type: 3}
-      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1572170056}
     - target: {fileID: 4624532260880093069, guid: 76f41847312836c4e849063ca71d7f42,
         type: 3}
       propertyPath: m_Name

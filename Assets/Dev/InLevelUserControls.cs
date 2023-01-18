@@ -149,12 +149,23 @@ public class InLevelUserControls : MonoBehaviour
                 return;
             }
 
+            //don't place the tile if it's the last one and we have problems in ring
+
+            if (!droopedOnObject.heldTile && gameRing.LastPieceRingProblems())
+            {
+                UIManager.instance.DisplayRingHasNonMatchingMessage();
+
+                return;
+            }
+
             if (!droopedOnObject.DroppedOn(currentTileToMove))
             {
                 ReturnHome();
             }
             else
             {
+
+
                 tileOriginalHolder.RemoveTile();
             }
         }
