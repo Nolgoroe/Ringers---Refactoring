@@ -46,6 +46,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicUIElement inLevelSettingsWindow;
     [SerializeField] private BasicUIElement inLevelNonMatchTilesMessage;
     [SerializeField] private BasicUIElement inLevelLostLevelMessage;
+    [SerializeField] private BasicUIElement inLevelLastDealWarning;
+    [SerializeField] private BasicUIElement inLevelExitToMapQuesiton;
+    [SerializeField] private BasicUIElement inLevelRestartLevelQuesiton;
+    [SerializeField] private BasicUIElement inLevelWinWindow;
 
     [Header("map screen general windows")]
     [SerializeField] private BasicUIElement generalSettings;
@@ -58,7 +62,6 @@ public class UIManager : MonoBehaviour
         AddAdditiveElement(generalMapUI);
     }
 
-
     /**/
     // main ui manager actions.
     /**/
@@ -70,11 +73,12 @@ public class UIManager : MonoBehaviour
 
             if(currentAdditiveScreens.Count > 0)
             {
-                foreach (BasicUIElement element in currentAdditiveScreens)
+                // reverse for
+                for (int i = currentAdditiveScreens.Count - 1; i >= 0; i--)
                 {
-                    if(!element.isPermanent)
+                    if (!currentAdditiveScreens[i].isPermanent)
                     {
-                        CloseElement(element);
+                        CloseElement(currentAdditiveScreens[i]);
                     }
                 }
             }
@@ -138,7 +142,6 @@ public class UIManager : MonoBehaviour
 
         UIElement.gameObject.SetActive(false); //(OR destory it!!)
     }
-
     private IEnumerator ResetUsingUI()
     {
         yield return new WaitForEndOfFrame();
@@ -146,7 +149,10 @@ public class UIManager : MonoBehaviour
     }
     private void CloseAllCurrentScreens()
     {
-        if(currentlyOpenSoloElement)
+        // this function restarts ALL currently activated windows
+        // including any "permanent" windows.
+
+        if (currentlyOpenSoloElement)
         {
             CloseElement(currentlyOpenSoloElement);
         }
@@ -169,11 +175,29 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    private void RestartCurrentScreenWindows()
+    {
+        // this function restarts the CURRENT screens windows
+        // meaning any "permanent" windows should NOT get touched.
+        if(currentlyOpenSoloElement)
+        {
+            CloseElement(currentlyOpenSoloElement);
+        }
+        
+        if(currentAdditiveScreens.Count > 0)
+        {
+            // reverse for
+            for (int i = currentAdditiveScreens.Count - 1; i >= 0; i--)
+            {
+                CloseElement(currentAdditiveScreens[i]);
+            }
+        }
+    }
 
     /**/
     // Inside Level related actions
     /**/
-    private void DisplayInLevelUI()
+    public void DisplayInLevelUI()
     {
         CloseAllCurrentScreens(); // close all screens open before level launch
 
@@ -188,21 +212,18 @@ public class UIManager : MonoBehaviour
         actions[5] += DisplayInLevelSettingsWindow; //Options button
         actions[6] += SoundManager.instance.MuteMusic; //Music icon level
         actions[7] += SoundManager.instance.MuteSFX; //SFX icon level
-        actions[8] += GameManager.instance.InitiateDestrucionOfLevel; // to level map icon - delete all current level data
-        actions[8] += DisplayLevelMap; //to level map icon - display
-        actions[9] += GameManager.instance.CallRestartLevel; //restart level icon
-        actions[9] += DisplayInLevelSettings; //restart level icon
+        actions[8] += DisplayInLevelExitToMapQuestion; // to level map icon
+        actions[9] += DisplayInLevelRestartLevelQuestion; //restart level icon
+        //actions[9] += DisplayInLevelSettings; //restart level icon
 
         inLevelUI.OverrideSetMe(null, null, actions);
     }
-
     private void DisplayInLevelSettingsWindow()
     {
         DisplayInLevelSettings();
         Debug.Log("Open options window");
 
     }
-
     private void DisplayInLevelSettings()
     {
         if(inLevelSettingsWindow.gameObject.activeInHierarchy)
@@ -237,7 +258,6 @@ public class UIManager : MonoBehaviour
         Debug.Log("test button 2");
         //OpenSolo(generalSettings);
     }
-
     public void DisplayRingHasNonMatchingMessage()
     {
         OpenSolo(inLevelNonMatchTilesMessage);
@@ -247,18 +267,57 @@ public class UIManager : MonoBehaviour
         actions[1] += DisplayLevelLostMessage;
 
         inLevelNonMatchTilesMessage.OverrideSetMe(null, null, actions);
-
     }
     public void DisplayLevelLostMessage()
     {
         OpenSolo(inLevelLostLevelMessage);
         System.Action[] actions = new System.Action[2];
+        //actions[0] += RestartCurrentScreenWindows;
         actions[0] += GameManager.instance.CallRestartLevel;
+        actions[1] += GameManager.instance.InitiateDestrucionOfLevel;
         actions[1] += DisplayLevelMap;
 
         inLevelLostLevelMessage.OverrideSetMe(null, null, actions);
-
     }
+    public void DisplayInLevelLastDealWarning()
+    {
+        OpenSolo(inLevelLastDealWarning);
+        System.Action[] actions = new System.Action[2];
+        actions[0] += () => CloseElement(inLevelLastDealWarning);
+        actions[1] += GameManager.instance.CallRestartLevel;
+
+        inLevelLastDealWarning.OverrideSetMe(null, null, actions);
+    }
+    public void DisplayInLevelExitToMapQuestion()
+    {
+        OpenSolo(inLevelExitToMapQuesiton);
+        System.Action[] actions = new System.Action[2];
+        actions[0] += () => CloseElement(inLevelExitToMapQuesiton);
+        actions[1] += GameManager.instance.InitiateDestrucionOfLevel;
+        actions[1] += DisplayLevelMap;
+
+        inLevelExitToMapQuesiton.OverrideSetMe(null, null, actions);
+    }
+    public void DisplayInLevelRestartLevelQuestion()
+    {
+        OpenSolo(inLevelRestartLevelQuesiton);
+        System.Action[] actions = new System.Action[2];
+        actions[0] += () => CloseElement(inLevelRestartLevelQuesiton);
+        actions[1] += GameManager.instance.CallRestartLevel;
+
+        inLevelRestartLevelQuesiton.OverrideSetMe(null, null, actions);
+    }
+    public void DisplayInLevelWinWindow()
+    {
+        OpenSolo(inLevelWinWindow);
+        System.Action[] actions = new System.Action[2];
+        actions[0] += () => CloseElement(inLevelWinWindow);
+        actions[1] += GameManager.instance.InitiateDestrucionOfLevel;
+        actions[1] += DisplayLevelMap;
+
+        inLevelWinWindow.OverrideSetMe(null, null, actions);
+    }
+
     /**/
     // Level map related actions
     /**/
@@ -269,7 +328,7 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = new System.Action[1];
         actions[0] += GameManager.instance.SetLevel;
-        actions[0] += DisplayInLevelUI;
+        //actions[0] += DisplayInLevelUI;
 
         //actions += GameManager.instance.SetLevel;
         //actions += DisplayInLevelUI;
@@ -285,7 +344,6 @@ public class UIManager : MonoBehaviour
 
         generalMapUI.SetMe(null, null);
     }
-
 
     /**/
     // general

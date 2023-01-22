@@ -55,6 +55,12 @@ public class ClipManager : MonoBehaviour
     }
     private IEnumerator DealAction()
     {
+        if (activeClipSlotsCount - 1 == 0)
+        {
+            UIManager.instance.DisplayInLevelLastDealWarning();
+            yield break;
+        }
+
         DestroySlotTiles();
 
         activeClipSlotsCount--;

@@ -88,6 +88,9 @@ public class GameManager : MonoBehaviour
        
         AddToEndlevelActions(DestroyAllCurrentLevel);
         AddToEndlevelActions(gameRing.ClearActions);
+
+        //every level launch, no matter what, we launch the in level UI
+        UIManager.instance.DisplayInLevelUI();
     }
 
     private void BuildLevel()
@@ -188,7 +191,6 @@ public class GameManager : MonoBehaviour
     {
         for (int k = 0; k < 1; k++)
         {
-            yield return new WaitForSeconds(1);
             for (int i = 0; i < inLevelParent.childCount; i++)
             {
                 Destroy(inLevelParent.GetChild(i).gameObject);

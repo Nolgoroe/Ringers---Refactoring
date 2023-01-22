@@ -91,6 +91,7 @@ public class Ring : MonoBehaviour
 
         if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount == 0)
         {
+            UIManager.instance.DisplayInLevelWinWindow();
             Debug.Log("Win Level");
         }
 

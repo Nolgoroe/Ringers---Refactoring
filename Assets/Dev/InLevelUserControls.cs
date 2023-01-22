@@ -150,7 +150,6 @@ public class InLevelUserControls : MonoBehaviour
             }
 
             //don't place the tile if it's the last one and we have problems in ring
-
             if (!droopedOnObject.heldTile && gameRing.LastPieceRingProblems())
             {
                 UIManager.instance.DisplayRingHasNonMatchingMessage();

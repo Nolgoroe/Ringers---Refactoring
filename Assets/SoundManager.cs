@@ -33,10 +33,12 @@ public class SoundManager : MonoBehaviour
         if (isSFXMuted)
         {
             // un-mute music
+            Debug.Log("Un-Muted SFX");
         }
         else
         {
             // mute music
+            Debug.Log("Muted SFX");
         }
 
         isSFXMuted = !isSFXMuted;
