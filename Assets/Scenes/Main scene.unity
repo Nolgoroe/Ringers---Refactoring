@@ -793,6 +793,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2943108366022302872, guid: b57c8faa47b870749a4543af7a809619,
+        type: 3}
+      propertyPath: indexInCluster
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2943108366022302872, guid: b57c8faa47b870749a4543af7a809619,
+        type: 3}
+      propertyPath: connectedCluster
+      value: 
+      objectReference: {fileID: 11400000, guid: 623b466e0d8cda44f8c7cf335a282684,
+        type: 2}
+    - target: {fileID: 2943108366022302872, guid: b57c8faa47b870749a4543af7a809619,
+        type: 3}
+      propertyPath: connectedLevelSO
+      value: 
+      objectReference: {fileID: 11400000, guid: f65725c10b9495e4a8f987bd4b80a914,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b57c8faa47b870749a4543af7a809619, type: 3}
 --- !u!224 &63599482 stripped
@@ -3279,9 +3296,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentClusterSO: {fileID: 0}
-  currentInedxInCluster: 0
+  currentIndexInCluster: 0
   tempcurrentlevel: {fileID: 0}
   nextLevel: {fileID: 0}
+  currentLevelStatue: {fileID: 0}
   inLevelParent: {fileID: 1879860837}
   zoneManager: {fileID: 1153811990}
   gameRingsPrefabs:
@@ -6108,7 +6126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 566.335, y: -2035.486}
+  m_AnchoredPosition: {x: 566.335, y: -2035.4858}
   m_SizeDelta: {x: 512, y: 2048}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &694722307
@@ -7803,7 +7821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &877510336
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14700,6 +14718,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1524946227}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1531569554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7802684694356197603, guid: fe0a049cef1e6f04981ecdee4d03aae7,
+    type: 3}
+  m_PrefabInstance: {fileID: 926687775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad126d7cc8ba4bd4d942593a6aae2abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1544275097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15031,7 +15061,7 @@ MonoBehaviour:
     rightMargineImageRef: {fileID: 1602869450}
   levelScrollRect: {fileID: 877510340}
   generalMapUI: {fileID: 1350537467}
-  levelMapPopUp: {fileID: 1999100620}
+  levelMapPopUp: {fileID: 1531569554}
   inLevelUI: {fileID: 2072595700}
   inLevelSettingsWindow: {fileID: 3887683065019486500}
   inLevelNonMatchTilesMessage: {fileID: 1198283439}
@@ -18995,18 +19025,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1999100620 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1850255559001948821, guid: fe0a049cef1e6f04981ecdee4d03aae7,
-    type: 3}
-  m_PrefabInstance: {fileID: 926687775}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad126d7cc8ba4bd4d942593a6aae2abd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2002726818
 GameObject:
   m_ObjectHideFlags: 0
@@ -20803,6 +20821,10 @@ PrefabInstance:
       propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2002726819}
+    - target: {fileID: 1874035967, guid: 984af2799f52c4d4184e9cde9256fbf7, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 330585545}
     - target: {fileID: 3887683064978143066, guid: 984af2799f52c4d4184e9cde9256fbf7,
         type: 3}
       propertyPath: m_RootOrder

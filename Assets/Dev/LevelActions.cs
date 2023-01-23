@@ -327,9 +327,9 @@ public class LevelActions : ScriptableObject
         GameManager.instance.LevelSetupData();
     }
 
-    public void SpawnLevelStatue()
+    public void CallSpawnLevelStatue()
     {
-
+        GameManager.instance.SpawnLevelStatue();
     }
 }
 

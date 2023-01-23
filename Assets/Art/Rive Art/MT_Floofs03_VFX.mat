@@ -7,10 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MT_Dust_VFX
+  m_Name: MT_Floofs03_VFX
   m_Shader: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
   m_ValidKeywords:
-  - _ALPHATEST_ON
   - _COLORCOLOR_ON
   - _FADING_ON
   - _SOFTPARTICLES_ON
@@ -30,7 +29,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 0bb08c44666cee541929bc72bc29c753, type: 3}
+        m_Texture: {fileID: 2800000, guid: 087bcd1ea36955742b41290477228661, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -59,7 +58,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 1
+    - _AlphaClip: 0
     - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1

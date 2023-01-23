@@ -15,5 +15,7 @@ MonoBehaviour:
   clusterLevels:
   - {fileID: 11400000, guid: 2252b973e6cdd544f95352cb822b2fda, type: 2}
   - {fileID: 11400000, guid: 2c706ba1c58dd5540b26dd1d3fc4412d, type: 2}
+  - {fileID: 11400000, guid: f65725c10b9495e4a8f987bd4b80a914, type: 2}
   clusterLootTables: []
-  clusterPrefabToSummon: {fileID: 0}
+  clusterPrefabToSummon: {fileID: 4102538602839744026, guid: 58dc012e39337614199de6bfd8aba443,
+    type: 3}

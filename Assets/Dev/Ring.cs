@@ -91,13 +91,14 @@ public class Ring : MonoBehaviour
 
         if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount == 0)
         {
-            UIManager.instance.DisplayInLevelWinWindow();
+            GameManager.instance.BroadcastWinLevelActions();
             Debug.Log("Win Level");
         }
 
         if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount > 0)
         {
-            UIManager.instance.DisplayRingHasNonMatchingMessage();
+            GameManager.instance.BroadcastLoseLevelActions();
+
             Debug.Log("lose Level");
         }
     }

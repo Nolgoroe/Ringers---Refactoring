@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Level setup Data")]
     [SerializeField] private ClusterSO currentClusterSO;
-    [SerializeField] private int currentInedxInCluster;
+    [SerializeField] private int currentIndexInCluster;
 
    [Header("In game Data")]
     public static Ring gameRing;
@@ -18,10 +18,14 @@ public class GameManager : MonoBehaviour
     public static InLevelUserControls gameControls;
     public LevelSO tempcurrentlevel; //temp
     public LevelSO nextLevel; //temp
+    public Animator currentLevelStatue; //temp
+    public ChestBarLogic chestBarLogic; //temp
 
     private System.Action BeforeRingActions;
     private System.Action RingActions;
     private System.Action AfterRingActions;
+    private System.Action WinLevelActions;
+    private System.Action LoseLevelActions;
     /// <summary>
     /// Never add to this directly - always use the function "AddToEndlevelCleanup(action to add) with the action we want to add".
     /// We do this since we REQUIRE that the last action will be a specific one.
@@ -98,8 +102,18 @@ public class GameManager : MonoBehaviour
         AddToEndlevelActions(DestroyAllCurrentLevel);
         AddToEndlevelActions(gameRing.ClearActions);
 
-        //every level launch, no matter what, we launch the in level UI
+        // every level launch, no matter what, we launch the in level UI
+        // we do this BEFORE setting the win level and end level actions
         UIManager.instance.DisplayInLevelUI();
+
+        
+        // actions after gameplay, on winning the level
+        WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
+        WinLevelActions += AdvanceLevelStatue;
+        WinLevelActions += chestBarLogic.AddToChestBar;
+
+        // actions after gameplay, on lsoing the level
+        LoseLevelActions += UIManager.instance.DisplayRingHasNonMatchingMessage;
     }
 
     private void BuildLevel()
@@ -156,6 +170,8 @@ public class GameManager : MonoBehaviour
         BeforeRingActions = null;
         RingActions = null;
         AfterRingActions = null;
+        WinLevelActions = null;
+        LoseLevelActions = null;
         endLevelActions = null;
     }
 
@@ -221,7 +237,7 @@ public class GameManager : MonoBehaviour
         tempcurrentlevel = levelSO; // this is temp
 
         currentClusterSO = clusterSO;
-        currentInedxInCluster = inedxInCluster;
+        currentIndexInCluster = inedxInCluster;
     }
 
     public static void TestButtonDelegationWorks()
@@ -245,7 +261,7 @@ public class GameManager : MonoBehaviour
         }
 
         currentLevel = nextLevel;
-        currentInedxInCluster++;
+        currentIndexInCluster++;
         LevelSetupData();
         yield return new WaitForEndOfFrame();
 
@@ -255,16 +271,58 @@ public class GameManager : MonoBehaviour
     public void LevelSetupData()
     {
         //called from level actions events
-        if (currentInedxInCluster + 1 == currentClusterSO.clusterLevels.Length)
+        if (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length)
         {
             nextLevel = null;
         }
         else
         {
-            nextLevel = currentClusterSO.clusterLevels[currentInedxInCluster + 1];
+            nextLevel = currentClusterSO.clusterLevels[currentIndexInCluster + 1];
         }
     }
 
+    public void SpawnLevelStatue()
+    {
+        GameObject go = Instantiate(currentClusterSO.clusterPrefabToSummon, inLevelParent);
+
+        go.TryGetComponent<Animator>(out currentLevelStatue);
+
+        if(currentLevelStatue == null)
+        {
+            Debug.LogError("Error here");
+            return;
+        }
+
+        currentLevelStatue.SetTrigger("Set Rive " + currentIndexInCluster);
+    }
+    public void AdvanceLevelStatue()
+    {
+        if(currentLevelStatue == null)
+        {
+            Debug.LogError("Error here");
+            return;
+        }
+
+        currentLevelStatue.SetTrigger("Clear Rive " + currentIndexInCluster);
+    }
+
+    public int ReturnNumOfLevelsInCluster()
+    {
+        return currentClusterSO.clusterLevels.Length;
+    }
+    public int ReturnCurrentIndexInCluster()
+    {
+        return currentIndexInCluster;
+    }
+
+    public void BroadcastWinLevelActions()
+    {
+        WinLevelActions?.Invoke();
+    }
+    public void BroadcastLoseLevelActions()
+    {
+        LoseLevelActions?.Invoke();
+    }
     /**/
     // general methods area - methods that can be dropped and used in any class - mostly inspector things for now
     /**/

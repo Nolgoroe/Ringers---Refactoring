@@ -377,12 +377,13 @@ public class UIManager : MonoBehaviour
     /**/
     public void DisplayLaunchLevelPopUp(LevelSO levelSO)
     {
-        OpenSolo(levelMapPopUp);
         string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), levelSO.worldName.ToString() };
 
         System.Action[] actions = new System.Action[1];
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.SetLevel;
+
+        OpenSolo(levelMapPopUp);
 
         levelMapPopUp.OverrideSetMe(texts, null, actions);
     }
@@ -457,6 +458,7 @@ public class UIManager : MonoBehaviour
         // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
 
         yield return new WaitForSeconds(0.5f);
+        yield return new WaitForEndOfFrame();
 
         FadeInFadeWindow(!fadeIn, mainScreen);
     }
