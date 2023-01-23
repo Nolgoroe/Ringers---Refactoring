@@ -21,15 +21,21 @@ public class RefWorldDisplayCombo
     public Image rightMargineImageRef;
 
 }
+
+public enum MainScreens
+{
+    InLevel,
+    Map,
+}
 public class UIManager : MonoBehaviour
 {
     public static bool ISUSINGUI;
+    public static bool ISDURINGFADE;
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
     [SerializeField] private List<BasicUIElement> currentAdditiveScreens;
     [SerializeField] private List<BasicUIElement> currentPermanentScreens;
-
 
     [Header("Map setup")]
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
@@ -53,6 +59,15 @@ public class UIManager : MonoBehaviour
 
     [Header("map screen general windows")]
     [SerializeField] private BasicUIElement generalSettings;
+
+    [Header("Fade object settings")]
+    [SerializeField] private BasicUIElement fadeWindow;
+    [SerializeField] private float fadeIntoLevelTime;
+    [SerializeField] private float fadeOutLevelTime;
+    [SerializeField] private float fadeIntoMapTime;
+    [SerializeField] private float fadeOutMapTime;
+    //[SerializeField] private float fadeOutOfLevelTime;
+
 
     private void Start()
     {
@@ -193,6 +208,38 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+    private void DeactiavteAllCustomButtons()
+    {
+        if (currentlyOpenSoloElement)
+        {
+            for (int i = 0; i < currentlyOpenSoloElement.buttonRefs.Length; i++)
+            {
+                currentlyOpenSoloElement.buttonRefs[i].isInteractable = false;
+            }
+        }
+
+        if (currentAdditiveScreens.Count > 0)
+        {
+            foreach (var screen in currentAdditiveScreens)
+            {
+                for (int i = 0; i < screen.buttonRefs.Length; i++)
+                {
+                    screen.buttonRefs[i].isInteractable = false;
+                }
+            }
+        }
+
+        if (currentPermanentScreens.Count > 0)
+        {
+            foreach (var screen in currentPermanentScreens)
+            {
+                for (int i = 0; i < screen.buttonRefs.Length; i++)
+                {
+                    screen.buttonRefs[i].isInteractable = false;
+                }
+            }
+        }
+    }
 
     /**/
     // Inside Level related actions
@@ -273,9 +320,10 @@ public class UIManager : MonoBehaviour
         OpenSolo(inLevelLostLevelMessage);
         System.Action[] actions = new System.Action[2];
         //actions[0] += RestartCurrentScreenWindows;
+        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallRestartLevel;
-        actions[1] += GameManager.instance.InitiateDestrucionOfLevel;
-        actions[1] += DisplayLevelMap;
+        actions[1] += () => StartCoroutine(DisplayLevelMap());
+        actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
         inLevelLostLevelMessage.OverrideSetMe(null, null, actions);
     }
@@ -284,6 +332,7 @@ public class UIManager : MonoBehaviour
         OpenSolo(inLevelLastDealWarning);
         System.Action[] actions = new System.Action[2];
         actions[0] += () => CloseElement(inLevelLastDealWarning);
+        actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
         inLevelLastDealWarning.OverrideSetMe(null, null, actions);
@@ -293,8 +342,8 @@ public class UIManager : MonoBehaviour
         OpenSolo(inLevelExitToMapQuesiton);
         System.Action[] actions = new System.Action[2];
         actions[0] += () => CloseElement(inLevelExitToMapQuesiton);
-        actions[1] += GameManager.instance.InitiateDestrucionOfLevel;
-        actions[1] += DisplayLevelMap;
+        actions[1] += () => StartCoroutine(DisplayLevelMap());
+        actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
         inLevelExitToMapQuesiton.OverrideSetMe(null, null, actions);
     }
@@ -303,19 +352,24 @@ public class UIManager : MonoBehaviour
         OpenSolo(inLevelRestartLevelQuesiton);
         System.Action[] actions = new System.Action[2];
         actions[0] += () => CloseElement(inLevelRestartLevelQuesiton);
+        actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
         inLevelRestartLevelQuesiton.OverrideSetMe(null, null, actions);
     }
     public void DisplayInLevelWinWindow()
     {
-        OpenSolo(inLevelWinWindow);
+        DeactiavteAllCustomButtons();
+
         System.Action[] actions = new System.Action[2];
-        actions[0] += () => CloseElement(inLevelWinWindow);
-        actions[1] += GameManager.instance.InitiateDestrucionOfLevel;
-        actions[1] += DisplayLevelMap;
+        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
+        actions[0] += GameManager.instance.CallNextLevel;
+        actions[1] += () => StartCoroutine(DisplayLevelMap());
+        actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
         inLevelWinWindow.OverrideSetMe(null, null, actions);
+
+        OpenSolo(inLevelWinWindow);
     }
 
     /**/
@@ -327,16 +381,16 @@ public class UIManager : MonoBehaviour
         string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), levelSO.worldName.ToString() };
 
         System.Action[] actions = new System.Action[1];
+        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.SetLevel;
-        //actions[0] += DisplayInLevelUI;
-
-        //actions += GameManager.instance.SetLevel;
-        //actions += DisplayInLevelUI;
 
         levelMapPopUp.OverrideSetMe(texts, null, actions);
     }
-    private void DisplayLevelMap()
+    private IEnumerator DisplayLevelMap()
     {
+        FadeInFadeWindow(true, MainScreens.Map);
+        yield return new WaitForSeconds(ReturnFadeTime(true, MainScreens.Map) + 0.1f);
+
         CloseAllCurrentScreens(); // close all screens open before going to map
 
         AddAdditiveElement(levelScrollRect);
@@ -359,5 +413,86 @@ public class UIManager : MonoBehaviour
             combo.rightMargineImageRef.sprite = orderOfWorlds[id].rightMargineSprite;
             id++;
         }
+    }
+
+    public void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
+    {
+        ISDURINGFADE = true;
+
+        float fadeInSpeed = ReturnFadeTime(fadeIn, mainScreen);
+
+        CanvasGroup group;
+        fadeWindow.TryGetComponent<CanvasGroup>(out group);
+
+        float from = 0, to = 0;
+
+        if (group == null)
+        {
+            Debug.LogError("No canvas group!");
+            return;
+        }
+
+        group.alpha = fadeIn == true ? 0 : 1;
+        from = fadeIn == true ? 0 : 1;
+        to = fadeIn == true ? 1 : 0;
+        System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen)) : OnEndFade;
+
+        fadeWindow.gameObject.SetActive(true);
+        
+        fadeWindow.GeneralFloatValueTo(
+            fadeWindow.gameObject,
+            from,
+            to,
+            fadeInSpeed,
+            LeanTweenType.linear,
+            group,
+            action);
+    }
+
+    private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen)
+    {
+        ISDURINGFADE = false; 
+        // is this ok?
+        // This is here for actions that want to happen on the transition between
+        // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
+
+        yield return new WaitForSeconds(0.5f);
+
+        FadeInFadeWindow(!fadeIn, mainScreen);
+    }
+
+    private void OnEndFade()
+    {
+        ISDURINGFADE = false;
+        CloseElement(fadeWindow);
+    }
+    public float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
+    {
+        if(fadeIn)
+        {
+            switch (mainScreen)
+            {
+                case MainScreens.InLevel:
+                    return fadeIntoLevelTime;
+                case MainScreens.Map:
+                    return fadeIntoMapTime;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            switch (mainScreen)
+            {
+                case MainScreens.InLevel:
+                    return fadeOutLevelTime;
+                case MainScreens.Map:
+                    return fadeOutMapTime;
+                default:
+                    break;
+            }
+        }
+        Debug.LogError("Some problem here");
+        return -1;
     }
 }

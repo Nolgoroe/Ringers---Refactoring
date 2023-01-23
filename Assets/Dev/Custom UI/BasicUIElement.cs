@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using TMPro;
 
 public abstract class BasicUIElement : MonoBehaviour
 {
@@ -90,13 +91,12 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="image"></param>
     public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, Image image)
     {
-        //LeanTween.value(fadeIntoLevel, 0, 1, fadeIntoLevelSpeed).setEase(LeanTweenType.linear).setOnComplete(() => StartCoroutine(GameManager.Instance.ResetDataStartBossLevel())).setOnUpdate((float val) =>
-        //{
-        //    Image sr = fadeIntoLevel.GetComponent<Image>();
-        //    Color newColor = sr.color;
-        //    newColor.a = val;
-        //    sr.color = newColor;
-        //});
+        LeanTween.value(gameObject, from, to, time).setEase(easeType).setOnUpdate((float val) =>
+        {
+            Color newColor = image.color;
+            newColor.a = val;
+            image.color = newColor;
+        });
     }
 
     /// <summary>
@@ -148,15 +148,12 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="easeType"></param>
     /// <param name="canvasGroup"></param>
-    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, CanvasGroup canvasGroup)
+    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, CanvasGroup canvasGroup, System.Action action)
     {
-        //LeanTween.value(introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1], 1, 0, speedFadeOutIntro).setEase(LeanTweenType.easeInOutQuad).setOnUpdate((float val) =>
-        //{
-        //    TMP_Text sr = introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1].GetComponent<TMP_Text>();
-        //    Color newColor = sr.color;
-        //    newColor.a = val;
-        //    sr.color = newColor;
-        //});
+        LeanTween.value(gameObject, from, to, time).setEase(easeType).setOnComplete(action).setOnUpdate((float val) =>
+        {
+            canvasGroup.alpha = val;
+        });
     }
 
     /// <summary>

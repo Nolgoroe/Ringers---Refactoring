@@ -1,14 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class WinLevelCustomWindow : BasicCustomUIWindow
 {
     [SerializeField] private RectTransform FlowerRect;
 
     [SerializeField] private float timeToReveaFlowers;
-    
-   void Start()
+    [SerializeField] private float timeToReveaButtons;
+
+    [SerializeField] private CanvasGroup[] canvasGroups;
+    public override void OverrideSetMe(string[] texts, Sprite[] sprites, Action[] actions)
+    {
+        foreach (var group in canvasGroups)
+        {
+            group.alpha = 0;
+        }
+
+        base.SetMe(texts, sprites);
+
+        if (buttonRefs.Length > 0)
+        {
+            ResetAllButtonEvents();
+
+            for (int i = 0; i < buttonRefs.Length; i++)
+            {
+                buttonRefs[i].buttonEvents += actions[i];
+                buttonRefs[i].isInteractable = false;
+            }
+        }
+    }
+
+
+    private void OnEnable()
     {
         FlowerRect.sizeDelta = new Vector2(0, 0);
 
@@ -22,5 +47,40 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
             FlowerRect.sizeDelta = new Vector2(val, FlowerRect.sizeDelta.y);
         });
 
+        // next level button
+        // only appears if we have a next level to move to
+        if(GameManager.instance.nextLevel != null)
+        {
+            if (buttonRefs[0] != null && canvasGroups[0] != null)
+            {
+                GeneralFloatValueTo(
+                buttonRefs[0].gameObject,
+                0,
+                1,
+                timeToReveaButtons,
+                LeanTweenType.linear,
+                canvasGroups[0],
+                () => ActivateButton(buttonRefs[0]));
+            }
+        }
+
+        // to map button
+        // always appears
+        if (buttonRefs[1] != null && canvasGroups[1] != null)
+        {
+            GeneralFloatValueTo(
+            buttonRefs[1].gameObject,
+            0,
+            1,
+            timeToReveaButtons,
+            LeanTweenType.linear,
+            canvasGroups[1],
+            () => ActivateButton(buttonRefs[1]));
+        }
+    }
+
+    private void ActivateButton(CustomButtonParent button)
+    {
+        button.isInteractable = true;
     }
 }

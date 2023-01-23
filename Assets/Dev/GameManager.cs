@@ -7,12 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
-    [Header("In game Data")]
+    [Header("Level setup Data")]
+    [SerializeField] private ClusterSO currentClusterSO;
+    [SerializeField] private int currentInedxInCluster;
+
+   [Header("In game Data")]
     public static Ring gameRing;
     public static ClipManager gameClip;
     public static LevelSO currentLevel;
     public static InLevelUserControls gameControls;
     public LevelSO tempcurrentlevel; //temp
+    public LevelSO nextLevel; //temp
 
     private System.Action BeforeRingActions;
     private System.Action RingActions;
@@ -31,6 +36,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] gameRingsSlicePrefabs;
     [SerializeField] private GameObject[] gameRingsClipPrefabs;
     [SerializeField] private GameObject[] gameRingsUserControlsPrefabs;
+
+    [Header("Inspector actions and Data")]
+    public ClusterSO[] allClusters;
 
     void Start()
     {
@@ -70,12 +78,13 @@ public class GameManager : MonoBehaviour
 
         AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
 
-
-        StartLevel();
+        StartCoroutine(StartLevel());
     }
 
-    private void StartLevel()
+    private IEnumerator StartLevel()
     {
+        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+
         //Before Ring
         BeforeRingActions?.Invoke();
 
@@ -150,8 +159,10 @@ public class GameManager : MonoBehaviour
         endLevelActions = null;
     }
 
-    public void InitiateDestrucionOfLevel()
+    public IEnumerator InitiateDestrucionOfLevel()
     {
+        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+        Debug.Log("Initiating destruction");
         endLevelActions?.Invoke();
     }
 
@@ -189,6 +200,8 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator RestartLevel()
     {
+        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+
         for (int k = 0; k < 1; k++)
         {
             for (int i = 0; i < inLevelParent.childCount; i++)
@@ -202,10 +215,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ClickOnLevelIconMapSetData(LevelSO levelSO)
+    public void ClickOnLevelIconMapSetData(LevelSO levelSO, ClusterSO clusterSO, int inedxInCluster)
     {
         currentLevel = levelSO;
         tempcurrentlevel = levelSO; // this is temp
+
+        currentClusterSO = clusterSO;
+        currentInedxInCluster = inedxInCluster;
     }
 
     public static void TestButtonDelegationWorks()
@@ -214,6 +230,40 @@ public class GameManager : MonoBehaviour
         Debug.Log("Works!");
     }
 
+    public void CallNextLevel()
+    {
+        StartCoroutine(MoveToNextLevel());
+    }
+
+    private IEnumerator MoveToNextLevel()
+    {
+        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+
+        for (int i = 0; i < inLevelParent.childCount; i++)
+        {
+            Destroy(inLevelParent.GetChild(i).gameObject);
+        }
+
+        currentLevel = nextLevel;
+        currentInedxInCluster++;
+        LevelSetupData();
+        yield return new WaitForEndOfFrame();
+
+        SetLevel();
+    }
+
+    public void LevelSetupData()
+    {
+        //called from level actions events
+        if (currentInedxInCluster + 1 == currentClusterSO.clusterLevels.Length)
+        {
+            nextLevel = null;
+        }
+        else
+        {
+            nextLevel = currentClusterSO.clusterLevels[currentInedxInCluster + 1];
+        }
+    }
 
     /**/
     // general methods area - methods that can be dropped and used in any class - mostly inspector things for now

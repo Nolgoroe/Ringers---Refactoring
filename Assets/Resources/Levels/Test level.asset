@@ -12,12 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542fe50e13679c74abc1780ccfbdda7d, type: 3}
   m_Name: Test level
   m_EditorClassIdentifier: 
-  worldName: 4
+  worldName: 0
   levelNumInZone: 1
   ringType: 0
   beforeRingSpawnActions:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 6c1af27584b9bb44d978880339ed062f, type: 2}
+        m_TargetAssemblyTypeName: LevelActions, Assembly-CSharp
+        m_MethodName: CallLevelSetupData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ringSpawnActions:
     m_PersistentCalls:
       m_Calls: []
@@ -48,8 +60,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 00000000010000000200000003000000
-  levelAvailablesymbols: 01000000000000000200000003000000
+  levelAvailableColors: 01000000
+  levelAvailablesymbols: 0100000000000000
   isRandomSlicePositions: 1
   slicesToSpawn:
   - sliceToSpawn: 1

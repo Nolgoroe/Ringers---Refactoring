@@ -29,8 +29,11 @@ public class InLevelUserControls : MonoBehaviour
 
     private void Update()
     {
-        if (!UIManager.ISUSINGUI)
-        {
+        // we use both isusingUI and isduringfade since we have some ui elements
+        // as part of a ui object that we wat to not be able to click when were fadind
+        // but do what to be able to click when using ui
+        if (!UIManager.ISUSINGUI && !UIManager.ISDURINGFADE)
+         {
             NormalControls();
             return;
         }

@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 8714200407062764123}
   - component: {fileID: 8714200407062764120}
   - component: {fileID: 8714200407062764121}
+  - component: {fileID: 7139417515899797949}
   m_Layer: 0
   m_Name: Orange Button
   m_TagString: Untagged
@@ -243,3 +244,15 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &7139417515899797949
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8714200407062764127}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

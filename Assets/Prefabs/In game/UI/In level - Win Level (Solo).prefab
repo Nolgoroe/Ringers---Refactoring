@@ -284,6 +284,10 @@ MonoBehaviour:
     m_RotationOrder: 4
   FlowerRect: {fileID: 142687580860236874}
   timeToReveaFlowers: 3
+  timeToReveaButtons: 0
+  canvasGroups:
+  - {fileID: 7468334436905170709}
+  - {fileID: 8128838625949858685}
 --- !u!1 &1430774478798926907
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +743,12 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1430774478439166950}
   m_PrefabAsset: {fileID: 0}
+--- !u!225 &7468334436905170709 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 8394704582772720883, guid: 53d0e137e73f6b24b92bcfefe1a55203,
+    type: 3}
+  m_PrefabInstance: {fileID: 1430774478439166950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1430774479467838144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -898,6 +908,12 @@ MonoBehaviour:
 --- !u!224 &7724850763122712734 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8714200407062764126, guid: e93e1ed3228598f44ac9f8e074fba653,
+    type: 3}
+  m_PrefabInstance: {fileID: 1430774479467838144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &8128838625949858685 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7139417515899797949, guid: e93e1ed3228598f44ac9f8e074fba653,
     type: 3}
   m_PrefabInstance: {fileID: 1430774479467838144}
   m_PrefabAsset: {fileID: 0}

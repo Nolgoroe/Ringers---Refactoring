@@ -20,7 +20,7 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler, 
     
     private void OnMouseDown()
     {
-        if (isInteractable)
+        if (isInteractable && !UIManager.ISDURINGFADE)
         {
             OnClickButton();
         }
@@ -34,7 +34,7 @@ public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler, 
     public void OnPointerClick(PointerEventData eventData)
     {
         //Debug.Log("Test");
-        if (isInteractable)
+        if (isInteractable && !UIManager.ISDURINGFADE)
         {
             OnClickButton();
         }
