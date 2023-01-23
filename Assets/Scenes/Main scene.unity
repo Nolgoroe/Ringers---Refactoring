@@ -3256,7 +3256,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 330585545}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -3300,6 +3300,7 @@ MonoBehaviour:
   tempcurrentlevel: {fileID: 0}
   nextLevel: {fileID: 0}
   currentLevelStatue: {fileID: 0}
+  chestBarLogic: {fileID: 0}
   inLevelParent: {fileID: 1879860837}
   zoneManager: {fileID: 1153811990}
   gameRingsPrefabs:
@@ -20884,6 +20885,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: In level UI - Normal (permanent)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075019805237525804, guid: 984af2799f52c4d4184e9cde9256fbf7,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075019805237525804, guid: 984af2799f52c4d4184e9cde9256fbf7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 984af2799f52c4d4184e9cde9256fbf7, type: 3}

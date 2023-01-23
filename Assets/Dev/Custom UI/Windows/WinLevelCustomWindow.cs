@@ -49,6 +49,7 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
 
         // next level button
         // only appears if we have a next level to move to
+        // we don't have a next level if we're a chest level - the hud button will appear after chest is shown
         if(GameManager.instance.nextLevel != null)
         {
             if (buttonRefs[0] != null && canvasGroups[0] != null)
@@ -62,10 +63,31 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
                 canvasGroups[0],
                 () => ActivateButton(buttonRefs[0]));
             }
+
+            // to map button
+            // always appears, though sometimes after chest
+            if (buttonRefs[1] != null && canvasGroups[1] != null)
+            {
+                GeneralFloatValueTo(
+                buttonRefs[1].gameObject,
+                0,
+                1,
+                timeToReveaButtons,
+                LeanTweenType.linear,
+                canvasGroups[1],
+                () => ActivateButton(buttonRefs[1]));
+            }
         }
 
-        // to map button
-        // always appears
+    }
+
+    private void ActivateButton(CustomButtonParent button)
+    {
+        button.isInteractable = true;
+    }
+
+    public void ManuallyShowToHudButton()
+    {
         if (buttonRefs[1] != null && canvasGroups[1] != null)
         {
             GeneralFloatValueTo(
@@ -77,10 +99,5 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
             canvasGroups[1],
             () => ActivateButton(buttonRefs[1]));
         }
-    }
-
-    private void ActivateButton(CustomButtonParent button)
-    {
-        button.isInteractable = true;
     }
 }

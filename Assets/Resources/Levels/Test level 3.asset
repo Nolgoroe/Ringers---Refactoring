@@ -72,8 +72,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  levelAvailableColors: 00000000010000000200000003000000
-  levelAvailablesymbols: 000000000100000002000000
+  levelAvailableColors: 00000000
+  levelAvailablesymbols: 00000000
   isRandomSlicePositions: 1
   slicesToSpawn:
   - sliceToSpawn: 1

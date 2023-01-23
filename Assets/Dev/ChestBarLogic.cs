@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ChestBarLogic : MonoBehaviour
 {
     [SerializeField] private GameObject starPrefab;
+    [SerializeField] private GameObject chestPrefab;
     [SerializeField] private RectTransform starsParent;
     [SerializeField] private Slider chestBarSlider;
     [SerializeField] private float barAnimationSpeed;
@@ -81,8 +82,9 @@ public class ChestBarLogic : MonoBehaviour
 
         if (barValue == sections)
         {
-            //Give Chest here
-            //chestAnimator = Instantiate(chestPrefab).GetComponent<Animator>();
+            //spawn Chest here
+            Instantiate(chestPrefab).GetComponent<Animator>();
+            //UIManager.ISDURINGCHEST = true;
         }
         else
         {

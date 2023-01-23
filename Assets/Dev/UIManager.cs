@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
 {
     public static bool ISUSINGUI;
     public static bool ISDURINGFADE;
+    //public static bool ISDURINGCHEST;
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -55,7 +56,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicUIElement inLevelLastDealWarning;
     [SerializeField] private BasicUIElement inLevelExitToMapQuesiton;
     [SerializeField] private BasicUIElement inLevelRestartLevelQuesiton;
-    [SerializeField] private BasicUIElement inLevelWinWindow;
+    [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
 
     [Header("map screen general windows")]
     [SerializeField] private BasicUIElement generalSettings;
@@ -370,6 +371,12 @@ public class UIManager : MonoBehaviour
         inLevelWinWindow.OverrideSetMe(null, null, actions);
 
         OpenSolo(inLevelWinWindow);
+    }
+    public void ContinueAfterChest()
+    {
+        //ISDURINGCHEST = false;
+
+        inLevelWinWindow.ManuallyShowToHudButton();
     }
 
     /**/
