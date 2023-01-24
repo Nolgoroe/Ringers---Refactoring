@@ -157,6 +157,22 @@ public class UIManager : MonoBehaviour
         }
 
         UIElement.gameObject.SetActive(false); //(OR destory it!!)
+
+        CheckResetUsingUI();
+    }
+
+    private void CheckResetUsingUI()
+    {
+        if (currentlyOpenSoloElement != null)
+            return;
+
+        if (currentAdditiveScreens.Count > 0)
+            return;
+
+        if (currentPermanentScreens.Count > 0)
+            return;
+
+        ResetUsingUI();
     }
     private IEnumerator ResetUsingUI()
     {
@@ -190,6 +206,8 @@ public class UIManager : MonoBehaviour
                 CloseElement(currentPermanentScreens[i]);
             }
         }
+
+        ResetUsingUI();
     }
     private void RestartCurrentScreenWindows()
     {

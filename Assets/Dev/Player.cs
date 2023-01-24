@@ -28,15 +28,13 @@ public class IngredientPlusMainTypeCombo
 
 public class Player : MonoBehaviour
 {
-
+    [SerializeField] private int ownedRubies;
 
     private Dictionary<Ingredients, DictionairyLootEntry> ownedIngredients;
 
     [Header("Ingredient combos by type")]
+    //we do this to sort the materials by their main types - build, herb, witch and gem
     [SerializeField] private List<IngredientPlusMainTypeCombo> ingredientsToMainTypes;
-
-    [Header("TEMP")]
-    [SerializeField] private Ingredients testToAdd;
    
     
     
@@ -50,8 +48,7 @@ public class Player : MonoBehaviour
     {
         foreach (KeyValuePair<Ingredients, DictionairyLootEntry> ingredient in ownedIngredients)
         {
-            Debug.Log(ingredient.Key);
-            Debug.Log(ingredient.Value.value);
+            Debug.Log(ingredient.Key + " amount: " + ingredient.Value.value);
 
             if (ingredient.Value.hasChanged)
             {
@@ -63,35 +60,38 @@ public class Player : MonoBehaviour
         }
     }
 
-    [ContextMenu("Add ingredient")]
-    public void AddIngredient()
+    public void AddIngredient(LootToRecieve ingredientToAdd)
     {
-        int amountToAdd = Random.Range(1, 11); // 1-10
-
-        if (ownedIngredients.ContainsKey(testToAdd))
+        Ingredients toAdd = ingredientToAdd.ingredient;
+        if (ownedIngredients.ContainsKey(toAdd))
         {
-            ownedIngredients[testToAdd].hasChanged = true;
-            ownedIngredients[testToAdd].value += amountToAdd;
+            ownedIngredients[toAdd].hasChanged = true;
+            ownedIngredients[toAdd].value += ingredientToAdd.amount;
         }
         else
         {
-            DictionairyLootEntry newLootEntry = new DictionairyLootEntry(testToAdd, testToAdd.ingredientType);
-            ownedIngredients.Add(testToAdd, newLootEntry);
-            ownedIngredients[testToAdd].hasChanged = true;
-            ownedIngredients[testToAdd].value = amountToAdd;
+            DictionairyLootEntry newLootEntry = new DictionairyLootEntry(toAdd, toAdd.ingredientType);
+            ownedIngredients.Add(toAdd, newLootEntry);
+            ownedIngredients[toAdd].hasChanged = true;
+            ownedIngredients[toAdd].value = ingredientToAdd.amount;
 
-            AddToIngredientsComboByType();
+            AddToIngredientsComboByType(toAdd);
         }
 
-        Debug.Log("Added: " + amountToAdd + " " + "To: " + testToAdd.ToString());
+        Debug.Log("Added: " + ingredientToAdd.amount + " " + "To: " + toAdd.ToString());
+    }
+    public void AddRubies(int amount)
+    {
+        ownedRubies += amount;
+        Debug.Log("Added: " + amount + " " + "To gems!");
     }
 
-    private void AddToIngredientsComboByType()
+    private void AddToIngredientsComboByType(Ingredients toAdd)
     {
-        IngredientPlusMainTypeCombo Combo = ingredientsToMainTypes.Where(i => i.mainType == testToAdd.ingredientType).SingleOrDefault();
+        IngredientPlusMainTypeCombo Combo = ingredientsToMainTypes.Where(i => i.mainType == toAdd.ingredientType).SingleOrDefault();
         if (Combo != null)
         {
-            Combo.typeIngredients.Add(testToAdd);
+            Combo.typeIngredients.Add(toAdd);
 
         }
     }

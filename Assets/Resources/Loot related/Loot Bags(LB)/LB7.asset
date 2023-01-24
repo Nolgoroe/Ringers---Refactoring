@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bagType: 6
   bagIngredients:
-  - {fileID: 11400000, guid: 6446ee2ea17929b4dafa40a5ed78a0a1, type: 2}
-  - {fileID: 11400000, guid: a1f1dba2b65508d41812f5123915b8ed, type: 2}
-  - {fileID: 11400000, guid: b14a3af4139243340a35b8d94ddf088d, type: 2}
+  - {fileID: 11400000, guid: 6645c2add30c0c8468b4394ec0ea30da, type: 2}
+  - {fileID: 11400000, guid: 085a7fa4dcfb9a74da8a59fd865782c7, type: 2}
+  - {fileID: 11400000, guid: 9ee9f0709ef5e6e478e61e21cc14be0c, type: 2}

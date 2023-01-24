@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: LT2
   m_EditorClassIdentifier: 
   containerType: 7
-  lootBags:
+  lootBagsAndChances:
   - lootBag: {fileID: 11400000, guid: 9ef446208f8730f429975f981b2c3794, type: 2}
     chance: 100
   - lootBag: {fileID: 11400000, guid: 9ef446208f8730f429975f981b2c3794, type: 2}
-    chance: 50
+    chance: 100
   - lootBag: {fileID: 11400000, guid: 502252438164d154d8422f8a2f05e38f, type: 2}
-    chance: 20
+    chance: 100
   minRubies: 0
   maxRubies: 0

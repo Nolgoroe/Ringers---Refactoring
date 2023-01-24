@@ -7,20 +7,27 @@ public class ChestLogic : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private BasicCustomButton customButton;
 
+    private void Start()
+    {
+        GameManager.instance.summonedChest = this;
+    }
     public void OnPressedChest()
+    {
+        StartCoroutine(InitiateLootGive());
+    }
+
+    private IEnumerator InitiateLootGive()
     {
         customButton.isInteractable = false;
         anim.SetTrigger("TappedChest");
 
+        yield return new WaitForSeconds(1.2f);
+
         Debug.Log("Give Loot");
-
-        StartCoroutine(AfterChestOpened());
+        GameManager.instance.AdvanceGiveLootFromManager();
     }
-
-    IEnumerator AfterChestOpened()
+    public IEnumerator AfterGiveLoot()
     {
-        yield return new WaitForSeconds(3);
-
         Debug.Log("GAVE Loot");
 
         anim.SetTrigger("FinishedLootDisplay");

@@ -12,7 +12,7 @@ public class ChestBarLogic : MonoBehaviour
     [SerializeField] private float barAnimationSpeed;
 
 
-    List<ImageSwapHelper> summonedStars;
+    private List<ImageSwapHelper> summonedStars;
     private void OnEnable()
     {
         summonedStars = new List<ImageSwapHelper>();

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LT18
   m_EditorClassIdentifier: 
   containerType: 23
-  lootBags:
+  lootBagsAndChances:
   - lootBag: {fileID: 11400000, guid: b61f2b2cff956114c908b4a474504aff, type: 2}
     chance: 100
   - lootBag: {fileID: 11400000, guid: b61f2b2cff956114c908b4a474504aff, type: 2}

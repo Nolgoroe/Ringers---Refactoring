@@ -5,7 +5,6 @@ using UnityEditor;
 
 public enum Ingredientnames
 {
-    Ruby,
     DawnDew,
     Wood,
     TreeSap,

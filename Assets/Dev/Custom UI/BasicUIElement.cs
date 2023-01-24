@@ -15,6 +15,7 @@ public abstract class BasicUIElement : MonoBehaviour
 
     public TMP_Text[] textRefrences;
     public Image[] imageRefrences;
+    public SpriteRenderer[] spriterRendererRefrences;
     public CustomButtonParent[] buttonRefs;
     //public UnityEvent connectedEvents;
 
@@ -186,11 +187,19 @@ public abstract class BasicUIElement : MonoBehaviour
             }
         }
 
-        if (sprites != null && sprites.Length > 0)
+        if (imageRefrences.Length >0 && sprites != null && sprites.Length > 0)
         {
             for (int i = 0; i < imageRefrences.Length; i++)
             {
                 imageRefrences[i].sprite = sprites[i];
+            }
+        }
+
+        if (spriterRendererRefrences.Length > 0 && sprites != null && sprites.Length > 0)
+        {
+            for (int i = 0; i < spriterRendererRefrences.Length; i++)
+            {
+                spriterRendererRefrences[i].sprite = sprites[i];
             }
         }
     }

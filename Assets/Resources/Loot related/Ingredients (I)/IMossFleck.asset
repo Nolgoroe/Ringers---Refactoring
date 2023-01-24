@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2fc59cda44863f4a9de4d69b2119575, type: 3}
   m_Name: IMossFleck
   m_EditorClassIdentifier: 
-  ingredientName: 6
+  ingredientName: 5
   ingredientType: 1
   amountToPrice:
     priceToPay: 1

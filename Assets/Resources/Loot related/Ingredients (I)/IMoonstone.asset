@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2fc59cda44863f4a9de4d69b2119575, type: 3}
   m_Name: IMoonstone
   m_EditorClassIdentifier: 
-  ingredientName: 33
+  ingredientName: 32
   ingredientType: 3
   amountToPrice:
     priceToPay: 2

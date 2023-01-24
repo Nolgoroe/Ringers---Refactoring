@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public enum MainlootContainerTypwa
+public enum MainlootContainerType
 {
     None,
     R1,
@@ -43,7 +43,7 @@ public class LootBagsChances
 [CreateAssetMenu(fileName = "Main Loot Container", menuName = "ScriptableObjects/Create Main Loot Container")]
 public class LootTables : ScriptableObject
 {
-    public MainlootContainerTypwa containerType;
-    public LootBagsChances[] lootBags;
+    public MainlootContainerType containerType;
+    public LootBagsChances[] lootBagsAndChances;
     public int minRubies, maxRubies;
 }

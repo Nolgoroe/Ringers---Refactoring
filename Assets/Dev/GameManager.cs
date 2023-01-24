@@ -16,10 +16,11 @@ public class GameManager : MonoBehaviour
     public static ClipManager gameClip;
     public static LevelSO currentLevel;
     public static InLevelUserControls gameControls;
-    public LevelSO tempcurrentlevel; //temp
-    public LevelSO nextLevel; //temp
-    public Animator currentLevelStatue; //temp
-    public ChestBarLogic chestBarLogic; //temp
+    public LevelSO tempcurrentlevel; //temp!
+    public LevelSO nextLevel;
+    public Animator currentLevelStatue; //temp?
+    public ChestBarLogic chestBarLogic; //temp?
+    public ChestLogic summonedChest; //temp?
 
     private System.Action BeforeRingActions;
     private System.Action RingActions;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     [Header("General Data")]
     [SerializeField] private Transform inLevelParent;
     [SerializeField] private ZoneManager zoneManager;
+    [SerializeField] private LootManager lootManager;
 
     [SerializeField] private GameObject[] gameRingsPrefabs;
     [SerializeField] private GameObject[] gameRingsSlicePrefabs;
@@ -99,7 +101,7 @@ public class GameManager : MonoBehaviour
         AfterRingActions?.Invoke();
 
        
-        AddToEndlevelActions(DestroyAllCurrentLevel);
+        AddToEndlevelActions(DestroyOnLevelExit);
         AddToEndlevelActions(gameRing.ClearActions);
 
         // every level launch, no matter what, we launch the in level UI
@@ -182,21 +184,6 @@ public class GameManager : MonoBehaviour
         endLevelActions?.Invoke();
     }
 
-    private void DestroyAllCurrentLevel()
-    {
-        if(inLevelParent.childCount > 0)
-        {
-            for (int i = 0; i < inLevelParent.childCount; i++)
-            {
-                Destroy(inLevelParent.GetChild(i).gameObject);
-            }
-        }
-
-        //gameRing = null;
-        //gameClip = null;
-        //currentLevel = null;
-    }
-
     // This function makes sure that we have "ClearLevelActions" set as the last action to be made
     private void AddToEndlevelActions(System.Action actionToAdd)
     {
@@ -220,10 +207,7 @@ public class GameManager : MonoBehaviour
 
         for (int k = 0; k < 1; k++)
         {
-            for (int i = 0; i < inLevelParent.childCount; i++)
-            {
-                Destroy(inLevelParent.GetChild(i).gameObject);
-            }
+            DestroyOnLevelExit();
 
             yield return new WaitForEndOfFrame();
 
@@ -255,10 +239,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
 
-        for (int i = 0; i < inLevelParent.childCount; i++)
-        {
-            Destroy(inLevelParent.GetChild(i).gameObject);
-        }
+        DestroyOnLevelExit();
 
         currentLevel = nextLevel;
         currentIndexInCluster++;
@@ -322,6 +303,26 @@ public class GameManager : MonoBehaviour
     public void BroadcastLoseLevelActions()
     {
         LoseLevelActions?.Invoke();
+    }
+
+    public void AdvanceGiveLootFromManager()
+    {
+        //sequencer?
+        lootManager.ManageLootReward(currentClusterSO);
+    }
+    public void AdvanceLootChestAnimation()
+    {
+        //sequencer?
+        StartCoroutine(summonedChest.AfterGiveLoot());
+    }
+
+    public void DestroyOnLevelExit()
+    {
+        lootManager.DestoryAllLootChildren();
+        for (int i = 0; i < inLevelParent.childCount; i++)
+        {
+            Destroy(inLevelParent.GetChild(i).gameObject);
+        }
     }
     /**/
     // general methods area - methods that can be dropped and used in any class - mostly inspector things for now
