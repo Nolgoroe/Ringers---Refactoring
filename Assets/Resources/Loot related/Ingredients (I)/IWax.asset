@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IWax
   m_EditorClassIdentifier: 
   ingredientName: 4
-  ingredientType: 2
+  ingredientType: 3
   amountToPrice:
     priceToPay: 1
     amountToRecieve: 2

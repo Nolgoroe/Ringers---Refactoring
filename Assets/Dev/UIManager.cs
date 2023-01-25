@@ -47,26 +47,26 @@ public class UIManager : MonoBehaviour
     [SerializeField] private RefWorldDisplayCombo[] worldReferebceCombo;
 
     [Header("Map Screen")]
-    [SerializeField] private BasicUIElement levelScrollRect;
-    [SerializeField] private BasicUIElement generalMapUI;
-    [SerializeField] private BasicUIElement levelMapPopUp;
+    [SerializeField] private BasicCustomUIWindow levelScrollRect;
+    [SerializeField] private BasicCustomUIWindow generalMapUI;
+    [SerializeField] private BasicCustomUIWindow levelMapPopUp;
     [SerializeField] private PlayerWorkshopCustomWindow playerWorkshopWindow;
 
     [Header("In level Screen")]
-    [SerializeField] private BasicUIElement inLevelUI;
-    [SerializeField] private BasicUIElement inLevelSettingsWindow;
-    [SerializeField] private BasicUIElement inLevelNonMatchTilesMessage;
-    [SerializeField] private BasicUIElement inLevelLostLevelMessage;
-    [SerializeField] private BasicUIElement inLevelLastDealWarning;
-    [SerializeField] private BasicUIElement inLevelExitToMapQuesiton;
-    [SerializeField] private BasicUIElement inLevelRestartLevelQuesiton;
+    [SerializeField] private BasicCustomUIWindow inLevelUI;
+    [SerializeField] private BasicCustomUIWindow inLevelSettingsWindow;
+    [SerializeField] private BasicCustomUIWindow inLevelNonMatchTilesMessage;
+    [SerializeField] private BasicCustomUIWindow inLevelLostLevelMessage;
+    [SerializeField] private BasicCustomUIWindow inLevelLastDealWarning;
+    [SerializeField] private BasicCustomUIWindow inLevelExitToMapQuesiton;
+    [SerializeField] private BasicCustomUIWindow inLevelRestartLevelQuesiton;
     [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
 
     [Header("map screen general windows")]
-    [SerializeField] private BasicUIElement generalSettings;
+    [SerializeField] private BasicCustomUIWindow generalSettings;
 
     [Header("Fade object settings")]
-    [SerializeField] private BasicUIElement fadeWindow;
+    [SerializeField] private BasicCustomUIWindow fadeWindow;
     [SerializeField] private float fadeIntoLevelTime;
     [SerializeField] private float fadeOutLevelTime;
     [SerializeField] private float fadeIntoMapTime;
@@ -330,8 +330,12 @@ public class UIManager : MonoBehaviour
     {
         OpenSolo(inLevelNonMatchTilesMessage);
         System.Action[] actions = new System.Action[2];
+
+        actions[0] += () => inLevelNonMatchTilesMessage.DeactivateSpecificButton(inLevelNonMatchTilesMessage.buttonRefs[0]);
         actions[0] += GameManager.gameControls.ReturnHomeBadRingConnections;
         actions[0] += () => CloseElement(inLevelNonMatchTilesMessage);
+
+        actions[1] += () => inLevelNonMatchTilesMessage.DeactivateSpecificButton(inLevelNonMatchTilesMessage.buttonRefs[1]);
         actions[1] += DisplayLevelLostMessage;
 
         inLevelNonMatchTilesMessage.OverrideSetMe(null, null, actions);
@@ -341,8 +345,12 @@ public class UIManager : MonoBehaviour
         OpenSolo(inLevelLostLevelMessage);
         System.Action[] actions = new System.Action[2];
         //actions[0] += RestartCurrentScreenWindows;
+
+        actions[0] += () => inLevelLostLevelMessage.DeactivateSpecificButton(inLevelLostLevelMessage.buttonRefs[0]);
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallRestartLevel;
+
+        actions[1] += () => inLevelLostLevelMessage.DeactivateSpecificButton(inLevelLostLevelMessage.buttonRefs[1]);
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
@@ -352,7 +360,11 @@ public class UIManager : MonoBehaviour
     {
         OpenSolo(inLevelLastDealWarning);
         System.Action[] actions = new System.Action[2];
+
+        actions[0] += () => inLevelLastDealWarning.DeactivateSpecificButton(inLevelLastDealWarning.buttonRefs[0]);
         actions[0] += () => CloseElement(inLevelLastDealWarning);
+
+        actions[1] += () => inLevelLastDealWarning.DeactivateSpecificButton(inLevelLastDealWarning.buttonRefs[1]);
         actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
@@ -362,7 +374,11 @@ public class UIManager : MonoBehaviour
     {
         OpenSolo(inLevelExitToMapQuesiton);
         System.Action[] actions = new System.Action[2];
+
+        actions[0] += () => inLevelExitToMapQuesiton.DeactivateSpecificButton(inLevelExitToMapQuesiton.buttonRefs[0]);
         actions[0] += () => CloseElement(inLevelExitToMapQuesiton);
+
+        actions[1] += () => inLevelExitToMapQuesiton.DeactivateSpecificButton(inLevelExitToMapQuesiton.buttonRefs[1]);
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
@@ -372,7 +388,11 @@ public class UIManager : MonoBehaviour
     {
         OpenSolo(inLevelRestartLevelQuesiton);
         System.Action[] actions = new System.Action[2];
+
+        actions[0] += () => inLevelRestartLevelQuesiton.DeactivateSpecificButton(inLevelRestartLevelQuesiton.buttonRefs[0]);
         actions[0] += () => CloseElement(inLevelRestartLevelQuesiton);
+
+        actions[1] += () => inLevelRestartLevelQuesiton.DeactivateSpecificButton(inLevelRestartLevelQuesiton.buttonRefs[1]);
         actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
@@ -383,8 +403,12 @@ public class UIManager : MonoBehaviour
         DeactiavteAllCustomButtons();
 
         System.Action[] actions = new System.Action[2];
+
+        actions[0] += () => inLevelWinWindow.DeactivateSpecificButton(inLevelWinWindow.buttonRefs[0]);
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallNextLevel;
+
+        actions[1] += () => inLevelWinWindow.DeactivateSpecificButton(inLevelWinWindow.buttonRefs[1]);
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
@@ -407,6 +431,8 @@ public class UIManager : MonoBehaviour
         string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), levelSO.worldName.ToString() };
 
         System.Action[] actions = new System.Action[1];
+
+        actions[0] += () => levelMapPopUp.DeactivateSpecificButton(levelMapPopUp.buttonRefs[0]);
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.SetLevel;
 
@@ -429,10 +455,10 @@ public class UIManager : MonoBehaviour
         actions[1] += DisplayPlayerWorkshop; // player workshop
         actions[2] += DisplayMapSettings; // open settings
 
-        string rubiesText = player.ReturnOwnedRubies().ToString();
         string tearsText = player.ReturnOwnedTears().ToString();
+        string rubiesText = player.ReturnOwnedRubies().ToString();
 
-        string[] texts = new string[] { rubiesText, tearsText };
+        string[] texts = new string[] { tearsText, rubiesText };
 
         AddAdditiveElement(levelScrollRect);
         AddAdditiveElement(generalMapUI);
@@ -442,17 +468,19 @@ public class UIManager : MonoBehaviour
 
     public void DisplayPlayerWorkshop()
     {
-        System.Action[] actions = new System.Action[6];
-        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory catagory
-        actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel); // potion catagory
-        actions[2] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory build sort
-        actions[3] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory gem sort
-        actions[4] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory herb sort
-        actions[5] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory witchcraft sort
+        System.Action[] actions = new System.Action[7];
+        actions[0] += () => playerWorkshopWindow.SwitchCategory(0); // inventory catagory
+        actions[1] += () => playerWorkshopWindow.SwitchCategory(1); // potion catagory
+        actions[2] += () => playerWorkshopWindow.SortWorkshop(0); // inventory build sort
+        actions[3] += () => playerWorkshopWindow.SortWorkshop(1); // inventory gem sort
+        actions[4] += () => playerWorkshopWindow.SortWorkshop(2); // inventory herb sort
+        actions[5] += () => playerWorkshopWindow.SortWorkshop(3); // inventory witchcraft sort
+        actions[6] += () => FadeInFadeWindow(true, MainScreens.InLevel); // potion brew button
 
         OpenSolo(playerWorkshopWindow);
 
         playerWorkshopWindow.OverrideSetMe(null, null, actions);
+        playerWorkshopWindow.InitPlayerWorkshop(player);
     }
 
     /**/

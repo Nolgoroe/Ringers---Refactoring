@@ -9,7 +9,7 @@ public class DictionairyLootEntry
     public Ingredients ingredient;
     public IngredientTypes ingredientType;
     public bool hasChanged;
-    public int value;
+    public int amount;
 
     public DictionairyLootEntry(Ingredients _ingredient, IngredientTypes _ingredientType)
     {
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     {
         foreach (KeyValuePair<Ingredients, DictionairyLootEntry> ingredient in ownedIngredients)
         {
-            Debug.Log(ingredient.Key + " amount: " + ingredient.Value.value);
+            Debug.Log(ingredient.Key + " amount: " + ingredient.Value.amount);
 
             if (ingredient.Value.hasChanged)
             {
@@ -67,14 +67,14 @@ public class Player : MonoBehaviour
         if (ownedIngredients.ContainsKey(toAdd))
         {
             ownedIngredients[toAdd].hasChanged = true;
-            ownedIngredients[toAdd].value += ingredientToAdd.amount;
+            ownedIngredients[toAdd].amount += ingredientToAdd.amount;
         }
         else
         {
             DictionairyLootEntry newLootEntry = new DictionairyLootEntry(toAdd, toAdd.ingredientType);
             ownedIngredients.Add(toAdd, newLootEntry);
             ownedIngredients[toAdd].hasChanged = true;
-            ownedIngredients[toAdd].value = ingredientToAdd.amount;
+            ownedIngredients[toAdd].amount = ingredientToAdd.amount;
 
             AddToIngredientsComboByType(toAdd);
         }
@@ -103,5 +103,13 @@ public class Player : MonoBehaviour
     public int ReturnOwnedTears()
     {
         return ownedTears;
+    }
+    public List<IngredientPlusMainTypeCombo> returnOwnedIngredientsByType()
+    {
+        return ingredientsToMainTypes;
+    }
+    public Dictionary<Ingredients, DictionairyLootEntry> returnownedIngredients()
+    {
+        return ownedIngredients;
     }
 }

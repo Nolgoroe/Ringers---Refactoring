@@ -198,4 +198,9 @@ public class LootManager : MonoBehaviour
             }
         }
     }
+
+    public Sprite ReturnSpriteByIndex(int index)
+    {
+        return allIngredientSprites[index];
+    }
 }

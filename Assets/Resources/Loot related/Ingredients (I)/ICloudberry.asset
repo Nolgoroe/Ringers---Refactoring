@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ICloudberry
   m_EditorClassIdentifier: 
   ingredientName: 24
-  ingredientType: 2
+  ingredientType: 3
   amountToPrice:
     priceToPay: 2
     amountToRecieve: 1

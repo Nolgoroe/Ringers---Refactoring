@@ -43,9 +43,9 @@ public enum Ingredientnames
 public enum IngredientTypes
 {
     Build,
+    Gem,
     Herb,
     Witchcraft,
-    Gem,
     None
 }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IMoonDust
   m_EditorClassIdentifier: 
   ingredientName: 20
-  ingredientType: 2
+  ingredientType: 3
   amountToPrice:
     priceToPay: 2
     amountToRecieve: 1

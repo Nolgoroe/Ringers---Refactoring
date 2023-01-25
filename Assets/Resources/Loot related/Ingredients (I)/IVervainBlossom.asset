@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IVervainBlossom
   m_EditorClassIdentifier: 
   ingredientName: 9
-  ingredientType: 1
+  ingredientType: 2
   amountToPrice:
     priceToPay: 1
     amountToRecieve: 1

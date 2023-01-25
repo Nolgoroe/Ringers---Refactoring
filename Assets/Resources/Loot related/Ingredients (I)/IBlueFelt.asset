@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IBlueFelt
   m_EditorClassIdentifier: 
   ingredientName: 22
-  ingredientType: 2
+  ingredientType: 3
   amountToPrice:
     priceToPay: 2
     amountToRecieve: 1

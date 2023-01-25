@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IAmethyst
   m_EditorClassIdentifier: 
   ingredientName: 21
-  ingredientType: 3
+  ingredientType: 1
   amountToPrice:
     priceToPay: 2
     amountToRecieve: 1

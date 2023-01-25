@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ICloverSeeds
   m_EditorClassIdentifier: 
   ingredientName: 12
-  ingredientType: 1
+  ingredientType: 2
   amountToPrice:
     priceToPay: 1
     amountToRecieve: 1

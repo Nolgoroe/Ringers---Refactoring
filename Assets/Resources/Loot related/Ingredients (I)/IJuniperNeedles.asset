@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IJuniperNeedles
   m_EditorClassIdentifier: 
   ingredientName: 23
-  ingredientType: 1
+  ingredientType: 2
   amountToPrice:
     priceToPay: 2
     amountToRecieve: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IBlueQuartzCluster
   m_EditorClassIdentifier: 
   ingredientName: 26
-  ingredientType: 3
+  ingredientType: 1
   amountToPrice:
     priceToPay: 2
     amountToRecieve: 1

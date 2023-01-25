@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IMossFleck
   m_EditorClassIdentifier: 
   ingredientName: 5
-  ingredientType: 1
+  ingredientType: 2
   amountToPrice:
     priceToPay: 1
     amountToRecieve: 2

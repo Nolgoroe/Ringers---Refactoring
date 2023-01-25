@@ -324,6 +324,11 @@ public class GameManager : MonoBehaviour
             Destroy(inLevelParent.GetChild(i).gameObject);
         }
     }
+
+    public Sprite ReturnLootSpriteFromLootManager(int index)
+    {
+        return lootManager.ReturnSpriteByIndex(index);
+    }
     /**/
     // general methods area - methods that can be dropped and used in any class - mostly inspector things for now
     /**/
