@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5251956185081650600}
   - component: {fileID: 5251956185081650606}
   m_Layer: 0
-  m_Name: Player inventory button
+  m_Name: Player workshop button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -350,6 +351,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -623,6 +625,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -843,6 +846,7 @@ MonoBehaviour:
   - {fileID: 5251956185223835639}
   - {fileID: 5251956186537042141}
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs:
   - {fileID: 5251956186476645072}
   - {fileID: 5251956185081650606}

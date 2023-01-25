@@ -29,11 +29,15 @@ public enum MainScreens
 }
 public class UIManager : MonoBehaviour
 {
-    public static bool ISUSINGUI;
-    public static bool ISDURINGFADE;
-    //public static bool ISDURINGCHEST;
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
+    public static bool ISUSINGUI;
+    public static bool ISDURINGFADE;
+
+    [Header("General refrences")]
+    [SerializeField] private Player player;
+
+    [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
     [SerializeField] private List<BasicUIElement> currentAdditiveScreens;
     [SerializeField] private List<BasicUIElement> currentPermanentScreens;
@@ -42,11 +46,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
     [SerializeField] private RefWorldDisplayCombo[] worldReferebceCombo;
 
-
     [Header("Map Screen")]
     [SerializeField] private BasicUIElement levelScrollRect;
     [SerializeField] private BasicUIElement generalMapUI;
     [SerializeField] private BasicUIElement levelMapPopUp;
+    [SerializeField] private PlayerWorkshopCustomWindow playerWorkshopWindow;
 
     [Header("In level Screen")]
     [SerializeField] private BasicUIElement inLevelUI;
@@ -67,15 +71,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float fadeOutLevelTime;
     [SerializeField] private float fadeIntoMapTime;
     [SerializeField] private float fadeOutMapTime;
-    //[SerializeField] private float fadeOutOfLevelTime;
 
 
     private void Start()
     {
         instance = this;
 
-        AddAdditiveElement(levelScrollRect);
-        AddAdditiveElement(generalMapUI);
+        StartCoroutine(DisplayLevelMap(false));
     }
 
     /**/
@@ -308,7 +310,7 @@ public class UIManager : MonoBehaviour
         OpenSolo(generalSettings);
 
         string[] texts = new string[] {"Name of player: Avishy"};
-        generalSettings.SetMe(texts, null);
+        generalSettings.OverrideSetMe(texts, null, null);
     }
     public void DisplayAnimalAlbum()
     {
@@ -341,7 +343,7 @@ public class UIManager : MonoBehaviour
         //actions[0] += RestartCurrentScreenWindows;
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallRestartLevel;
-        actions[1] += () => StartCoroutine(DisplayLevelMap());
+        actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
         inLevelLostLevelMessage.OverrideSetMe(null, null, actions);
@@ -361,7 +363,7 @@ public class UIManager : MonoBehaviour
         OpenSolo(inLevelExitToMapQuesiton);
         System.Action[] actions = new System.Action[2];
         actions[0] += () => CloseElement(inLevelExitToMapQuesiton);
-        actions[1] += () => StartCoroutine(DisplayLevelMap());
+        actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
         inLevelExitToMapQuesiton.OverrideSetMe(null, null, actions);
@@ -383,7 +385,7 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = new System.Action[2];
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallNextLevel;
-        actions[1] += () => StartCoroutine(DisplayLevelMap());
+        actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
         inLevelWinWindow.OverrideSetMe(null, null, actions);
@@ -412,17 +414,45 @@ public class UIManager : MonoBehaviour
 
         levelMapPopUp.OverrideSetMe(texts, null, actions);
     }
-    private IEnumerator DisplayLevelMap()
+    private IEnumerator DisplayLevelMap(bool isFade)
     {
-        FadeInFadeWindow(true, MainScreens.Map);
-        yield return new WaitForSeconds(ReturnFadeTime(true, MainScreens.Map) + 0.1f);
+        if(isFade)
+        {
+            FadeInFadeWindow(true, MainScreens.Map);
+            yield return new WaitForSeconds(ReturnFadeTime(true, MainScreens.Map) + 0.1f);
+        }
 
         CloseAllCurrentScreens(); // close all screens open before going to map
+
+        System.Action[] actions = new System.Action[3];
+        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel); // animal album
+        actions[1] += DisplayPlayerWorkshop; // player workshop
+        actions[2] += DisplayMapSettings; // open settings
+
+        string rubiesText = player.ReturnOwnedRubies().ToString();
+        string tearsText = player.ReturnOwnedTears().ToString();
+
+        string[] texts = new string[] { rubiesText, tearsText };
 
         AddAdditiveElement(levelScrollRect);
         AddAdditiveElement(generalMapUI);
 
-        generalMapUI.SetMe(null, null);
+        generalMapUI.OverrideSetMe(texts, null, actions);
+    }
+
+    public void DisplayPlayerWorkshop()
+    {
+        System.Action[] actions = new System.Action[6];
+        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory catagory
+        actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel); // potion catagory
+        actions[2] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory build sort
+        actions[3] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory gem sort
+        actions[4] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory herb sort
+        actions[5] += () => FadeInFadeWindow(true, MainScreens.InLevel); // inventory witchcraft sort
+
+        OpenSolo(playerWorkshopWindow);
+
+        playerWorkshopWindow.OverrideSetMe(null, null, actions);
     }
 
     /**/

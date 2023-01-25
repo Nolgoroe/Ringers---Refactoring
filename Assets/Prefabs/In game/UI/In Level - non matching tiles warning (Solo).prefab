@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 4624532260880093070}
   - component: {fileID: 4624532260880093071}
   m_Layer: 0
-  m_Name: In Level non matching tiles warning (Solo)
+  m_Name: In Level - non matching tiles warning (Solo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -271,6 +271,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs:
   - {fileID: 4624532260178857021}
   - {fileID: 4624532259960549124}

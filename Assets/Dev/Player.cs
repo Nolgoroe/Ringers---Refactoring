@@ -29,6 +29,7 @@ public class IngredientPlusMainTypeCombo
 public class Player : MonoBehaviour
 {
     [SerializeField] private int ownedRubies;
+    [SerializeField] private int ownedTears;
 
     private Dictionary<Ingredients, DictionairyLootEntry> ownedIngredients;
 
@@ -85,7 +86,6 @@ public class Player : MonoBehaviour
         ownedRubies += amount;
         Debug.Log("Added: " + amount + " " + "To gems!");
     }
-
     private void AddToIngredientsComboByType(Ingredients toAdd)
     {
         IngredientPlusMainTypeCombo Combo = ingredientsToMainTypes.Where(i => i.mainType == toAdd.ingredientType).SingleOrDefault();
@@ -94,5 +94,14 @@ public class Player : MonoBehaviour
             Combo.typeIngredients.Add(toAdd);
 
         }
+    }
+
+    public int ReturnOwnedRubies()
+    {
+        return ownedRubies;
+    }
+    public int ReturnOwnedTears()
+    {
+        return ownedTears;
     }
 }

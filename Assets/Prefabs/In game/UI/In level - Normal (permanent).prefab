@@ -205,6 +205,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -352,6 +353,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -466,6 +468,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -591,7 +594,7 @@ GameObject:
   - component: {fileID: 2603348070765558574}
   - component: {fileID: 767349432143551286}
   m_Layer: 0
-  m_Name: In level UI - options screen (Additive)
+  m_Name: In level - options screen (Additive)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,6 +634,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -650,7 +654,7 @@ GameObject:
   - component: {fileID: 5677927978050471942}
   - component: {fileID: 2072595701}
   m_Layer: 0
-  m_Name: In level UI - Normal (permanent)
+  m_Name: In level - Normal (permanent)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,6 +695,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs:
   - {fileID: 3887683065392404061}
   - {fileID: 4294957330704266904}
@@ -847,6 +852,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -978,6 +984,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -1186,6 +1193,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -1362,6 +1370,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -1476,6 +1485,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -1623,6 +1633,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
@@ -1737,6 +1748,7 @@ MonoBehaviour:
   isInteractable: 1
   textRefrences: []
   imageRefrences: []
+  spriterRendererRefrences: []
   buttonRefs: []
   HoverOverMeToGetInfo:
     serializedVersion: 2

@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private System.Action endLevelActions;
 
-    [Header("General Data")]
+    [Header("General refrences")]
     [SerializeField] private Transform inLevelParent;
     [SerializeField] private ZoneManager zoneManager;
     [SerializeField] private LootManager lootManager;
