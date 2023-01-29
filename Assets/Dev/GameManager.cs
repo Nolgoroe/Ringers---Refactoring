@@ -18,9 +18,12 @@ public class GameManager : MonoBehaviour
     public static InLevelUserControls gameControls;
     public LevelSO tempcurrentlevel; //temp!
     public LevelSO nextLevel;
-    public Animator currentLevelStatue; //temp?
-    public ChestBarLogic chestBarLogic; //temp?
     public ChestLogic summonedChest; //temp?
+    public ChestBarLogic chestBarLogic; //temp?
+
+    [SerializeField] private AnimalStatueData currentLevelAnimalStatue; //temp?
+    [SerializeField] private Animator currentLevelGeneralStatueAnimator;//temp?
+    [SerializeField] private bool isAnimalLevel;//temp?
 
     private System.Action BeforeRingActions;
     private System.Action RingActions;
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform inLevelParent;
     [SerializeField] private ZoneManager zoneManager;
     [SerializeField] private LootManager lootManager;
+    [SerializeField] private AnimalsManager animalsManager;
 
     [SerializeField] private GameObject[] gameRingsPrefabs;
     [SerializeField] private GameObject[] gameRingsSlicePrefabs;
@@ -89,6 +93,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator StartLevel()
     {
+        isAnimalLevel = false; //maybe have a reset function
+
         yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
 
         //Before Ring
@@ -110,9 +116,9 @@ public class GameManager : MonoBehaviour
 
         
         // actions after gameplay, on winning the level
-        WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
         WinLevelActions += AdvanceLevelStatue;
         WinLevelActions += chestBarLogic.AddToChestBar;
+        WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
 
         // actions after gameplay, on lsoing the level
         LoseLevelActions += UIManager.instance.DisplayRingHasNonMatchingMessage;
@@ -252,7 +258,7 @@ public class GameManager : MonoBehaviour
     public void LevelSetupData()
     {
         //called from level actions events
-        if (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length)
+        if (ReturnIsLastLevelInCluster())
         {
             nextLevel = null;
         }
@@ -266,30 +272,56 @@ public class GameManager : MonoBehaviour
     {
         GameObject go = Instantiate(currentClusterSO.clusterPrefabToSummon, inLevelParent);
 
-        go.TryGetComponent<Animator>(out currentLevelStatue);
-
-        if(currentLevelStatue == null)
+        go.TryGetComponent<Animator>(out currentLevelGeneralStatueAnimator);
+        if (currentLevelGeneralStatueAnimator == null)
         {
-            Debug.LogError("Error here");
+            Debug.LogError("Error here - no animator");
             return;
         }
 
-        currentLevelStatue.SetTrigger("Set Rive " + currentIndexInCluster);
+        go.TryGetComponent<AnimalStatueData>(out currentLevelAnimalStatue);
+        isAnimalLevel = currentLevelAnimalStatue != null;
+
+        currentLevelGeneralStatueAnimator.SetTrigger("Set Rive " + currentIndexInCluster);
     }
     public void AdvanceLevelStatue()
     {
-        if(currentLevelStatue == null)
+        if(ReturnIsLastLevelInCluster() && isAnimalLevel)
         {
-            Debug.LogError("Error here");
-            return;
+            // release animal
+            animalsManager.ReleaseAnimal(currentLevelAnimalStatue, inLevelParent);
+        }
+        else
+        {
+            // advance animal statue
+            currentLevelGeneralStatueAnimator.SetTrigger("Clear Rive " + currentIndexInCluster);
+        }
+    }
+
+    public string[] ReturnStatueName()
+    {
+        string[] texts = new string[1];
+
+        if (ReturnIsLastLevelInCluster() && isAnimalLevel)
+        {
+            string animalname = currentLevelAnimalStatue.animal.ToString();
+            texts[0] = animalname + " released!";
+        }
+        else
+        {
+            texts[0] = "Corruption cleansed!";
         }
 
-        currentLevelStatue.SetTrigger("Clear Rive " + currentIndexInCluster);
+        return texts;
     }
 
     public int ReturnNumOfLevelsInCluster()
     {
         return currentClusterSO.clusterLevels.Length;
+    }
+    public bool ReturnIsLastLevelInCluster()
+    {
+        return (currentIndexInCluster + 1 == currentClusterSO.clusterLevels.Length);
     }
     public int ReturnCurrentIndexInCluster()
     {

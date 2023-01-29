@@ -4,19 +4,19 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public abstract class CustomButtonParent : BasicUIElement, IPointerDownHandler, IPointerUpHandler, IPointerClickHandler
+public abstract class CustomButtonParent : BasicUIElement/*, IPointerDownHandler*/, IPointerUpHandler, IPointerClickHandler
 {
     public System.Action buttonEvents;
     public UnityEvent buttonEventsInspector;
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //Debug.Log("Test");
-        //if(isInteractable)
-        //{
-        //    OnClickButton();
-        //}
-    }
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    //Debug.Log("Test");
+    //    //if(isInteractable)
+    //    //{
+    //    //    OnClickButton();
+    //    //}
+    //}
     
     private void OnMouseDown()
     {

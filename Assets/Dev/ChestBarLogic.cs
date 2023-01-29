@@ -18,6 +18,7 @@ public class ChestBarLogic : MonoBehaviour
         summonedStars = new List<ImageSwapHelper>();
         float barWidth = starsParent.sizeDelta.x;
         float sections = GameManager.instance.ReturnNumOfLevelsInCluster();
+        chestBarSlider.maxValue = sections;
         int currentIndex = GameManager.instance.ReturnCurrentIndexInCluster();
         float halfRectSizeWidth = 0;
 

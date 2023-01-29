@@ -271,7 +271,8 @@ MonoBehaviour:
   isOverrideSolo: 1
   isPermanent: 0
   isInteractable: 1
-  textRefrences: []
+  textRefrences:
+  - {fileID: 1430774478798926909}
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs:

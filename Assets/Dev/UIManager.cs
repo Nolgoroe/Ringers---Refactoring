@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
 
     [Header("General refrences")]
     [SerializeField] private Player player;
+    [SerializeField] private AnimalsManager animalManager;
 
     [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -51,6 +52,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow generalMapUI;
     [SerializeField] private BasicCustomUIWindow levelMapPopUp;
     [SerializeField] private PlayerWorkshopCustomWindow playerWorkshopWindow;
+    [SerializeField] private AnimalAlbumCustonWindow animalAlbumWindow;
 
     [Header("In level Screen")]
     [SerializeField] private BasicCustomUIWindow inLevelUI;
@@ -312,13 +314,6 @@ public class UIManager : MonoBehaviour
         string[] texts = new string[] {"Name of player: Avishy"};
         generalSettings.OverrideSetMe(texts, null, null);
     }
-    public void DisplayAnimalAlbum()
-    {
-        //called from button
-
-        Debug.Log("test button 1");
-        //OpenSolo(generalSettings);
-    }
     public void DisplayPlayerInventory()
     {
         //called from button
@@ -412,7 +407,7 @@ public class UIManager : MonoBehaviour
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
-        inLevelWinWindow.OverrideSetMe(null, null, actions);
+        inLevelWinWindow.OverrideSetMe(GameManager.instance.ReturnStatueName(), null, actions);
 
         OpenSolo(inLevelWinWindow);
     }
@@ -451,7 +446,7 @@ public class UIManager : MonoBehaviour
         CloseAllCurrentScreens(); // close all screens open before going to map
 
         System.Action[] actions = new System.Action[3];
-        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel); // animal album
+        actions[0] += DisplayAnimalAlbum; // animal album
         actions[1] += DisplayPlayerWorkshop; // player workshop
         actions[2] += DisplayMapSettings; // open settings
 
@@ -481,6 +476,20 @@ public class UIManager : MonoBehaviour
 
         playerWorkshopWindow.OverrideSetMe(null, null, actions);
         playerWorkshopWindow.InitPlayerWorkshop(player);
+    }
+    public void DisplayAnimalAlbum()
+    {
+        System.Action[] actions = new System.Action[5];
+        actions[0] += () => animalAlbumWindow.SwitchAnimalCategory(0); // Fox type
+        actions[1] += () => animalAlbumWindow.SwitchAnimalCategory(1); // Stag type
+        actions[2] += () => animalAlbumWindow.SwitchAnimalCategory(2); // Owl type
+        actions[3] += () => animalAlbumWindow.SwitchAnimalCategory(3); // Boar type
+        actions[4] += () => animalAlbumWindow.GivePlayerRewards(); // Give reward
+
+        OpenSolo(animalAlbumWindow);
+
+        animalAlbumWindow.OverrideSetMe(null, null, actions);
+        animalAlbumWindow.InitAnimalAlbum(animalManager);
     }
 
     /**/

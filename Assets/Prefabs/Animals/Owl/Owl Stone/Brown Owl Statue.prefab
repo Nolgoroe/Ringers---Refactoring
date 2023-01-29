@@ -521,6 +521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4153700493449552297}
   - component: {fileID: 4480608745872983116}
+  - component: {fileID: 6788505056044859229}
   m_Layer: 0
   m_Name: Brown Owl Statue
   m_TagString: Untagged
@@ -536,9 +537,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3670214051509353235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 3.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: -21, z: 82}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2743336822356040898}
   - {fileID: 4591371180544504222}
@@ -567,6 +568,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6788505056044859229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3670214051509353235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b004f0218bcca68449cc4da375c89b3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animal: 8
+  animalType: 2
+  statueAnimator: {fileID: 4480608745872983116}
+  livePrefab: {fileID: 2442328795500352749, guid: a4b2013701ccb3845b4465a1ab43cf1f,
+    type: 3}
 --- !u!1 &3796596588191634066
 GameObject:
   m_ObjectHideFlags: 0

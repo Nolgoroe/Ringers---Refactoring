@@ -101,6 +101,23 @@ public abstract class BasicUIElement : MonoBehaviour
     }
 
     /// <summary>
+    /// change material variable over time.
+    /// </summary>
+    /// <param name="gameObject"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <param name="time"></param>
+    /// <param name="easeType"></param>
+    /// <param name="image"></param>
+    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, Material mat, string keyName, System.Action action)
+    {
+        LeanTween.value(gameObject, from, to, time).setEase(easeType).setOnComplete(action).setOnUpdate((float val) =>
+        {
+            mat.SetFloat(keyName, val);
+        });
+    }
+
+    /// <summary>
     /// change color of text over time.
     /// </summary>
     /// <param name="gameObject"></param>
