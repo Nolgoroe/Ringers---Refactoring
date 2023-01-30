@@ -14,39 +14,46 @@ public class AnimalPagesByType
 
 public class AnimalAlbumCustonWindow : BasicCustomUIWindow
 {
-    private AnimalsManager localAnimalManager;
-    [SerializeField] private ImageSwapHelper[] animalTypeSwapHelpers;
+    private AnimalsManager localAnimalManager; //we could use macros here to get all getters - problem is the actions we shoot
+    private Player localPlayer;//we could use macros here to get all getters - problem is the actions we shoot
+    private AnimalTypesInGame currentOpenType;
+
+    [Header("Shaders and materials")]
     [SerializeField] private Shader animalFadeShader;
 
-    [SerializeField] private Transform pagesParent;
+    [Header("Auto filled Lists")]
     [SerializeField] private List<Transform> allPages;
     [SerializeField] private List<AnimalPagesByType> animalDisplayers;
-
-
     [SerializeField] private List<Image> backgroundImages;
     [SerializeField] private List<Image> hiddenAnimalImages;
     [SerializeField] private List<Image> revealedAnimalImages;
 
-
+    [Header("Current page data")]
     [SerializeField] private int currentlyOpenPageIndex;
     [SerializeField] private int filledAnimalsCount;
-    [SerializeField] private GameObject presentImage;
-    [SerializeField] private float revealTime;
-    [SerializeField] private CanvasGroup getRewardsButton;
 
-    private AnimalTypesInGame currentOpenType;
+    [Header("Required refs")]
+    [SerializeField] private Transform pagesParent;
+    [SerializeField] private GameObject presentImage;
+    [SerializeField] private CanvasGroup getRewardsButton;
+    [SerializeField] private ImageSwapHelper[] animalTypeSwapHelpers;
+
+    [Header("Reveal data")]
+    [SerializeField] private float animalRevealTime;
+    [SerializeField] private float rewardButtonRevealTime;
+
 
     private void Awake()
     {
         SetInitialData();
     }
 
-    public void InitAnimalAlbum(AnimalsManager animalManager)
+    public void InitAnimalAlbum(AnimalsManager animalManager, Player player)
     {
         localAnimalManager = animalManager;
+        localPlayer = player;
 
         SwitchAnimalCategory(0);
-
     }
 
     public void SwitchAnimalCategory(int index)
@@ -55,12 +62,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
     }
     private void SetCategoriesDisplay(int index)
     {
-        //swap active screen and set new index
-        currentlyOpenPageIndex = index;
-        filledAnimalsCount = 0;
-        getRewardsButton.alpha = 0;
-        getRewardsButton.gameObject.SetActive(false);
-        presentImage.gameObject.SetActive(true);
+        ResetAlbumData(index);
 
         currentOpenType = animalDisplayers[currentlyOpenPageIndex].animalType;
         for (int i = 0; i < animalTypeSwapHelpers.Length; i++)
@@ -81,59 +83,63 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
             }
         }
 
-        List<Image> imagesToReveal;
-        List<Image> deactivateOnEnd;
-        RevealAnimalLists(out imagesToReveal, out deactivateOnEnd);
+        CheckAndRevealAnimals();
+    }
+    private void ResetAlbumData(int index)
+    {
+        currentlyOpenPageIndex = index;
+        filledAnimalsCount = 0;
+        getRewardsButton.alpha = 0;
+        getRewardsButton.gameObject.SetActive(false);
+        presentImage.gameObject.SetActive(true);
     }
 
-    private void RevealAnimalLists(out List<Image> imagesToReveal, out List<Image> deactivateOnEnd)
+    private void CheckAndRevealAnimals()
     {
-        imagesToReveal = new List<Image>();
-        deactivateOnEnd = new List<Image>();
-
-        bool isRevealing = false;
-
-        foreach (OwnedAnimalDataSet ownedAnimal in localAnimalManager.GetUnlockedAnimals())
+        AnimalPagesByType page = animalDisplayers[currentlyOpenPageIndex];
+        if (page == null)
         {
-            bool animalAlreadyRevealed = localAnimalManager.CheckAnimalAlreadyInAlbum(ownedAnimal.animalEnum);
-            bool sameType = ownedAnimal.animalTypeEnum == currentOpenType;
-
-            if(sameType)
-            {
-                // counts filled animals in page
-                filledAnimalsCount++;
-            }
-
-            if (!animalAlreadyRevealed && sameType)
-            {
-                AnimalPagesByType page = animalDisplayers.Where(p => p.animalType == ownedAnimal.animalTypeEnum).SingleOrDefault();
-                if (page == null)
-                {
-                    Debug.LogError("No page!");
-                    return;
-                }
-
-                isRevealing = true;
-
-                localAnimalManager.AddAnimalToAlbum(ownedAnimal.animalEnum);
-
-                foreach (SpecificDisplayerAnimalAlbum specificAnimalDisplayer in page.animalsInPage)
-                {
-                    if (specificAnimalDisplayer.animal == ownedAnimal.animalEnum)
-                    {
-                        imagesToReveal.Add(specificAnimalDisplayer.revealedBGImage);
-                        imagesToReveal.Add(specificAnimalDisplayer.revealedAnimalImage);
-
-                        deactivateOnEnd.Add(specificAnimalDisplayer.hiddenAnimalImage);
-
-                        break;
-                    }
-                }
-                Debug.Log("Got here with animal: " + ownedAnimal.animalEnum + " of type: " + ownedAnimal.animalTypeEnum);
-            }
+            Debug.LogError("No page!");
+            return;
         }
 
-        if(isRevealing)
+
+        List<Image> imagesToReveal = new List<Image>();
+        List<Image> deactivateOnEnd = new List<Image>();
+
+        bool isRevealing = false;
+        List<OwnedAnimalDataSet> ownedAnimals = localAnimalManager.GetUnlockedAnimals().Where(p => p.animalTypeEnum == currentOpenType).ToList();
+
+
+        foreach (OwnedAnimalDataSet ownedAnimal in ownedAnimals)
+        {
+            bool animalAlreadyRevealed = localAnimalManager.CheckAnimalAlreadyInAlbum(ownedAnimal.animalEnum);
+            if (animalAlreadyRevealed) continue;
+
+            isRevealing = true;
+
+            // counts filled animals in page
+            filledAnimalsCount++;
+
+
+            localAnimalManager.AddAnimalToAlbum(ownedAnimal.animalEnum);
+
+            foreach (SpecificDisplayerAnimalAlbum specificAnimalDisplayer in page.animalsInPage)
+            {
+                if (specificAnimalDisplayer.animal == ownedAnimal.animalEnum)
+                {
+                    imagesToReveal.Add(specificAnimalDisplayer.revealedBGImage);
+                    imagesToReveal.Add(specificAnimalDisplayer.revealedAnimalImage);
+
+                    deactivateOnEnd.Add(specificAnimalDisplayer.hiddenAnimalImage);
+
+                    break;
+                }
+            }
+            Debug.Log("Got here with animal: " + ownedAnimal.animalEnum + " of type: " + ownedAnimal.animalTypeEnum);
+        }
+
+        if (isRevealing)
         {
             StartCoroutine(RevealAnimalsAction(imagesToReveal, deactivateOnEnd));
         }
@@ -159,10 +165,10 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         {
             Material mat = image.material;
             string keyname = "_DissolveSprite";
-            GeneralFloatValueTo(image.gameObject, 0, 1.7f, revealTime, LeanTweenType.linear, mat, keyname, null);
+            GeneralFloatValueTo(image.gameObject, 0, 1.7f, animalRevealTime, LeanTweenType.linear, mat, keyname, null);
         }
 
-        yield return new WaitForSeconds(revealTime + 0.1f);
+        yield return new WaitForSeconds(animalRevealTime + 0.1f);
 
         foreach (Image image in deactivateOnEnd)
         {
@@ -174,14 +180,13 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         {
             getRewardsButton.gameObject.SetActive(true);
             getRewardsButton.blocksRaycasts = false; //can't click on
-            GeneralFloatValueTo(getRewardsButton.gameObject, 0, 1, 3, LeanTweenType.linear, getRewardsButton, null);
-            yield return new WaitForSeconds(3 + 0.1f);
+            GeneralFloatValueTo(getRewardsButton.gameObject, 0, 1, rewardButtonRevealTime, LeanTweenType.linear, getRewardsButton, null);
+            yield return new WaitForSeconds(rewardButtonRevealTime + 0.1f);
             getRewardsButton.blocksRaycasts = true;//can click on
-
         }
     }
 
-    public void GivePlayerRewards()
+    public void GivePlayerRewardsFromAnimalAlbum()
     {
         getRewardsButton.alpha = 0;
         getRewardsButton.gameObject.SetActive(false);
@@ -189,6 +194,10 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
 
         localAnimalManager.AddToAlbumPagesCompleted(currentOpenType);
         Debug.Log("Gave player rewards");
+
+        int amountOfReward = localAnimalManager.RollAmountOfReward();
+        localPlayer.AddRubies(amountOfReward);
+        UIManager.instance.DisplayAnimalAlbumReward(amountOfReward);
     }
 
     [ContextMenu("Populate All Pages from inspector")]

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6798971989970498727}
   - component: {fileID: 2349783637571556606}
   m_Layer: 5
-  m_Name: Player Workshop Material Prefab
+  m_Name: UI display ingredient Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

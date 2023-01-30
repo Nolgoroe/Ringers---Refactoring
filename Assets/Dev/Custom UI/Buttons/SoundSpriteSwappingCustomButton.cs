@@ -33,7 +33,6 @@ public class SoundSpriteSwappingCustomButton : CustomButtonParent
         if(SoundManager.instance.isMusicMuted)
         {
             SetDisplayAsMuted();
-
         }
         else
         {

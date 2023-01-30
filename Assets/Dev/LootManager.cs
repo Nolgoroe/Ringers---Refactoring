@@ -22,6 +22,9 @@ public class LootManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private GameObject lootDisplayPrefab;
     [SerializeField] private Sprite[] allIngredientSprites;
+
+    [SerializeField] private Dictionary<Ingredientnames, Sprite> dictionairyIngredientSprites;
+
     [SerializeField] private Sprite rubySprite;
 
     [Header("give loot algo")]
@@ -39,6 +42,13 @@ public class LootManager : MonoBehaviour
     private void Start()
     {
         ingredientsToGive = new List<LootToRecieve>();
+        dictionairyIngredientSprites = new Dictionary<Ingredientnames, Sprite>();
+
+        for (int i = 0; i < allIngredientSprites.Length; i++)
+        {
+            //find enum by name of sprite
+            dictionairyIngredientSprites.Add((Ingredientnames)i, allIngredientSprites[i]);
+        }
     }
 
     public void ManageLootReward(ClusterSO cluster)
@@ -109,7 +119,6 @@ public class LootManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("give")]
     private void GiveLootToPlayer()
     {
         if(currentRubiesToGive > 0)
@@ -138,27 +147,27 @@ public class LootManager : MonoBehaviour
             StartCoroutine(InstantiateLootDisplay(texts, sprites, lootPositions[currentLootPos]));
 
             yield return new WaitForSeconds(delayBetweenLootDisplays);
-            currentLootPos++;
         }
 
         if (ingredientsToGive.Count > 0)
         {
             foreach (LootToRecieve loot in ingredientsToGive)
             {
-                string[] texts = new string[] { loot.amount.ToString() };
-                Sprite[] sprites = new Sprite[] { allIngredientSprites[(int)loot.ingredient.ingredientName] };
+                currentLootPos++;
 
-                StartCoroutine(InstantiateLootDisplay(texts, sprites, lootPositions[currentLootPos]));
-
-
-                //reset positions so we can still spawn with no error.
-                if (currentLootPos == lootPositions.Length - 1)
+                if (currentLootPos == lootPositions.Length)
                 {
                     currentLootPos = 0;
                 }
 
+                string[] texts = new string[] { loot.amount.ToString() };
+                Sprite[] sprites = new Sprite[] { dictionairyIngredientSprites[loot.ingredient.ingredientName] };
+
+                StartCoroutine(InstantiateLootDisplay(texts, sprites, lootPositions[currentLootPos]));
+
                 yield return new WaitForSeconds(delayBetweenLootDisplays);
-                currentLootPos++;
+
+                //reset positions so we can still spawn with no error.
             }
         }
 
@@ -199,8 +208,16 @@ public class LootManager : MonoBehaviour
         }
     }
 
-    public Sprite ReturnSpriteByIndex(int index)
-    {
-        return allIngredientSprites[index];
-    }
+
+
+
+    /**/
+    // GETTERS!
+    /**/
+    public Sprite GetSpriteByIndex(Ingredientnames ingredientName) => dictionairyIngredientSprites[ingredientName];
+
+    public Sprite[] GetAllIngredientSprites => allIngredientSprites;
+
+    public Dictionary<Ingredientnames, Sprite> GetDictionairyIngredientSprites => dictionairyIngredientSprites;
+    
 }

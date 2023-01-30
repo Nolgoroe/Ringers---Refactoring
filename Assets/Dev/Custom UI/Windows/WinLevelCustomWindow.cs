@@ -65,7 +65,7 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
             }
 
             // to map button
-            // always appears, though sometimes after chest
+            // always appears, though sometimes after chest. if we are a chest level, chest manages showing the hud button
             if (buttonRefs[1] != null && canvasGroups[1] != null)
             {
                 GeneralFloatValueTo(

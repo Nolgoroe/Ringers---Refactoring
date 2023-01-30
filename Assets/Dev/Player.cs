@@ -36,9 +36,7 @@ public class Player : MonoBehaviour
     [Header("Ingredient combos by type")]
     //we do this to sort the materials by their main types - build, herb, witch and gem
     [SerializeField] private List<IngredientPlusMainTypeCombo> ingredientsToMainTypes;
-   
-    
-    
+      
     private void Start()
     {
         ownedIngredients = new Dictionary<Ingredients, DictionairyLootEntry>();
@@ -96,20 +94,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public int ReturnOwnedRubies()
-    {
-        return ownedRubies;
-    }
-    public int ReturnOwnedTears()
-    {
-        return ownedTears;
-    }
-    public List<IngredientPlusMainTypeCombo> returnOwnedIngredientsByType()
-    {
-        return ingredientsToMainTypes;
-    }
-    public Dictionary<Ingredients, DictionairyLootEntry> returnownedIngredients()
-    {
-        return ownedIngredients;
-    }
+    /**/
+    // GETTERS!
+    /**/
+    public int GetOwnedRubies => ownedRubies;
+    public int GetOwnedTears => ownedTears;
+    public List<IngredientPlusMainTypeCombo> returnOwnedIngredientsByType => ingredientsToMainTypes;
+    public Dictionary<Ingredients, DictionairyLootEntry> returnownedIngredients => ownedIngredients;
 }

@@ -56,23 +56,17 @@ public class OwnedAnimalDataSet
 
 public class AnimalsManager : MonoBehaviour
 {
+    [Header("General data")]
     [SerializeField] private List<OwnedAnimalDataSet> unlockedAnimals;
+
+    [Header("Album data")]
     [SerializeField] private List<AnimalsInGame> animalsRevealedInAlbum;
     [SerializeField] private List<AnimalTypesInGame> albumPagesCompleted;
 
-    public List<OwnedAnimalDataSet> GetUnlockedAnimals()
-    {
-        return unlockedAnimals;
-    }
+    [Header("Album rewards")]
+    [SerializeField] private int minRubyRewardClearPage;
+    [SerializeField] private int maxRubyRewardClearPage;
 
-    public bool CheckAnimalAlreadyInAlbum(AnimalsInGame animal)
-    {
-        return animalsRevealedInAlbum.Contains(animal);
-    }
-    public bool CheckPageAlreadyClaimedInAlbum(AnimalTypesInGame animalType)
-    {
-        return albumPagesCompleted.Contains(animalType);
-    }
 
     public void ReleaseAnimal(AnimalStatueData statueData, Transform parent)
     {
@@ -81,7 +75,7 @@ public class AnimalsManager : MonoBehaviour
         if(owned == null)
         {
             OwnedAnimalDataSet newOwned = new OwnedAnimalDataSet(statueData.animalType, statueData.animal);
-            unlockedAnimals.Add(newOwned);
+            unlockedAnimals.Add(newOwned); 
         }
 
         GameObject animalSpawned = Instantiate(statueData.livePrefab, parent);
@@ -95,5 +89,24 @@ public class AnimalsManager : MonoBehaviour
     public void AddToAlbumPagesCompleted(AnimalTypesInGame animalType)
     {
         albumPagesCompleted.Add(animalType);
+    }
+
+    public int RollAmountOfReward()
+    {
+        int amount = UnityEngine.Random.Range(minRubyRewardClearPage, maxRubyRewardClearPage + 1);
+        return amount;
+    }
+
+    public List<OwnedAnimalDataSet> GetUnlockedAnimals()
+    {
+        return unlockedAnimals;
+    }
+    public bool CheckAnimalAlreadyInAlbum(AnimalsInGame animal)
+    {
+        return animalsRevealedInAlbum.Contains(animal);
+    }
+    public bool CheckPageAlreadyClaimedInAlbum(AnimalTypesInGame animalType)
+    {
+        return albumPagesCompleted.Contains(animalType);
     }
 }

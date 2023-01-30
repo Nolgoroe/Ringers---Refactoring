@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private System.Action RingActions;
     private System.Action AfterRingActions;
     private System.Action WinLevelActions;
-    private System.Action LoseLevelActions;
+    //private System.Action LoseLevelActions;
     /// <summary>
     /// Never add to this directly - always use the function "AddToEndlevelCleanup(action to add) with the action we want to add".
     /// We do this since we REQUIRE that the last action will be a specific one.
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ZoneManager zoneManager;
     [SerializeField] private LootManager lootManager;
     [SerializeField] private AnimalsManager animalsManager;
+    [SerializeField] private Player player;
 
     [SerializeField] private GameObject[] gameRingsPrefabs;
     [SerializeField] private GameObject[] gameRingsSlicePrefabs;
@@ -120,8 +121,8 @@ public class GameManager : MonoBehaviour
         WinLevelActions += chestBarLogic.AddToChestBar;
         WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
 
-        // actions after gameplay, on lsoing the level
-        LoseLevelActions += UIManager.instance.DisplayRingHasNonMatchingMessage;
+        // actions after gameplay, on losing the level
+        //LoseLevelActions += UIManager.instance.DisplayInLevelRingHasNonMatchingMessage;
     }
 
     private void BuildLevel()
@@ -179,7 +180,7 @@ public class GameManager : MonoBehaviour
         RingActions = null;
         AfterRingActions = null;
         WinLevelActions = null;
-        LoseLevelActions = null;
+        //LoseLevelActions = null;
         endLevelActions = null;
     }
 
@@ -332,10 +333,10 @@ public class GameManager : MonoBehaviour
     {
         WinLevelActions?.Invoke();
     }
-    public void BroadcastLoseLevelActions()
-    {
-        LoseLevelActions?.Invoke();
-    }
+    //public void BroadcastLoseLevelActions()
+    //{
+    //    LoseLevelActions?.Invoke();
+    //}
 
     public void AdvanceGiveLootFromManager()
     {
@@ -357,10 +358,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public Sprite ReturnLootSpriteFromLootManager(int index)
-    {
-        return lootManager.ReturnSpriteByIndex(index);
-    }
+    /**/
+    // GETTERS!
+    /**/
+    public List<IngredientPlusMainTypeCombo> GetPlayerCombos => player.returnOwnedIngredientsByType;
+    public Dictionary<Ingredients, DictionairyLootEntry> GetIngredientDict => player.returnownedIngredients;
+    public Dictionary<Ingredientnames, Sprite> GetIngredientSpriteDict => lootManager.GetDictionairyIngredientSprites;
+    public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
+
+    public bool IsAnimalAlreadyInAlbum(AnimalsInGame animal) => animalsManager.CheckAnimalAlreadyInAlbum(animal);
+
+
     /**/
     // general methods area - methods that can be dropped and used in any class - mostly inspector things for now
     /**/

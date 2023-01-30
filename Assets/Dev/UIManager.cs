@@ -37,22 +37,21 @@ public class UIManager : MonoBehaviour
     [Header("General refrences")]
     [SerializeField] private Player player;
     [SerializeField] private AnimalsManager animalManager;
+    [SerializeField] private LootManager lootManager;
 
     [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
     [SerializeField] private List<BasicUIElement> currentAdditiveScreens;
     [SerializeField] private List<BasicUIElement> currentPermanentScreens;
 
-    [Header("Map setup")]
-    [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
-    [SerializeField] private RefWorldDisplayCombo[] worldReferebceCombo;
-
     [Header("Map Screen")]
     [SerializeField] private BasicCustomUIWindow levelScrollRect;
-    [SerializeField] private BasicCustomUIWindow generalMapUI;
-    [SerializeField] private BasicCustomUIWindow levelMapPopUp;
     [SerializeField] private PlayerWorkshopCustomWindow playerWorkshopWindow;
+    [SerializeField] private BasicCustomUIWindow levelMapPopUp;
+    [SerializeField] private BasicCustomUIWindow generalSettings;
+    [SerializeField] private BasicCustomUIWindow generalMapUI;
     [SerializeField] private AnimalAlbumCustonWindow animalAlbumWindow;
+    [SerializeField] private BasicCustomUIWindow animalAlbumRewardWidnow;
 
     [Header("In level Screen")]
     [SerializeField] private BasicCustomUIWindow inLevelUI;
@@ -64,9 +63,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow inLevelRestartLevelQuesiton;
     [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
 
-    [Header("map screen general windows")]
-    [SerializeField] private BasicCustomUIWindow generalSettings;
-
     [Header("Fade object settings")]
     [SerializeField] private BasicCustomUIWindow fadeWindow;
     [SerializeField] private float fadeIntoLevelTime;
@@ -74,6 +70,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float fadeIntoMapTime;
     [SerializeField] private float fadeOutMapTime;
 
+    [Header("Map setup")]
+    [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
+    [SerializeField] private RefWorldDisplayCombo[] worldReferebceCombo;
 
     private void Start()
     {
@@ -138,6 +137,17 @@ public class UIManager : MonoBehaviour
             }
 
             UIElement.gameObject.SetActive(true); // or instantiate
+        }
+    }
+    private void AddUIElement(BasicUIElement UIElement)
+    {
+        if(UIElement.isSolo)
+        {
+            OpenSolo(UIElement);
+        }
+        else
+        {
+            AddAdditiveElement(UIElement);
         }
     }
     public void CloseElement(BasicUIElement UIElement)
@@ -271,7 +281,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAllCurrentScreens(); // close all screens open before level launch
 
-        AddAdditiveElement(inLevelUI);
+        AddUIElement(inLevelUI);
 
         System.Action[] actions = new System.Action[10];
         actions[0] += GameManager.gameClip.CallDealAction; //deal action
@@ -302,28 +312,12 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            AddAdditiveElement(inLevelSettingsWindow);
+            AddUIElement(inLevelSettingsWindow);
         }
     }
-    public void DisplayMapSettings()
+    public void DisplayInLevelRingHasNonMatchingMessage()
     {
-        //called from button
-
-        OpenSolo(generalSettings);
-
-        string[] texts = new string[] {"Name of player: Avishy"};
-        generalSettings.OverrideSetMe(texts, null, null);
-    }
-    public void DisplayPlayerInventory()
-    {
-        //called from button
-
-        Debug.Log("test button 2");
-        //OpenSolo(generalSettings);
-    }
-    public void DisplayRingHasNonMatchingMessage()
-    {
-        OpenSolo(inLevelNonMatchTilesMessage);
+        AddUIElement(inLevelNonMatchTilesMessage);
         System.Action[] actions = new System.Action[2];
 
         actions[0] += () => inLevelNonMatchTilesMessage.DeactivateSpecificButton(inLevelNonMatchTilesMessage.buttonRefs[0]);
@@ -331,13 +325,13 @@ public class UIManager : MonoBehaviour
         actions[0] += () => CloseElement(inLevelNonMatchTilesMessage);
 
         actions[1] += () => inLevelNonMatchTilesMessage.DeactivateSpecificButton(inLevelNonMatchTilesMessage.buttonRefs[1]);
-        actions[1] += DisplayLevelLostMessage;
+        actions[1] += DisplayInLevelLostMessage;
 
         inLevelNonMatchTilesMessage.OverrideSetMe(null, null, actions);
     }
-    public void DisplayLevelLostMessage()
+    private void DisplayInLevelLostMessage()
     {
-        OpenSolo(inLevelLostLevelMessage);
+        AddUIElement(inLevelLostLevelMessage);
         System.Action[] actions = new System.Action[2];
         //actions[0] += RestartCurrentScreenWindows;
 
@@ -353,7 +347,7 @@ public class UIManager : MonoBehaviour
     }
     public void DisplayInLevelLastDealWarning()
     {
-        OpenSolo(inLevelLastDealWarning);
+        AddUIElement(inLevelLastDealWarning);
         System.Action[] actions = new System.Action[2];
 
         actions[0] += () => inLevelLastDealWarning.DeactivateSpecificButton(inLevelLastDealWarning.buttonRefs[0]);
@@ -365,9 +359,9 @@ public class UIManager : MonoBehaviour
 
         inLevelLastDealWarning.OverrideSetMe(null, null, actions);
     }
-    public void DisplayInLevelExitToMapQuestion()
+    private void DisplayInLevelExitToMapQuestion()
     {
-        OpenSolo(inLevelExitToMapQuesiton);
+        AddUIElement(inLevelExitToMapQuesiton);
         System.Action[] actions = new System.Action[2];
 
         actions[0] += () => inLevelExitToMapQuesiton.DeactivateSpecificButton(inLevelExitToMapQuesiton.buttonRefs[0]);
@@ -379,9 +373,9 @@ public class UIManager : MonoBehaviour
 
         inLevelExitToMapQuesiton.OverrideSetMe(null, null, actions);
     }
-    public void DisplayInLevelRestartLevelQuestion()
+    private void DisplayInLevelRestartLevelQuestion()
     {
-        OpenSolo(inLevelRestartLevelQuesiton);
+        AddUIElement(inLevelRestartLevelQuesiton);
         System.Action[] actions = new System.Action[2];
 
         actions[0] += () => inLevelRestartLevelQuesiton.DeactivateSpecificButton(inLevelRestartLevelQuesiton.buttonRefs[0]);
@@ -409,7 +403,7 @@ public class UIManager : MonoBehaviour
 
         inLevelWinWindow.OverrideSetMe(GameManager.instance.ReturnStatueName(), null, actions);
 
-        OpenSolo(inLevelWinWindow);
+        AddUIElement(inLevelWinWindow);
     }
     public void ContinueAfterChest()
     {
@@ -431,7 +425,7 @@ public class UIManager : MonoBehaviour
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.SetLevel;
 
-        OpenSolo(levelMapPopUp);
+        AddUIElement(levelMapPopUp);
 
         levelMapPopUp.OverrideSetMe(texts, null, actions);
     }
@@ -450,18 +444,28 @@ public class UIManager : MonoBehaviour
         actions[1] += DisplayPlayerWorkshop; // player workshop
         actions[2] += DisplayMapSettings; // open settings
 
-        string tearsText = player.ReturnOwnedTears().ToString();
-        string rubiesText = player.ReturnOwnedRubies().ToString();
+        string tearsText = player.GetOwnedTears.ToString();
+        string rubiesText = player.GetOwnedRubies.ToString();
 
         string[] texts = new string[] { tearsText, rubiesText };
 
-        AddAdditiveElement(levelScrollRect);
-        AddAdditiveElement(generalMapUI);
+        AddUIElement(levelScrollRect);
+        AddUIElement(generalMapUI);
 
         generalMapUI.OverrideSetMe(texts, null, actions);
     }
 
-    public void DisplayPlayerWorkshop()
+    private void DisplayMapSettings()
+    {
+        //called from button
+
+        AddUIElement(generalSettings);
+
+        string[] texts = new string[] { "Name of player: Avishy" };
+        generalSettings.OverrideSetMe(texts, null, null);
+    }
+
+    private void DisplayPlayerWorkshop()
     {
         System.Action[] actions = new System.Action[7];
         actions[0] += () => playerWorkshopWindow.SwitchCategory(0); // inventory catagory
@@ -472,24 +476,37 @@ public class UIManager : MonoBehaviour
         actions[5] += () => playerWorkshopWindow.SortWorkshop(3); // inventory witchcraft sort
         actions[6] += () => FadeInFadeWindow(true, MainScreens.InLevel); // potion brew button
 
-        OpenSolo(playerWorkshopWindow);
+        AddUIElement(playerWorkshopWindow);
 
         playerWorkshopWindow.OverrideSetMe(null, null, actions);
-        playerWorkshopWindow.InitPlayerWorkshop(player);
+        //playerWorkshopWindow.InitPlayerWorkshop(player, lootManager);
+        playerWorkshopWindow.InitPlayerWorkshop();
     }
-    public void DisplayAnimalAlbum()
+    private void DisplayAnimalAlbum()
     {
         System.Action[] actions = new System.Action[5];
         actions[0] += () => animalAlbumWindow.SwitchAnimalCategory(0); // Fox type
         actions[1] += () => animalAlbumWindow.SwitchAnimalCategory(1); // Stag type
         actions[2] += () => animalAlbumWindow.SwitchAnimalCategory(2); // Owl type
         actions[3] += () => animalAlbumWindow.SwitchAnimalCategory(3); // Boar type
-        actions[4] += () => animalAlbumWindow.GivePlayerRewards(); // Give reward
+        actions[4] += () => animalAlbumWindow.GivePlayerRewardsFromAnimalAlbum(); // show animal reward window and give reward
 
-        OpenSolo(animalAlbumWindow);
+        AddUIElement(animalAlbumWindow);
 
         animalAlbumWindow.OverrideSetMe(null, null, actions);
-        animalAlbumWindow.InitAnimalAlbum(animalManager);
+        animalAlbumWindow.InitAnimalAlbum(animalManager, player);
+    }
+
+    public void DisplayAnimalAlbumReward(int amountOfReward)
+    {
+        System.Action[] actions = new System.Action[1];
+        actions[0] += () => CloseElement(animalAlbumRewardWidnow);
+
+        AddUIElement(animalAlbumRewardWidnow);
+
+        string[] texts = new string[] { amountOfReward.ToString() };
+
+        animalAlbumRewardWidnow.OverrideSetMe(texts, null, actions);
     }
 
     /**/
@@ -508,7 +525,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
+    private void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
     {
         ISDURINGFADE = true;
 
@@ -560,7 +577,7 @@ public class UIManager : MonoBehaviour
         ISDURINGFADE = false;
         CloseElement(fadeWindow);
     }
-    public float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
+    private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
     {
         if(fadeIn)
         {

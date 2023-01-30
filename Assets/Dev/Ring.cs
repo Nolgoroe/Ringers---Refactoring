@@ -97,7 +97,7 @@ public class Ring : MonoBehaviour
 
         if (filledCellsCount == GameManager.gameRing.ringCells.Length && unsuccessfulConnectionsCount > 0)
         {
-            GameManager.instance.BroadcastLoseLevelActions();
+            //GameManager.instance.BroadcastLoseLevelActions();
 
             Debug.Log("lose Level");
         }

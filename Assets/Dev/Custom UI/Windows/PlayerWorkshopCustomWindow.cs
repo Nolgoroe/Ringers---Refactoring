@@ -5,19 +5,24 @@ using System;
 
 public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
 {
+    [Header("Required refs inventory")]
     [SerializeField] private Transform materialsContent;
     [SerializeField] private GameObject materialDisplayPrefab;
+
+    [Header("Required refs potion")]
+    [SerializeField] private Transform[] potionsMaterialZones;
+
+    [Header("Swappers")]
     [SerializeField] private ImageSwapHelper[] sortSwapHelpers;
     [SerializeField] private ImageSwapHelper[] catagoriesSwapHelpers;
     [SerializeField] private GameObject[] categoryTabs;
-    [SerializeField] private Transform[] potionsMaterialZones;
 
-    private Player localPlayer;
+    private List<IngredientPlusMainTypeCombo> localCombos => GameManager.instance.GetPlayerCombos;
+    private Dictionary<Ingredients, DictionairyLootEntry> localDict => GameManager.instance.GetIngredientDict;
+    private Dictionary<Ingredientnames, Sprite> localDisplay => GameManager.instance.GetIngredientSpriteDict;
 
-    public void InitPlayerWorkshop(Player player)
+    public void InitPlayerWorkshop()
     {
-        localPlayer = player;
-
         SortWorkshop(0);
         SwitchCategory(0);
     }
@@ -25,7 +30,7 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
 
     public void SortWorkshop(int index)
     {
-        StartCoroutine(DestoryAllIngredientChildren());
+        DestoryAllIngredientChildren();
 
         SetSortButtonsDisplay(index);
 
@@ -67,23 +72,21 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
         }
     }
 
-    private IEnumerator DestoryAllIngredientChildren()
+    private void DestoryAllIngredientChildren()
     {
         for (int i = 0; i < materialsContent.childCount; i++)
         {
             Destroy(materialsContent.GetChild(i).gameObject);
         }
 
-        yield return new WaitForEndOfFrame();
+        //yield return new WaitForEndOfFrame();
     }
 
     private void SpawnAllOwnedIngredientsByType(int compareTypeIndex)
     {
         IngredientTypes requiredType = (IngredientTypes)compareTypeIndex;
 
-        Dictionary<Ingredients, DictionairyLootEntry> localDict = localPlayer.returnownedIngredients();
-
-        foreach (IngredientPlusMainTypeCombo combo in localPlayer.returnOwnedIngredientsByType())
+        foreach (IngredientPlusMainTypeCombo combo in localCombos)
         {
             if(combo.mainType == requiredType)
             {
@@ -101,13 +104,15 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
                     }
 
                     int amount = localDict[combo.typeIngredients[i]].amount;
-                    Sprite sprite = GameManager.instance.ReturnLootSpriteFromLootManager((int)combo.typeIngredients[i].ingredientName);
+                    Sprite sprite = localDisplay[combo.typeIngredients[i].ingredientName];
 
                     string[] texts = new string[] { amount.ToString() };
                     Sprite[] sprites = new Sprite[] { sprite };
 
                     displayer.SetMe(texts, sprites);
                 }
+
+                break;
             }
         }
     }
