@@ -27,7 +27,6 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
         SwitchCategory(0);
     }
 
-
     public void SortWorkshop(int index)
     {
         DestoryAllIngredientChildren();
@@ -78,8 +77,6 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
         {
             Destroy(materialsContent.GetChild(i).gameObject);
         }
-
-        //yield return new WaitForEndOfFrame();
     }
 
     private void SpawnAllOwnedIngredientsByType(int compareTypeIndex)

@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
         isAnimalLevel = false; //maybe have a reset function
 
-        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+        yield return new WaitUntil(() => !UIManager.ISDURINGTRANSITION);
 
         //Before Ring
         BeforeRingActions?.Invoke();
@@ -186,7 +186,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator InitiateDestrucionOfLevel()
     {
-        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+        yield return new WaitUntil(() => !UIManager.ISDURINGTRANSITION);
         Debug.Log("Initiating destruction");
         endLevelActions?.Invoke();
     }
@@ -210,7 +210,7 @@ public class GameManager : MonoBehaviour
     }
     private IEnumerator RestartLevel()
     {
-        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+        yield return new WaitUntil(() => !UIManager.ISDURINGTRANSITION);
 
         for (int k = 0; k < 1; k++)
         {
@@ -244,7 +244,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator MoveToNextLevel()
     {
-        yield return new WaitUntil(() => !UIManager.ISDURINGFADE);
+        yield return new WaitUntil(() => !UIManager.ISDURINGTRANSITION);
 
         DestroyOnLevelExit();
 

@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BasicCustomUIWindow : CustomWindowParent
 {
     public override void OverrideSetMe(string[] texts, Sprite[] sprites, Action[] actions)
     {
         base.SetMe(texts, sprites);
 
-        if (buttonRefs.Length > 0)
+        if (buttonRefs.Length > 0 && actions != null)
         {
             ResetAllButtonEvents();
 

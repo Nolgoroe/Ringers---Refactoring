@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     public static bool ISUSINGUI;
-    public static bool ISDURINGFADE;
+    public static bool ISDURINGTRANSITION;
 
     [Header("General refrences")]
     [SerializeField] private Player player;
@@ -320,11 +320,9 @@ public class UIManager : MonoBehaviour
         AddUIElement(inLevelNonMatchTilesMessage);
         System.Action[] actions = new System.Action[2];
 
-        actions[0] += () => inLevelNonMatchTilesMessage.DeactivateSpecificButton(inLevelNonMatchTilesMessage.buttonRefs[0]);
         actions[0] += GameManager.gameControls.ReturnHomeBadRingConnections;
         actions[0] += () => CloseElement(inLevelNonMatchTilesMessage);
 
-        actions[1] += () => inLevelNonMatchTilesMessage.DeactivateSpecificButton(inLevelNonMatchTilesMessage.buttonRefs[1]);
         actions[1] += DisplayInLevelLostMessage;
 
         inLevelNonMatchTilesMessage.OverrideSetMe(null, null, actions);
@@ -335,11 +333,9 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = new System.Action[2];
         //actions[0] += RestartCurrentScreenWindows;
 
-        actions[0] += () => inLevelLostLevelMessage.DeactivateSpecificButton(inLevelLostLevelMessage.buttonRefs[0]);
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallRestartLevel;
 
-        actions[1] += () => inLevelLostLevelMessage.DeactivateSpecificButton(inLevelLostLevelMessage.buttonRefs[1]);
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
@@ -350,10 +346,8 @@ public class UIManager : MonoBehaviour
         AddUIElement(inLevelLastDealWarning);
         System.Action[] actions = new System.Action[2];
 
-        actions[0] += () => inLevelLastDealWarning.DeactivateSpecificButton(inLevelLastDealWarning.buttonRefs[0]);
         actions[0] += () => CloseElement(inLevelLastDealWarning);
 
-        actions[1] += () => inLevelLastDealWarning.DeactivateSpecificButton(inLevelLastDealWarning.buttonRefs[1]);
         actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
@@ -364,10 +358,8 @@ public class UIManager : MonoBehaviour
         AddUIElement(inLevelExitToMapQuesiton);
         System.Action[] actions = new System.Action[2];
 
-        actions[0] += () => inLevelExitToMapQuesiton.DeactivateSpecificButton(inLevelExitToMapQuesiton.buttonRefs[0]);
         actions[0] += () => CloseElement(inLevelExitToMapQuesiton);
 
-        actions[1] += () => inLevelExitToMapQuesiton.DeactivateSpecificButton(inLevelExitToMapQuesiton.buttonRefs[1]);
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
@@ -378,10 +370,8 @@ public class UIManager : MonoBehaviour
         AddUIElement(inLevelRestartLevelQuesiton);
         System.Action[] actions = new System.Action[2];
 
-        actions[0] += () => inLevelRestartLevelQuesiton.DeactivateSpecificButton(inLevelRestartLevelQuesiton.buttonRefs[0]);
         actions[0] += () => CloseElement(inLevelRestartLevelQuesiton);
 
-        actions[1] += () => inLevelRestartLevelQuesiton.DeactivateSpecificButton(inLevelRestartLevelQuesiton.buttonRefs[1]);
         actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
@@ -393,11 +383,9 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = new System.Action[2];
 
-        actions[0] += () => inLevelWinWindow.DeactivateSpecificButton(inLevelWinWindow.buttonRefs[0]);
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallNextLevel;
 
-        actions[1] += () => inLevelWinWindow.DeactivateSpecificButton(inLevelWinWindow.buttonRefs[1]);
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
@@ -421,7 +409,6 @@ public class UIManager : MonoBehaviour
 
         System.Action[] actions = new System.Action[1];
 
-        actions[0] += () => levelMapPopUp.DeactivateSpecificButton(levelMapPopUp.buttonRefs[0]);
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.SetLevel;
 
@@ -455,6 +442,12 @@ public class UIManager : MonoBehaviour
         generalMapUI.OverrideSetMe(texts, null, actions);
     }
 
+    public void RefreshRubyAndTearsTexts(int tearsAmount, int rubiesAmount)
+    {
+        generalMapUI.textRefrences[0].text = tearsAmount.ToString(); // dew drops text
+        generalMapUI.textRefrences[1].text = rubiesAmount.ToString(); // rubies text
+    }
+
     private void DisplayMapSettings()
     {
         //called from button
@@ -484,6 +477,10 @@ public class UIManager : MonoBehaviour
     }
     private void DisplayAnimalAlbum()
     {
+        string tearsText = player.GetOwnedTears.ToString();
+        string rubiesText = player.GetOwnedRubies.ToString();
+        string[] texts = new string[] { tearsText, rubiesText };
+
         System.Action[] actions = new System.Action[5];
         actions[0] += () => animalAlbumWindow.SwitchAnimalCategory(0); // Fox type
         actions[1] += () => animalAlbumWindow.SwitchAnimalCategory(1); // Stag type
@@ -527,7 +524,7 @@ public class UIManager : MonoBehaviour
 
     private void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
     {
-        ISDURINGFADE = true;
+        ISDURINGTRANSITION = true;
 
         float fadeInSpeed = ReturnFadeTime(fadeIn, mainScreen);
 
@@ -545,7 +542,7 @@ public class UIManager : MonoBehaviour
         group.alpha = fadeIn == true ? 0 : 1;
         from = fadeIn == true ? 0 : 1;
         to = fadeIn == true ? 1 : 0;
-        System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen)) : OnEndFade;
+        System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen, fadeInSpeed)) : OnEndFade;
 
         fadeWindow.gameObject.SetActive(true);
         
@@ -559,22 +556,21 @@ public class UIManager : MonoBehaviour
             action);
     }
 
-    private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen)
+    private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
     {
-        ISDURINGFADE = false; 
+        ISDURINGTRANSITION = false; 
         // is this ok?
         // This is here for actions that want to happen on the transition between
         // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
 
-        yield return new WaitForSeconds(0.5f);
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(fadeTime);
 
         FadeInFadeWindow(!fadeIn, mainScreen);
     }
 
     private void OnEndFade()
     {
-        ISDURINGFADE = false;
+        ISDURINGTRANSITION = false;
         CloseElement(fadeWindow);
     }
     private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)

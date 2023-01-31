@@ -326,6 +326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6331029877578296787}
+  - component: {fileID: 4363150600252831854}
   m_Layer: 0
   m_Name: Chest Bar
   m_TagString: Untagged
@@ -356,6 +357,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 707.67, y: 47.88}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4363150600252831854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6331029877578296786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98b99fa04b61564fb76fccd7ecbeace, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starPrefab: {fileID: 6137699720529089676, guid: 6ecb77de8aa5ecc4888287ed705dd695,
+    type: 3}
+  starsParent: {fileID: 6331029877173806035}
+  chestBarSlider: {fileID: 6331029876035983558}
+  barAnimationSpeed: 3
 --- !u!1 &6331029877812394914
 GameObject:
   m_ObjectHideFlags: 0

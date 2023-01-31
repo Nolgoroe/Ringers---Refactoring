@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
-using TMPro;
 
+[RequireComponent(typeof(CanvasGroup))]
 public abstract class BasicUIElement : MonoBehaviour
 {
     public bool isSolo;

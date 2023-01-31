@@ -10,13 +10,13 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
     [SerializeField] private float timeToReveaFlowers;
     [SerializeField] private float timeToReveaButtons;
 
-    [SerializeField] private CanvasGroup[] canvasGroups;
+    [SerializeField] private BasicCustomButton nextLevelButton;
+    [SerializeField] private BasicCustomButton toMapButton;
+
+    private CanvasGroup nextLevelCanvasGroup;
+    private CanvasGroup toMapCanvasGroup;
     public override void OverrideSetMe(string[] texts, Sprite[] sprites, Action[] actions)
     {
-        foreach (var group in canvasGroups)
-        {
-            group.alpha = 0;
-        }
 
         base.SetMe(texts, sprites);
 
@@ -30,6 +30,12 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
                 buttonRefs[i].isInteractable = false;
             }
         }
+
+        nextLevelCanvasGroup = nextLevelButton.GetComponent<CanvasGroup>();
+        toMapCanvasGroup = toMapButton.GetComponent<CanvasGroup>();
+
+        nextLevelCanvasGroup.alpha = 0;
+        toMapCanvasGroup.alpha = 0;
     }
 
 
@@ -52,33 +58,22 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
         // we don't have a next level if we're a chest level - the hud button will appear after chest is shown
         if(GameManager.instance.nextLevel != null)
         {
-            if (buttonRefs[0] != null && canvasGroups[0] != null)
+            if (nextLevelButton != null)
             {
                 GeneralFloatValueTo(
-                buttonRefs[0].gameObject,
+                nextLevelButton.gameObject,
                 0,
                 1,
                 timeToReveaButtons,
                 LeanTweenType.linear,
-                canvasGroups[0],
-                () => ActivateButton(buttonRefs[0]));
+                nextLevelCanvasGroup,
+                () => ActivateButton(nextLevelButton));
             }
 
             // to map button
             // always appears, though sometimes after chest. if we are a chest level, chest manages showing the hud button
-            if (buttonRefs[1] != null && canvasGroups[1] != null)
-            {
-                GeneralFloatValueTo(
-                buttonRefs[1].gameObject,
-                0,
-                1,
-                timeToReveaButtons,
-                LeanTweenType.linear,
-                canvasGroups[1],
-                () => ActivateButton(buttonRefs[1]));
-            }
+            ManuallyShowToHudButton();
         }
-
     }
 
     private void ActivateButton(CustomButtonParent button)
@@ -88,16 +83,16 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
 
     public void ManuallyShowToHudButton()
     {
-        if (buttonRefs[1] != null && canvasGroups[1] != null)
+        if (toMapButton != null )
         {
             GeneralFloatValueTo(
-            buttonRefs[1].gameObject,
+            toMapButton.gameObject,
             0,
             1,
             timeToReveaButtons,
             LeanTweenType.linear,
-            canvasGroups[1],
-            () => ActivateButton(buttonRefs[1]));
+            toMapCanvasGroup,
+            () => ActivateButton(toMapButton));
         }
     }
 }

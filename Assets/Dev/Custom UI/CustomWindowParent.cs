@@ -14,10 +14,6 @@ public abstract class CustomWindowParent : BasicUIElement
             button.buttonEvents = null;
         }
     }
-    public virtual void DeactivateSpecificButton(CustomButtonParent button)
-    {
-        button.isInteractable = false;
-    }
     public virtual void ActivateSpecificButton(CustomButtonParent button)
     {
         button.isInteractable = true;

@@ -82,7 +82,15 @@ public class Player : MonoBehaviour
     public void AddRubies(int amount)
     {
         ownedRubies += amount;
+
+        UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Added: " + amount + " " + "To gems!");
+    }
+    public void AddTears(int amount)
+    {
+        ownedTears += amount;
+        UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
+        Debug.Log("Added: " + amount + " " + "To Tears!");
     }
     private void AddToIngredientsComboByType(Ingredients toAdd)
     {

@@ -29,7 +29,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
     [SerializeField] private List<Image> revealedAnimalImages;
 
     [Header("Current page data")]
-    [SerializeField] private int currentlyOpenPageIndex;
+    [SerializeField] private int currentlyOpenPageIndex = -1;
     [SerializeField] private int filledAnimalsCount;
 
     [Header("Required refs")]
@@ -62,6 +62,8 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
     }
     private void SetCategoriesDisplay(int index)
     {
+        if (currentlyOpenPageIndex == index) return;
+
         ResetAlbumData(index);
 
         currentOpenType = animalDisplayers[currentlyOpenPageIndex].animalType;
@@ -113,13 +115,14 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
 
         foreach (OwnedAnimalDataSet ownedAnimal in ownedAnimals)
         {
+            // counts filled animals in page
+            filledAnimalsCount++;
+
             bool animalAlreadyRevealed = localAnimalManager.CheckAnimalAlreadyInAlbum(ownedAnimal.animalEnum);
             if (animalAlreadyRevealed) continue;
 
             isRevealing = true;
 
-            // counts filled animals in page
-            filledAnimalsCount++;
 
 
             localAnimalManager.AddAnimalToAlbum(ownedAnimal.animalEnum);
@@ -141,7 +144,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
 
         if (isRevealing)
         {
-            StartCoroutine(RevealAnimalsAction(imagesToReveal, deactivateOnEnd));
+            StartCoroutine(RevealAnimalsAction(imagesToReveal, deactivateOnEnd, filledAnimalsCount));
         }
 
         //make this somehow not hardcoded!
@@ -159,7 +162,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         }
     }
 
-    private IEnumerator RevealAnimalsAction(List<Image> imagesToReveal, List<Image> deactivateOnEnd)
+    private IEnumerator RevealAnimalsAction(List<Image> imagesToReveal, List<Image> deactivateOnEnd, int filledAnimals)
     {
         foreach (Image image in imagesToReveal)
         {
@@ -176,7 +179,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         }
 
         //make this somehow not hardcoded!
-        if (filledAnimalsCount == 4)
+        if (filledAnimals == 4)
         {
             getRewardsButton.gameObject.SetActive(true);
             getRewardsButton.blocksRaycasts = false; //can't click on

@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 3882507202230360116}
   - component: {fileID: 1570081244300423669}
   - component: {fileID: 8331186534698904030}
+  - component: {fileID: 5749183859819537810}
   m_Layer: 0
   m_Name: Potion 2
   m_TagString: Untagged
@@ -232,6 +233,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00977087}
   serializedVersion: 2
   m_Radius: 1.1295924
+--- !u!225 &5749183859819537810
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771075451734821283}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1347163068123731263
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +257,7 @@ GameObject:
   - component: {fileID: 7919459934710039031}
   - component: {fileID: 305396692335536280}
   - component: {fileID: 539532491288072594}
+  - component: {fileID: 8554295383734761765}
   m_Layer: 0
   m_Name: to level map icon
   m_TagString: Untagged
@@ -364,6 +378,18 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &8554295383734761765
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347163068123731263}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1898924074939001261
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +402,7 @@ GameObject:
   - component: {fileID: 2328612927982518520}
   - component: {fileID: 7947633266122372733}
   - component: {fileID: 2638242971129844053}
+  - component: {fileID: 4550104837584533960}
   m_Layer: 0
   m_Name: Potion 4
   m_TagString: Untagged
@@ -495,6 +522,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00977087}
   serializedVersion: 2
   m_Radius: 1.1295924
+--- !u!225 &4550104837584533960
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898924074939001261}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2091097384096294898
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,6 +632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2603348070765558574}
   - component: {fileID: 767349432143551286}
+  - component: {fileID: 7245372628948249795}
   m_Layer: 0
   m_Name: In level - options screen (Additive)
   m_TagString: Untagged
@@ -642,6 +682,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!225 &7245372628948249795
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2863320780350692305}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3887683064978143067
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3887683064978143066}
   - component: {fileID: 5677927978050471942}
-  - component: {fileID: 2072595701}
+  - component: {fileID: 97598513781858498}
   m_Layer: 0
   m_Name: In level - Normal (permanent)
   m_TagString: Untagged
@@ -713,25 +765,18 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2072595701
-MonoBehaviour:
+--- !u!225 &97598513781858498
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3887683064978143067}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d98b99fa04b61564fb76fccd7ecbeace, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  starPrefab: {fileID: 6137699720529089676, guid: 6ecb77de8aa5ecc4888287ed705dd695,
-    type: 3}
-  chestPrefab: {fileID: 46645740796259838, guid: 3952d68fa9eec4e4584310e73a1b252f,
-    type: 3}
-  starsParent: {fileID: 7075019806838292017}
-  chestBarSlider: {fileID: 7075019805566436644}
-  barAnimationSpeed: 3
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3887683065392404054
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,6 +789,7 @@ GameObject:
   - component: {fileID: 3887683065392404056}
   - component: {fileID: 3887683065392404058}
   - component: {fileID: 3887683065392404061}
+  - component: {fileID: 1287216159932795267}
   m_Layer: 0
   m_Name: Deal button
   m_TagString: Untagged
@@ -863,6 +909,18 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &1287216159932795267
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3887683065392404054}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4842835412407288374
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +933,7 @@ GameObject:
   - component: {fileID: 2787379646846028884}
   - component: {fileID: 7036130180186452864}
   - component: {fileID: 1872662272}
+  - component: {fileID: 7268710791878407287}
   m_Layer: 0
   m_Name: Music icon level
   m_TagString: Untagged
@@ -1040,6 +1099,18 @@ MonoBehaviour:
         m_CallState: 2
   connectedImage: {fileID: 0}
   connectedSpriteRenderer: {fileID: 2787379646846028884}
+--- !u!225 &7268710791878407287
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842835412407288374}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4945438081301374792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,6 +1155,7 @@ GameObject:
   - component: {fileID: 56690840867043887}
   - component: {fileID: 3331183102176932856}
   - component: {fileID: 145742567}
+  - component: {fileID: 778881707268623325}
   m_Layer: 0
   m_Name: SFX icon level
   m_TagString: Untagged
@@ -1249,6 +1321,18 @@ MonoBehaviour:
         m_CallState: 2
   connectedImage: {fileID: 0}
   connectedSpriteRenderer: {fileID: 56690840867043887}
+--- !u!225 &778881707268623325
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276108477592535531}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7010490035626241248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1345,7 @@ GameObject:
   - component: {fileID: 6130735821170201617}
   - component: {fileID: 6144157331735310277}
   - component: {fileID: 2648578831801183454}
+  - component: {fileID: 5457083954978863752}
   m_Layer: 0
   m_Name: Options button
   m_TagString: Untagged
@@ -1381,6 +1466,18 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &5457083954978863752
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010490035626241248}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7199726007259066269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,6 +1490,7 @@ GameObject:
   - component: {fileID: 8236552757944658251}
   - component: {fileID: 4294957330704266904}
   - component: {fileID: 7882573566945001251}
+  - component: {fileID: 5989917999839149723}
   m_Layer: 0
   m_Name: Potion 1
   m_TagString: Untagged
@@ -1512,6 +1610,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00977087}
   serializedVersion: 2
   m_Radius: 1.1295924
+--- !u!225 &5989917999839149723
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199726007259066269}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7924401865644014326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,6 +1634,7 @@ GameObject:
   - component: {fileID: 1785237854834542970}
   - component: {fileID: 655064886205494562}
   - component: {fileID: 1382028686043734036}
+  - component: {fileID: 349358839132664936}
   m_Layer: 0
   m_Name: restart level icon
   m_TagString: Untagged
@@ -1644,6 +1755,18 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &349358839132664936
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924401865644014326}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8051993539839587612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,6 +1779,7 @@ GameObject:
   - component: {fileID: 457898152490867251}
   - component: {fileID: 6843081931419061554}
   - component: {fileID: 1264383259544104170}
+  - component: {fileID: 3172672881212776614}
   m_Layer: 0
   m_Name: Potion 3
   m_TagString: Untagged
@@ -1775,6 +1899,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.00977087}
   serializedVersion: 2
   m_Radius: 1.1295924
+--- !u!225 &3172672881212776614
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051993539839587612}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8824960352207551644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,27 +2130,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e3d4646419287478bd3e4089af8395, type: 3}
---- !u!114 &7075019805566436644 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6331029876035983558, guid: d0e3d4646419287478bd3e4089af8395,
-    type: 3}
-  m_PrefabInstance: {fileID: 3887683064421588450}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7075019806165364785 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6331029877578296787, guid: d0e3d4646419287478bd3e4089af8395,
-    type: 3}
-  m_PrefabInstance: {fileID: 3887683064421588450}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &7075019806838292017 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6331029877173806035, guid: d0e3d4646419287478bd3e4089af8395,
     type: 3}
   m_PrefabInstance: {fileID: 3887683064421588450}
   m_PrefabAsset: {fileID: 0}
