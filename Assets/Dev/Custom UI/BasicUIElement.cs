@@ -13,14 +13,14 @@ public abstract class BasicUIElement : MonoBehaviour
     public bool isPermanent;
     public bool isInteractable = true;
 
-    public TMP_Text[] textRefrences;
-    public Image[] imageRefrences;
-    public SpriteRenderer[] spriterRendererRefrences;
-    public CustomButtonParent[] buttonRefs;
+    [SerializeField] protected TMP_Text[] textRefrences;
+    [SerializeField] protected Image[] imageRefrences;
+    [SerializeField] protected SpriteRenderer[] spriterRendererRefrences;
+    [SerializeField] protected CustomButtonParent[] buttonRefs;
     //public UnityEvent connectedEvents;
 
     [Tooltip("move by curve explanation for leantween: in a curve we cannot go past 1 to the right as the curve moves from 0(start of animations) to 1(the end of the animations) - so if we move past 1 to the right, it's like asking to continue reading from an animation that does not exist. We can go up as high or as low as we want, but 1 symbolizes the target position we want to achieve. If we want to move to new Vector3(0, 0, 50), then 1 will be 0, 0, 50 ")]
-    public AnimationCurve HoverOverMeToGetInfo;
+    protected AnimationCurve HoverOverMeToGetInfo;
 
     private void Start()
     {
@@ -70,13 +70,6 @@ public abstract class BasicUIElement : MonoBehaviour
         LeanTween.rotate(gameObject, targetRotation.eulerAngles, time).setEase(rotationCurve);
     }
 
-    /**/
-    // Color zone
-    /**/
-    public void ColorToTarget(Color targetColor, float time)
-    {
-        
-    }
 
     /**/
     // General zone
@@ -204,7 +197,7 @@ public abstract class BasicUIElement : MonoBehaviour
             }
         }
 
-        if (imageRefrences.Length >0 && sprites != null && sprites.Length > 0)
+        if (imageRefrences.Length > 0 && sprites != null && sprites.Length > 0)
         {
             for (int i = 0; i < imageRefrences.Length; i++)
             {
@@ -222,4 +215,9 @@ public abstract class BasicUIElement : MonoBehaviour
     }
 
     public abstract void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions);
+
+
+    public CustomButtonParent[] getButtonRefrences => buttonRefs;
+    public TMP_Text[] getTextRefrences => textRefrences;
+    //public CustomButtonParent[] getButtonRefrences => buttonRefs;
 }

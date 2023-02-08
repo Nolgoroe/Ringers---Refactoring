@@ -10,14 +10,14 @@ public class BasicCustomUIWindow : CustomWindowParent
     {
         base.SetMe(texts, sprites);
 
-        if (buttonRefs.Length > 0 && actions != null)
+        if (getButtonRefrences.Length > 0 && actions != null)
         {
             ResetAllButtonEvents();
 
-            for (int i = 0; i < buttonRefs.Length; i++)
+            for (int i = 0; i < getButtonRefrences.Length; i++)
             {
-                buttonRefs[i].buttonEvents += actions[i];
-                buttonRefs[i].isInteractable = true;
+                getButtonRefrences[i].buttonEvents += actions[i];
+                getButtonRefrences[i].isInteractable = true;
             }
         }
     }

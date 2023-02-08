@@ -20,14 +20,14 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
 
         base.SetMe(texts, sprites);
 
-        if (buttonRefs.Length > 0)
+        if (getButtonRefrences.Length > 0)
         {
             ResetAllButtonEvents();
 
-            for (int i = 0; i < buttonRefs.Length; i++)
+            for (int i = 0; i < getButtonRefrences.Length; i++)
             {
-                buttonRefs[i].buttonEvents += actions[i];
-                buttonRefs[i].isInteractable = false;
+                getButtonRefrences[i].buttonEvents += actions[i];
+                getButtonRefrences[i].isInteractable = false;
             }
         }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1874035966}
   - component: {fileID: 1874035965}
   m_Layer: 0
-  m_Name: In level world Canvas
+  m_Name: In level world Canvas Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,15 +208,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!58 &8331186534698904030
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -369,15 +364,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!225 &8554295383734761765
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -497,15 +487,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!58 &2638242971129844053
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -622,6 +607,110 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2534800515667500794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8664725431043788708}
+  - component: {fileID: 8723624493569669847}
+  - component: {fileID: 6300008227510567164}
+  - component: {fileID: 6913470072639981069}
+  m_Layer: 0
+  m_Name: In level world Canvas Bottom
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8664725431043788708
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2534800515667500794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3887683065392404057}
+  - {fileID: 7506671342619590369}
+  - {fileID: 7966098928696366135}
+  - {fileID: 2603348070765558574}
+  m_Father: {fileID: 6782784981870520891}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!223 &8723624493569669847
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2534800515667500794}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &6300008227510567164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2534800515667500794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!114 &6913470072639981069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2534800515667500794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &2863320780350692305
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,12 +737,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2863320780350692305}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: -8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -974.2223, y: -2099.5557, z: 62.222225}
+  m_LocalScale: {x: 1.7777779, y: 1.7777779, z: 1.7777779}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2144856137956239052}
-  m_Father: {fileID: 6782784981870520891}
+  m_Father: {fileID: 8664725431043788708}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &767349432143551286
@@ -676,12 +765,6 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!225 &7245372628948249795
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -759,12 +842,6 @@ MonoBehaviour:
   - {fileID: 145742567}
   - {fileID: 539532491288072594}
   - {fileID: 1382028686043734036}
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!225 &97598513781858498
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -805,11 +882,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3887683065392404054}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -13.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -960.00006, y: -2109.3335, z: 62.222225}
+  m_LocalScale: {x: 1.7777779, y: 1.7777779, z: 1.7777779}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6782784981870520891}
+  m_Father: {fileID: 8664725431043788708}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3887683065392404056
@@ -900,15 +977,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!225 &1287216159932795267
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1045,12 +1117,6 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -1267,12 +1333,6 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -1361,11 +1421,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7010490035626241248}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: -13, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -974.2223, y: -2108.4446, z: 62.222225}
+  m_LocalScale: {x: 1.7777779, y: 1.7777779, z: 1.7777779}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6782784981870520891}
+  m_Father: {fileID: 8664725431043788708}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6130735821170201617
@@ -1457,15 +1517,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!225 &5457083954978863752
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1585,15 +1640,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!58 &7882573566945001251
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1746,15 +1796,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!225 &349358839132664936
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1874,15 +1919,10 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!58 &1264383259544104170
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1935,15 +1975,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8824960352207551644}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -13.779999, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -960.00006, y: -2109.8313, z: 62.222225}
+  m_LocalScale: {x: 1.7777779, y: 1.7777779, z: 1.7777779}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3656472867624102610}
   - {fileID: 362342045354533123}
   - {fileID: 5627469320798063624}
   - {fileID: 5663295046626659380}
-  m_Father: {fileID: 6782784981870520891}
+  m_Father: {fileID: 8664725431043788708}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9073444347678352221
@@ -1974,10 +2014,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3887683065392404057}
-  - {fileID: 7506671342619590369}
-  - {fileID: 7966098928696366135}
-  - {fileID: 2603348070765558574}
+  - {fileID: 8664725431043788708}
   m_Father: {fileID: 3887683064978143066}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

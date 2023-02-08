@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5251956185081650601}
   - component: {fileID: 5251956185081650600}
   - component: {fileID: 5251956185081650606}
+  - component: {fileID: 2178843971677572236}
   m_Layer: 0
   m_Name: Player workshop button
   m_TagString: Untagged
@@ -98,12 +99,6 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -119,6 +114,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isUseOnce: 0
+--- !u!225 &2178843971677572236
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251956185081650602}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5251956185223835633
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,6 +275,7 @@ GameObject:
   - component: {fileID: 5251956185507839701}
   - component: {fileID: 5251956185507839700}
   - component: {fileID: 5251956185507839722}
+  - component: {fileID: 7526634873481224692}
   m_Layer: 0
   m_Name: Open settings button
   m_TagString: Untagged
@@ -353,12 +362,6 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -374,6 +377,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isUseOnce: 0
+--- !u!225 &7526634873481224692
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251956185507839702}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5251956185821983455
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,6 +558,7 @@ GameObject:
   - component: {fileID: 5251956186476645075}
   - component: {fileID: 5251956186476645074}
   - component: {fileID: 5251956186476645072}
+  - component: {fileID: 7259568894519674583}
   m_Layer: 0
   m_Name: Animal album button
   m_TagString: Untagged
@@ -627,12 +644,6 @@ MonoBehaviour:
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -648,6 +659,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isUseOnce: 0
+--- !u!225 &7259568894519674583
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251956186476645084}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5251956186537042143
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +818,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5251956187132270960}
   - component: {fileID: 5251956187132270961}
+  - component: {fileID: 713159970138289647}
   m_Layer: 0
   m_Name: General Map UI Window (Permanent)
   m_TagString: Untagged
@@ -851,9 +876,15 @@ MonoBehaviour:
   - {fileID: 5251956186476645072}
   - {fileID: 5251956185081650606}
   - {fileID: 5251956185507839722}
-  HoverOverMeToGetInfo:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+--- !u!225 &713159970138289647
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251956187132270963}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

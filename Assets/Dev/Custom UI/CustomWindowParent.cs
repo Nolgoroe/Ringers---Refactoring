@@ -9,7 +9,7 @@ public abstract class CustomWindowParent : BasicUIElement
 
     public virtual void ResetAllButtonEvents()
     {
-        foreach (CustomButtonParent button in buttonRefs)
+        foreach (CustomButtonParent button in getButtonRefrences)
         {
             button.buttonEvents = null;
         }

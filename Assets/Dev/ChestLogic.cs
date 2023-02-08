@@ -7,6 +7,11 @@ public class ChestLogic : MonoBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private BasicCustomButton customButton;
 
+
+    private void Start()
+    {
+        GameManager.instance.summonedChest = this;
+    }
     public void OnPressedChest()
     {
         StartCoroutine(InitiateLootGive());

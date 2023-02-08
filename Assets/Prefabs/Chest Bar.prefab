@@ -371,6 +371,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starPrefab: {fileID: 6137699720529089676, guid: 6ecb77de8aa5ecc4888287ed705dd695,
     type: 3}
+  chestPrefab: {fileID: 46645740796259838, guid: 3952d68fa9eec4e4584310e73a1b252f,
+    type: 3}
   starsParent: {fileID: 6331029877173806035}
   chestBarSlider: {fileID: 6331029876035983558}
   barAnimationSpeed: 3

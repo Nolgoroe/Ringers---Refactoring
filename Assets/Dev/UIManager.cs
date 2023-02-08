@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using UnityEngine.UI;
 using UnityEngine.Events;
 
@@ -29,6 +34,7 @@ public enum MainScreens
 }
 public class UIManager : MonoBehaviour
 {
+
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
     public static bool ISUSINGUI;
@@ -37,7 +43,6 @@ public class UIManager : MonoBehaviour
     [Header("General refrences")]
     [SerializeField] private Player player;
     [SerializeField] private AnimalsManager animalManager;
-    [SerializeField] private LootManager lootManager;
 
     [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -245,9 +250,9 @@ public class UIManager : MonoBehaviour
     {
         if (currentlyOpenSoloElement)
         {
-            for (int i = 0; i < currentlyOpenSoloElement.buttonRefs.Length; i++)
+            for (int i = 0; i < currentlyOpenSoloElement.getButtonRefrences.Length; i++)
             {
-                currentlyOpenSoloElement.buttonRefs[i].isInteractable = false;
+                currentlyOpenSoloElement.getButtonRefrences[i].isInteractable = false;
             }
         }
 
@@ -255,9 +260,9 @@ public class UIManager : MonoBehaviour
         {
             foreach (var screen in currentAdditiveScreens)
             {
-                for (int i = 0; i < screen.buttonRefs.Length; i++)
+                for (int i = 0; i < screen.getButtonRefrences.Length; i++)
                 {
-                    screen.buttonRefs[i].isInteractable = false;
+                    screen.getButtonRefrences[i].isInteractable = false;
                 }
             }
         }
@@ -266,9 +271,9 @@ public class UIManager : MonoBehaviour
         {
             foreach (var screen in currentPermanentScreens)
             {
-                for (int i = 0; i < screen.buttonRefs.Length; i++)
+                for (int i = 0; i < screen.getButtonRefrences.Length; i++)
                 {
-                    screen.buttonRefs[i].isInteractable = false;
+                    screen.getButtonRefrences[i].isInteractable = false;
                 }
             }
         }
@@ -444,8 +449,8 @@ public class UIManager : MonoBehaviour
 
     public void RefreshRubyAndTearsTexts(int tearsAmount, int rubiesAmount)
     {
-        generalMapUI.textRefrences[0].text = tearsAmount.ToString(); // dew drops text
-        generalMapUI.textRefrences[1].text = rubiesAmount.ToString(); // rubies text
+        generalMapUI.getTextRefrences[0].text = tearsAmount.ToString(); // dew drops text
+        generalMapUI.getTextRefrences[1].text = rubiesAmount.ToString(); // rubies text
     }
 
     private void DisplayMapSettings()
@@ -602,4 +607,19 @@ public class UIManager : MonoBehaviour
         Debug.LogError("Some problem here");
         return -1;
     }
+
+#if UNITY_EDITOR
+
+    [MenuItem("Build Preperation/Prepare UI for build")]
+
+    static void DeactivateAllWindows()
+    {
+        CustomWindowParent[] allGameWindows = FindObjectsOfType<CustomWindowParent>();
+        foreach (BasicUIElement window in allGameWindows)
+        {
+            window.gameObject.SetActive(false);
+        }
+    }
+
+#endif
 }
