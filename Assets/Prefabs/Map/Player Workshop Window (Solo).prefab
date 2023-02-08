@@ -1956,7 +1956,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   materialsContent: {fileID: 2062952213386433891}
-  materialDisplayPrefab: {fileID: 6798971989970498720, guid: 4c6a60617a84f3c4fa3a057c5abdf126,
+  materialDisplayPrefab: {fileID: 2349783637571556606, guid: 4c6a60617a84f3c4fa3a057c5abdf126,
     type: 3}
   potionsMaterialZones:
   - {fileID: 2062952213837768719}

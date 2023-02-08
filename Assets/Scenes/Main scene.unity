@@ -5845,7 +5845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2069315016}
-  lootDisplayPrefab: {fileID: 7246645321885862645, guid: 7f378a64e26db0f4db8fc50514fdebbd,
+  lootDisplayPrefab: {fileID: 8714735532760440799, guid: 7f378a64e26db0f4db8fc50514fdebbd,
     type: 3}
   allIngredientSprites:
   - {fileID: 1047063243, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
@@ -8242,10 +8242,17 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 1
   isInteractable: 1
+  group: {fileID: 877510341}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!225 &877510341
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -8287,6 +8294,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 662556500}
+  - {fileID: 2031256441}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13971,7 +13979,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377723883}
   m_Layer: 0
-  m_Name: Camera Space
+  m_Name: Camera Screen Space
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15078,10 +15086,17 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 1518595451}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
   buttonRefs: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!225 &1518595451
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -20227,13 +20242,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031256439}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 886400631}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2034745010
 PrefabInstance:
@@ -21738,7 +21753,7 @@ PrefabInstance:
     - target: {fileID: 2062952213891266957, guid: 5adea2939bccafc488e174d5fa1b358a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5adea2939bccafc488e174d5fa1b358a, type: 3}
@@ -22582,6 +22597,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5076173807778364529, guid: 9f1469f632e688b4da01743882477d50,
+        type: 3}
+      propertyPath: backgroundImages.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5076173807778364529, guid: 9f1469f632e688b4da01743882477d50,
+        type: 3}
+      propertyPath: hiddenAnimalImages.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5076173807778364529, guid: 9f1469f632e688b4da01743882477d50,
+        type: 3}
+      propertyPath: revealedAnimalImages.Array.size
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5076173807778364531, guid: 9f1469f632e688b4da01743882477d50,
         type: 3}

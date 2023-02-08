@@ -61,6 +61,12 @@ MonoBehaviour:
   buttonRefs:
   - {fileID: 428085725284237570}
   - {fileID: 428085725065929275}
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!225 &1877189032382569895
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -189,6 +195,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170119088545390886, guid: 29f39b19142e2434e8308a8379abfbff,
+        type: 3}
+      propertyPath: m_text
+      value: Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170119088902168954, guid: 29f39b19142e2434e8308a8379abfbff,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 216.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170119088902168954, guid: 29f39b19142e2434e8308a8379abfbff,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 54.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170119088902168955, guid: 29f39b19142e2434e8308a8379abfbff,
+        type: 3}
+      propertyPath: m_text
+      value: Don't Continue
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170119088902168955, guid: 29f39b19142e2434e8308a8379abfbff,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 32.9
       objectReference: {fileID: 0}
     - target: {fileID: 5170119089453791947, guid: 29f39b19142e2434e8308a8379abfbff,
         type: 3}

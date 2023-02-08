@@ -61,6 +61,12 @@ MonoBehaviour:
   buttonRefs:
   - {fileID: 2295546923213863727}
   - {fileID: 2295546923431811094}
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!225 &8239198479119712213
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -190,10 +196,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5170119088545390886, guid: 29f39b19142e2434e8308a8379abfbff,
+        type: 3}
+      propertyPath: m_text
+      value: No
+      objectReference: {fileID: 0}
     - target: {fileID: 5170119088579226295, guid: 29f39b19142e2434e8308a8379abfbff,
         type: 3}
       propertyPath: m_text
       value: Exit to Map?
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170119088902168955, guid: 29f39b19142e2434e8308a8379abfbff,
+        type: 3}
+      propertyPath: m_text
+      value: Yes
       objectReference: {fileID: 0}
     - target: {fileID: 5170119089453791947, guid: 29f39b19142e2434e8308a8379abfbff,
         type: 3}
