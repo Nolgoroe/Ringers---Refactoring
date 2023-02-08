@@ -57,13 +57,13 @@ public class LootManager : MonoBehaviour
         {
             LootTables lootTable = cluster.clusterLootTables[i];
 
-            switch (lootTable.ToString()[0])
+            switch (lootTable.mainLootType)
             {
-                case 'R':
+                case MainLootType.R:
                     UnpackToRubiesChest(lootTable);
                     break;
 
-                case 'L':
+                case MainLootType.L:
                     UnpackToMaterialsChest(lootTable);
                     break;
 

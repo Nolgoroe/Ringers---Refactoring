@@ -96,6 +96,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 5076173805835264017}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -411,7 +412,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &5076173806115532585
 MonoBehaviour:
@@ -519,6 +520,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 5076173806183937456}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1072,6 +1074,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 5076173806499184110}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1178,6 +1181,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 5076173806732014603}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1400,6 +1404,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 5076173807004117177}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1574,6 +1579,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 5076173807462612986}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1815,6 +1821,7 @@ MonoBehaviour:
   isOverrideSolo: 1
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 5076173807778364542}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []

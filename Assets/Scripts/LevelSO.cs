@@ -53,6 +53,7 @@ public class LevelSO : ScriptableObject
     public int levelNumInZone;
     public Ringtype ringType;
 
+    [Space]
     public UnityEvent beforeRingSpawnActions; // each function that will be called here will "subscribe" to it's relevant stage in the gamemanger action
     public UnityEvent ringSpawnActions;
     public UnityEvent afterRingSpawnActions; 

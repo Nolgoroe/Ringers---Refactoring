@@ -584,6 +584,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 2062952212983874995}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -893,6 +894,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 2062952213232414711}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1136,6 +1138,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 2062952213580225948}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1355,6 +1358,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 2062952213747502404}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1685,6 +1689,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 2062952213860163512}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1782,6 +1787,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 2062952213876034450}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -1938,6 +1944,7 @@ MonoBehaviour:
   isOverrideSolo: 1
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 2062952213891266994}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -2556,7 +2563,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &2062952214377853508
 MonoBehaviour:
@@ -3060,6 +3067,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 2062952214605221076}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -3281,6 +3289,7 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 2062952214745042163}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
@@ -3719,7 +3728,7 @@ PrefabInstance:
         type: 3}
       propertyPath: connectedSparent
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2062952213891266995}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 288766dfd160f954e87874a70824433f, type: 3}
 --- !u!224 &3768807033573731735 stripped

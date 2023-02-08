@@ -34,6 +34,12 @@ public enum MainlootContainerType
 }
 
 [System.Serializable]
+public enum MainLootType
+{
+    R,
+    L
+}
+[System.Serializable]
 public class LootBagsChances
 {
     public LootBags lootBag;
@@ -43,7 +49,26 @@ public class LootBagsChances
 [CreateAssetMenu(fileName = "Main Loot Container", menuName = "ScriptableObjects/Create Main Loot Container")]
 public class LootTables : ScriptableObject
 {
+    public MainLootType mainLootType;
     public MainlootContainerType containerType;
     public LootBagsChances[] lootBagsAndChances;
     public int minRubies, maxRubies;
+
+    private void OnValidate()
+    {
+        switch (containerType.ToString()[0])
+        {
+            case 'R':
+                mainLootType = MainLootType.R;
+                break;
+
+            case 'L':
+                mainLootType = MainLootType.L;
+                break;
+
+            default:
+                Debug.LogError("Error in chest loot here");
+                break;
+        }
+    }
 }
