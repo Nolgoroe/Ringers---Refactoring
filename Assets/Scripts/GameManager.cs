@@ -360,7 +360,6 @@ public class GameManager : MonoBehaviour
     /**/
     public List<IngredientPlusMainTypeCombo> GetPlayerCombos => player.returnOwnedIngredientsByType;
     public Dictionary<Ingredients, DictionairyLootEntry> GetIngredientDict => player.returnownedIngredients;
-    public Dictionary<Ingredientnames, Sprite> GetIngredientSpriteDict => lootManager.GetDictionairyIngredientSprites;
     public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
 
     public bool IsAnimalAlreadyInAlbum(AnimalsInGame animal) => animalsManager.CheckAnimalAlreadyInAlbum(animal);

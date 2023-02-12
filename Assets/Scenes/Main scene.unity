@@ -5942,40 +5942,7 @@ MonoBehaviour:
   player: {fileID: 2069315016}
   lootDisplayPrefab: {fileID: 8714735532760440799, guid: 7f378a64e26db0f4db8fc50514fdebbd,
     type: 3}
-  allIngredientSprites:
-  - {fileID: 1047063243, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 216661186, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1843228899, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1469540995, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1612417605, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1919097130, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -339908722, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1515236123, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 687013272, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1828865538, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -259436594, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1447040036, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1256994353, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 133197548, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1310715021, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 476565556, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1462360723, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 520962845, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1015207811, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1174962545, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 232826110, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 825227232, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1465239481, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1763629146, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1733591293, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1131975407, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 182562341, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -1972721450, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1699577013, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 178391650, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 996175922, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: -599982292, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
-  - {fileID: 1324611575, guid: 5cf64c33de24bac47a7af00d2ff180cd, type: 3}
+  allIngredients: []
   rubySprite: {fileID: 21300000, guid: 06713007d60448646afcd9018b1f1fa1, type: 3}
   currentRubiesToGive: 0
   ingredientsToGive: []
@@ -21707,7 +21674,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 330585545}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

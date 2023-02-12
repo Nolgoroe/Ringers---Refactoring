@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: 4
   ingredientType: 3
+  ingredientSprite: {fileID: -1612417605, guid: 5cf64c33de24bac47a7af00d2ff180cd,
+    type: 3}
   amountToPrice:
     priceToPay: 1
     amountToRecieve: 2

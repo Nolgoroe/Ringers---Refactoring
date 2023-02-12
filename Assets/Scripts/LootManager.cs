@@ -21,9 +21,7 @@ public class LootManager : MonoBehaviour
     [Header("needed refs")]
     [SerializeField] private Player player;
     [SerializeField] private CustomSpecificUIElementDisplayer lootDisplayPrefab;
-    [SerializeField] private Sprite[] allIngredientSprites;
-
-    [SerializeField] private Dictionary<Ingredientnames, Sprite> dictionairyIngredientSprites;
+    [SerializeField] private Ingredients[] allIngredients;
 
     [SerializeField] private Sprite rubySprite;
 
@@ -42,13 +40,6 @@ public class LootManager : MonoBehaviour
     private void Start()
     {
         ingredientsToGive = new List<LootToRecieve>();
-        dictionairyIngredientSprites = new Dictionary<Ingredientnames, Sprite>();
-
-        for (int i = 0; i < allIngredientSprites.Length; i++)
-        {
-            //find enum by name of sprite
-            dictionairyIngredientSprites.Add((Ingredientnames)i, allIngredientSprites[i]);
-        }
     }
 
     public void ManageLootReward(ClusterSO cluster)
@@ -161,7 +152,7 @@ public class LootManager : MonoBehaviour
                 }
 
                 string[] texts = new string[] { loot.amount.ToString() };
-                Sprite[] sprites = new Sprite[] { dictionairyIngredientSprites[loot.ingredient.ingredientName] };
+                Sprite[] sprites = new Sprite[] { loot.ingredient.ingredientSprite };
 
                 InstantiateLootDisplay(texts, sprites, lootPositions[currentLootPos]);
 
@@ -205,10 +196,6 @@ public class LootManager : MonoBehaviour
     /**/
     // GETTERS!
     /**/
-    public Sprite GetSpriteByIndex(Ingredientnames ingredientName) => dictionairyIngredientSprites[ingredientName];
-
-    public Sprite[] GetAllIngredientSprites => allIngredientSprites;
-
-    public Dictionary<Ingredientnames, Sprite> GetDictionairyIngredientSprites => dictionairyIngredientSprites;
+    public Ingredients[] GetAllIngredientSprites => allIngredients;
     
 }

@@ -64,6 +64,7 @@ public class Ingredients : ScriptableObject
 {
     public Ingredientnames ingredientName;
     public IngredientTypes ingredientType;
+    public Sprite ingredientSprite;
     public PriceInGems amountToPrice;
 
 #if UNITY_EDITOR

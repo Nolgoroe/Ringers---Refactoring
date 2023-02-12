@@ -19,7 +19,6 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
 
     private List<IngredientPlusMainTypeCombo> localCombos => GameManager.instance.GetPlayerCombos;
     private Dictionary<Ingredients, DictionairyLootEntry> localDict => GameManager.instance.GetIngredientDict;
-    private Dictionary<Ingredientnames, Sprite> localDisplay => GameManager.instance.GetIngredientSpriteDict;
 
     public void InitPlayerWorkshop()
     {
@@ -92,7 +91,7 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
                     CustomSpecificUIElementDisplayer displayer = Instantiate(materialDisplayPrefab, materialsContent);
 
                     int amount = localDict[combo.typeIngredients[i]].amount;
-                    Sprite sprite = localDisplay[combo.typeIngredients[i].ingredientName];
+                    Sprite sprite = combo.typeIngredients[i].ingredientSprite;
 
                     string[] texts = new string[] { amount.ToString() };
                     Sprite[] sprites = new Sprite[] { sprite };
