@@ -18,14 +18,14 @@ public abstract class BasicUIElement : MonoBehaviour
     [SerializeField] protected TMP_Text[] textRefrences;
     [SerializeField] protected Image[] imageRefrences;
     [SerializeField] protected SpriteRenderer[] spriterRendererRefrences;
-    [SerializeField] protected CustomButtonParent[] buttonRefs;
+    [SerializeField] protected CustomButtonParent[] buttonRefrences;
 
     [Tooltip("move by curve explanation for leantween:\n\n" +
         "In a curve we cannot go past 1 to the right as the curve moves from 0 to 1.\n\n" +
         "If we move past 1 to the right, it's like asking to continue reading from an animation that does not exist.\n\n" +
         "We can go up as high or as low as we want, 1 symbolizes the target position we want to achieve.\n\n" +
         "If we want to move to new Vector3(0, 0, 50), then 1 will be 0, 0, 50 ")]
-    [SerializeField] protected AnimationCurve HoverOverMeToGetInfo;
+    [SerializeField] protected AnimationCurve HoverOverMeToGetInfo = AnimationCurve.Linear(0, 0, 1, 1);
 
     private void OnValidate()
     {
@@ -44,7 +44,14 @@ public abstract class BasicUIElement : MonoBehaviour
                               "read 'hover over me to get info'");
             }
         }
+    }
 
+    /**/
+    // Cancel zone
+    /**/
+    public void CancelAllTweens()
+    {
+        LeanTween.cancel(gameObject);
     }
 
     /**/
@@ -52,11 +59,11 @@ public abstract class BasicUIElement : MonoBehaviour
     /**/
     public void MoveToTarget(Vector3 targetPos, float time)
     {
-
+        LeanTween.move(gameObject, targetPos, time);
     }
     public void MoveToTarget(Vector2 targetPos, float time)
     {
-
+        LeanTween.move(gameObject, targetPos, time);
     }
     public void MoveToTarget(AnimationCurve moveCurve, Vector3 targetPos, float time)
     {
@@ -208,10 +215,16 @@ public abstract class BasicUIElement : MonoBehaviour
     /**/
     //Abstract + virtual zone (inheritence zone)
     /**/
-    public virtual void SetMe(string[] texts, Sprite[] sprites)
+    public virtual void SetMyElement(string[] texts, Sprite[] sprites)
     {
         if (texts != null && texts.Length > 0)
         {
+            if(textRefrences.Length != texts.Length)
+            {
+                Debug.LogError("Text Refrences and text array do not match!", gameObject);
+                return;
+            }
+
             for (int i = 0; i < textRefrences.Length; i++)
             {
                 textRefrences[i].text = texts[i];
@@ -220,6 +233,12 @@ public abstract class BasicUIElement : MonoBehaviour
 
         if (imageRefrences.Length > 0 && sprites != null && sprites.Length > 0)
         {
+            if (imageRefrences.Length != sprites.Length)
+            {
+                Debug.LogError("image Refrences and sprites array do not match!", gameObject);
+                return;
+            }
+
             for (int i = 0; i < imageRefrences.Length; i++)
             {
                 imageRefrences[i].sprite = sprites[i];
@@ -228,6 +247,12 @@ public abstract class BasicUIElement : MonoBehaviour
 
         if (spriterRendererRefrences.Length > 0 && sprites != null && sprites.Length > 0)
         {
+            if (spriterRendererRefrences.Length != sprites.Length)
+            {
+                Debug.LogError("spriter Renderer Refrences and sprites array do not match!", gameObject);
+                return;
+            }
+
             for (int i = 0; i < spriterRendererRefrences.Length; i++)
             {
                 spriterRendererRefrences[i].sprite = sprites[i];
@@ -235,10 +260,9 @@ public abstract class BasicUIElement : MonoBehaviour
         }
     }
 
-    public abstract void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions);
+    public abstract void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions);
 
 
-    public CustomButtonParent[] getButtonRefrences => buttonRefs;
+    public CustomButtonParent[] getButtonRefrences => buttonRefrences;
     public TMP_Text[] getTextRefrences => textRefrences;
-    //public CustomButtonParent[] getButtonRefrences => buttonRefs;
 }

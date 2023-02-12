@@ -132,6 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heldTile: {fileID: 0}
   tileGFXParent: {fileID: 0}
+  isLocked: 0
 --- !u!60 &7678807223363495779
 PolygonCollider2D:
   m_ObjectHideFlags: 0

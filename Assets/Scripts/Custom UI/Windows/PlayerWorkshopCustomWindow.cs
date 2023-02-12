@@ -97,7 +97,7 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
                     string[] texts = new string[] { amount.ToString() };
                     Sprite[] sprites = new Sprite[] { sprite };
 
-                    displayer.SetMe(texts, sprites);
+                    displayer.SetMyElement(texts, sprites);
                 }
 
                 break;

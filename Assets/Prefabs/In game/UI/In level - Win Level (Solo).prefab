@@ -272,13 +272,20 @@ MonoBehaviour:
   isOverrideSolo: 1
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 7059053641691130316}
   textRefrences:
   - {fileID: 1430774478798926909}
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs:
+  buttonRefrences:
   - {fileID: 7448248793710670238}
   - {fileID: 7724850763122712729}
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   FlowerRect: {fileID: 142687580860236874}
   timeToReveaFlowers: 3
   timeToReveaButtons: 3

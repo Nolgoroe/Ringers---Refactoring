@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [System.Serializable]
 public class WorldDisplayCombo
@@ -34,11 +33,10 @@ public enum MainScreens
 }
 public class UIManager : MonoBehaviour
 {
-
     public static UIManager instance; //TEMP - LEARN DEPENDENCY INJECTION
 
-    public static bool ISUSINGUI;
-    public static bool ISDURINGTRANSITION;
+    public static bool IS_USING_UI;
+    public static bool IS_DURING_TRANSITION;
 
     [Header("General refrences")]
     [SerializeField] private Player player;
@@ -68,22 +66,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow inLevelRestartLevelQuesiton;
     [SerializeField] private WinLevelCustomWindow inLevelWinWindow;
 
-    [Header("Fade object settings")]
+    [Header("Fade object settings")] // might move to SO
     [SerializeField] private BasicCustomUIWindow fadeWindow;
     [SerializeField] private float fadeIntoLevelTime;
     [SerializeField] private float fadeOutLevelTime;
     [SerializeField] private float fadeIntoMapTime;
     [SerializeField] private float fadeOutMapTime;
 
-    [Header("Map setup")]
+    [Header("Map setup")] //might move to a different script
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
-    [SerializeField] private RefWorldDisplayCombo[] worldReferebceCombo;
+    [SerializeField] private RefWorldDisplayCombo[] worldImageReferenceCombo;
 
     private void Start()
     {
         instance = this;
 
         StartCoroutine(DisplayLevelMap(false));
+    }
+
+    private void OnValidate()
+    {
+        if(orderOfWorlds.Length != worldImageReferenceCombo.Length)
+        {
+            Debug.LogError("World counts do not match!", gameObject);
+        }
     }
 
     /**/
@@ -107,16 +113,16 @@ public class UIManager : MonoBehaviour
                 }
             }
 
-            UIElement.gameObject.SetActive(true); // or Instantiate
+            UIElement.gameObject.SetActive(true);
             currentlyOpenSoloElement = UIElement;
         }
         else
         {
             if(UIElement.isOverrideSolo)
             {
-                currentlyOpenSoloElement.gameObject.SetActive(false); // or derstroy!!!
+                currentlyOpenSoloElement.gameObject.SetActive(false);
 
-                UIElement.gameObject.SetActive(true); // or Instantiate
+                UIElement.gameObject.SetActive(true);
                 currentlyOpenSoloElement = UIElement;
             }
             else
@@ -126,11 +132,11 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        ISUSINGUI = true;
+        IS_USING_UI = true;
     }
     private void AddAdditiveElement(BasicUIElement UIElement)
     {
-        if(!currentAdditiveScreens.Contains(UIElement))
+        if(!currentAdditiveScreens.Contains(UIElement) && !currentPermanentScreens.Contains(UIElement))
         {
             if(UIElement.isPermanent)
             {
@@ -141,7 +147,7 @@ public class UIManager : MonoBehaviour
                 currentAdditiveScreens.Add(UIElement);
             }
 
-            UIElement.gameObject.SetActive(true); // or instantiate
+            UIElement.gameObject.SetActive(true);
         }
     }
     private void AddUIElement(BasicUIElement UIElement)
@@ -157,8 +163,6 @@ public class UIManager : MonoBehaviour
     }
     public void CloseElement(BasicUIElement UIElement)
     {
-        //if (UIElement.isPermanent) return;
-
         if (UIElement.isSolo)
         {
             currentlyOpenSoloElement = null;
@@ -175,7 +179,7 @@ public class UIManager : MonoBehaviour
             currentPermanentScreens.Remove(UIElement);
         }
 
-        UIElement.gameObject.SetActive(false); //(OR destory it!!)
+        UIElement.gameObject.SetActive(false);
 
         CheckResetUsingUI();
     }
@@ -196,7 +200,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator ResetUsingUI()
     {
         yield return new WaitForEndOfFrame();
-        ISUSINGUI = false;
+        IS_USING_UI = false;
     }
     private void CloseAllCurrentScreens()
     {
@@ -228,23 +232,11 @@ public class UIManager : MonoBehaviour
 
         ResetUsingUI();
     }
-    private void RestartCurrentScreenWindows()
+
+    public void ActivateSingleButton(BasicCustomButton button)
     {
-        // this function restarts the CURRENT screens windows
-        // meaning any "permanent" windows should NOT get touched.
-        if(currentlyOpenSoloElement)
-        {
-            CloseElement(currentlyOpenSoloElement);
-        }
-        
-        if(currentAdditiveScreens.Count > 0)
-        {
-            // reverse for
-            for (int i = currentAdditiveScreens.Count - 1; i >= 0; i--)
-            {
-                CloseElement(currentAdditiveScreens[i]);
-            }
-        }
+        DeactiavteAllCustomButtons();
+        button.isInteractable = true;
     }
     private void DeactiavteAllCustomButtons()
     {
@@ -288,26 +280,19 @@ public class UIManager : MonoBehaviour
 
         AddUIElement(inLevelUI);
 
-        System.Action[] actions = new System.Action[10];
+        System.Action[] actions = new System.Action[inLevelUI.getButtonRefrences.Length];
         actions[0] += GameManager.gameClip.CallDealAction; //deal action
         actions[1] += GameManager.TestButtonDelegationWorks; //potion 1 action
         actions[2] += GameManager.TestButtonDelegationWorks; //potion 2 action
         actions[3] += GameManager.TestButtonDelegationWorks; //potion 3 action
         actions[4] += GameManager.TestButtonDelegationWorks; //potion 4 action
-        actions[5] += DisplayInLevelSettingsWindow; //Options button
+        actions[5] += DisplayInLevelSettings; //Options button
         actions[6] += SoundManager.instance.MuteMusic; //Music icon level
         actions[7] += SoundManager.instance.MuteSFX; //SFX icon level
         actions[8] += DisplayInLevelExitToMapQuestion; // to level map icon
         actions[9] += DisplayInLevelRestartLevelQuestion; //restart level icon
-        //actions[9] += DisplayInLevelSettings; //restart level icon
 
-        inLevelUI.OverrideSetMe(null, null, actions);
-    }
-    private void DisplayInLevelSettingsWindow()
-    {
-        DisplayInLevelSettings();
-        Debug.Log("Open options window");
-
+        inLevelUI.OverrideSetMyElement(null, null, actions);
     }
     private void DisplayInLevelSettings()
     {
@@ -323,20 +308,18 @@ public class UIManager : MonoBehaviour
     public void DisplayInLevelRingHasNonMatchingMessage()
     {
         AddUIElement(inLevelNonMatchTilesMessage);
-        System.Action[] actions = new System.Action[2];
+        System.Action[] actions = new System.Action[inLevelNonMatchTilesMessage.getButtonRefrences.Length];
 
         actions[0] += GameManager.gameControls.ReturnHomeBadRingConnections;
         actions[0] += () => CloseElement(inLevelNonMatchTilesMessage);
-
         actions[1] += DisplayInLevelLostMessage;
 
-        inLevelNonMatchTilesMessage.OverrideSetMe(null, null, actions);
+        inLevelNonMatchTilesMessage.OverrideSetMyElement(null, null, actions);
     }
     private void DisplayInLevelLostMessage()
     {
         AddUIElement(inLevelLostLevelMessage);
-        System.Action[] actions = new System.Action[2];
-        //actions[0] += RestartCurrentScreenWindows;
+        System.Action[] actions = new System.Action[inLevelLostLevelMessage.getButtonRefrences.Length];
 
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallRestartLevel;
@@ -344,49 +327,47 @@ public class UIManager : MonoBehaviour
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
-        inLevelLostLevelMessage.OverrideSetMe(null, null, actions);
+        inLevelLostLevelMessage.OverrideSetMyElement(null, null, actions);
     }
     public void DisplayInLevelLastDealWarning()
     {
         AddUIElement(inLevelLastDealWarning);
-        System.Action[] actions = new System.Action[2];
+        System.Action[] actions = new System.Action[inLevelLastDealWarning.getButtonRefrences.Length];
 
         actions[0] += () => CloseElement(inLevelLastDealWarning);
-
         actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
-        inLevelLastDealWarning.OverrideSetMe(null, null, actions);
+        inLevelLastDealWarning.OverrideSetMyElement(null, null, actions);
     }
     private void DisplayInLevelExitToMapQuestion()
     {
         AddUIElement(inLevelExitToMapQuesiton);
-        System.Action[] actions = new System.Action[2];
+        System.Action[] actions = new System.Action[inLevelExitToMapQuesiton.getButtonRefrences.Length];
 
-        actions[0] += () => CloseElement(inLevelExitToMapQuesiton);
+        actions[0] += () => StartCoroutine(DisplayLevelMap(true));
+        actions[0] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
+        actions[1] += () => CloseElement(inLevelExitToMapQuesiton);
 
-        actions[1] += () => StartCoroutine(DisplayLevelMap(true));
-        actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
-        inLevelExitToMapQuesiton.OverrideSetMe(null, null, actions);
+        inLevelExitToMapQuesiton.OverrideSetMyElement(null, null, actions);
     }
     private void DisplayInLevelRestartLevelQuestion()
     {
         AddUIElement(inLevelRestartLevelQuesiton);
-        System.Action[] actions = new System.Action[2];
+        System.Action[] actions = new System.Action[inLevelRestartLevelQuesiton.getButtonRefrences.Length];
 
         actions[0] += () => CloseElement(inLevelRestartLevelQuesiton);
-
         actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[1] += GameManager.instance.CallRestartLevel;
 
-        inLevelRestartLevelQuesiton.OverrideSetMe(null, null, actions);
+        inLevelRestartLevelQuesiton.OverrideSetMyElement(null, null, actions);
     }
     public void DisplayInLevelWinWindow()
     {
         DeactiavteAllCustomButtons();
 
-        System.Action[] actions = new System.Action[2];
+        System.Action[] actions = new System.Action[inLevelWinWindow.getButtonRefrences.Length];
 
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.CallNextLevel;
@@ -394,14 +375,16 @@ public class UIManager : MonoBehaviour
         actions[1] += () => StartCoroutine(DisplayLevelMap(true));
         actions[1] += () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel());
 
-        inLevelWinWindow.OverrideSetMe(GameManager.instance.ReturnStatueName(), null, actions);
+        inLevelWinWindow.OverrideSetMyElement(GameManager.instance.ReturnStatueName(), null, actions);
 
         AddUIElement(inLevelWinWindow);
     }
+
+
+
+    //why is this here?
     public void ContinueAfterChest()
     {
-        //ISDURINGCHEST = false;
-
         inLevelWinWindow.ManuallyShowToHudButton();
     }
 
@@ -412,14 +395,14 @@ public class UIManager : MonoBehaviour
     {
         string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), levelSO.worldName.ToString() };
 
-        System.Action[] actions = new System.Action[1];
+        System.Action[] actions = new System.Action[levelMapPopUp.getButtonRefrences.Length];
 
         actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
         actions[0] += GameManager.instance.SetLevel;
 
         AddUIElement(levelMapPopUp);
 
-        levelMapPopUp.OverrideSetMe(texts, null, actions);
+        levelMapPopUp.OverrideSetMyElement(texts, null, actions);
     }
     private IEnumerator DisplayLevelMap(bool isFade)
     {
@@ -431,7 +414,7 @@ public class UIManager : MonoBehaviour
 
         CloseAllCurrentScreens(); // close all screens open before going to map
 
-        System.Action[] actions = new System.Action[3];
+        System.Action[] actions = new System.Action[generalMapUI.getButtonRefrences.Length];
         actions[0] += DisplayAnimalAlbum; // animal album
         actions[1] += DisplayPlayerWorkshop; // player workshop
         actions[2] += DisplayMapSettings; // open settings
@@ -444,7 +427,7 @@ public class UIManager : MonoBehaviour
         AddUIElement(levelScrollRect);
         AddUIElement(generalMapUI);
 
-        generalMapUI.OverrideSetMe(texts, null, actions);
+        generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 
     public void RefreshRubyAndTearsTexts(int tearsAmount, int rubiesAmount)
@@ -459,13 +442,17 @@ public class UIManager : MonoBehaviour
 
         AddUIElement(generalSettings);
 
+        System.Action[] actions = new System.Action[generalSettings.getButtonRefrences.Length];
+        actions[0] += SoundManager.instance.MuteMusic; //Music icon level
+        actions[1] += SoundManager.instance.MuteSFX; //SFX icon level
+
         string[] texts = new string[] { "Name of player: Avishy" };
-        generalSettings.OverrideSetMe(texts, null, null);
+        generalSettings.OverrideSetMyElement(texts, null, actions);
     }
 
     private void DisplayPlayerWorkshop()
     {
-        System.Action[] actions = new System.Action[7];
+        System.Action[] actions = new System.Action[playerWorkshopWindow.getButtonRefrences.Length];
         actions[0] += () => playerWorkshopWindow.SwitchCategory(0); // inventory catagory
         actions[1] += () => playerWorkshopWindow.SwitchCategory(1); // potion catagory
         actions[2] += () => playerWorkshopWindow.SortWorkshop(0); // inventory build sort
@@ -476,7 +463,7 @@ public class UIManager : MonoBehaviour
 
         AddUIElement(playerWorkshopWindow);
 
-        playerWorkshopWindow.OverrideSetMe(null, null, actions);
+        playerWorkshopWindow.OverrideSetMyElement(null, null, actions);
         //playerWorkshopWindow.InitPlayerWorkshop(player, lootManager);
         playerWorkshopWindow.InitPlayerWorkshop();
     }
@@ -486,7 +473,7 @@ public class UIManager : MonoBehaviour
         string rubiesText = player.GetOwnedRubies.ToString();
         string[] texts = new string[] { tearsText, rubiesText };
 
-        System.Action[] actions = new System.Action[5];
+        System.Action[] actions = new System.Action[animalAlbumWindow.getButtonRefrences.Length];
         actions[0] += () => animalAlbumWindow.SwitchAnimalCategory(0); // Fox type
         actions[1] += () => animalAlbumWindow.SwitchAnimalCategory(1); // Stag type
         actions[2] += () => animalAlbumWindow.SwitchAnimalCategory(2); // Owl type
@@ -495,20 +482,20 @@ public class UIManager : MonoBehaviour
 
         AddUIElement(animalAlbumWindow);
 
-        animalAlbumWindow.OverrideSetMe(null, null, actions);
+        animalAlbumWindow.OverrideSetMyElement(null, null, actions);
         animalAlbumWindow.InitAnimalAlbum(animalManager, player);
     }
 
     public void DisplayAnimalAlbumReward(int amountOfReward)
     {
-        System.Action[] actions = new System.Action[1];
+        System.Action[] actions = new System.Action[animalAlbumRewardWidnow.getButtonRefrences.Length];
         actions[0] += () => CloseElement(animalAlbumRewardWidnow);
 
         AddUIElement(animalAlbumRewardWidnow);
 
         string[] texts = new string[] { amountOfReward.ToString() };
 
-        animalAlbumRewardWidnow.OverrideSetMe(texts, null, actions);
+        animalAlbumRewardWidnow.OverrideSetMyElement(texts, null, actions);
     }
 
     /**/
@@ -518,7 +505,7 @@ public class UIManager : MonoBehaviour
     private void ReOrderMapDisplay()
     {
         int id = 0;
-        foreach (RefWorldDisplayCombo combo in worldReferebceCombo)
+        foreach (RefWorldDisplayCombo combo in worldImageReferenceCombo)
         {
             combo.mainImageRef.sprite = orderOfWorlds[id].mainSprite;
             combo.leftMargineImageRef.sprite = orderOfWorlds[id].leftMargineSprite;
@@ -529,7 +516,7 @@ public class UIManager : MonoBehaviour
 
     private void FadeInFadeWindow(bool fadeIn, MainScreens mainScreen)
     {
-        ISDURINGTRANSITION = true;
+        IS_DURING_TRANSITION = true;
 
         float fadeInSpeed = ReturnFadeTime(fadeIn, mainScreen);
 
@@ -557,7 +544,7 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
     {
-        ISDURINGTRANSITION = false; 
+        IS_DURING_TRANSITION = false; 
         // is this ok?
         // This is here for actions that want to happen on the transition between
         // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
@@ -569,7 +556,7 @@ public class UIManager : MonoBehaviour
 
     private void OnEndFade()
     {
-        ISDURINGTRANSITION = false;
+        IS_DURING_TRANSITION = false;
         CloseElement(fadeWindow);
     }
     private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)

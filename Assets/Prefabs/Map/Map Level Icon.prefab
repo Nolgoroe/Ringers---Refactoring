@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2943108366022302873}
   - component: {fileID: 2943108366022302870}
   - component: {fileID: 2943108366022302872}
+  - component: {fileID: 7885732706703609974}
   m_Layer: 5
   m_Name: Map Level Icon
   m_TagString: Untagged
@@ -94,10 +95,12 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 7885732706703609974}
   textRefrences: []
   imageRefrences:
   - {fileID: 2943108366022302870}
-  buttonRefs: []
+  spriterRendererRefrences: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -120,3 +123,17 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   connectedLevelSO: {fileID: 11400000, guid: 2252b973e6cdd544f95352cb822b2fda, type: 2}
+  connectedCluster: {fileID: 0}
+  indexInCluster: 0
+--- !u!225 &7885732706703609974
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2943108366022302868}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

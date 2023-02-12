@@ -12,13 +12,12 @@ public class BuildPrep : MonoBehaviour, IPreprocessBuildWithReport
 
     public void OnPreprocessBuild(BuildReport report)
     {
-        EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
-
-
         CustomWindowParent[] allGameWindows = FindObjectsOfType<CustomWindowParent>();
         foreach (BasicUIElement window in allGameWindows)
         {
             window.gameObject.SetActive(false);
         }
+
+        EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene());
     }
 }

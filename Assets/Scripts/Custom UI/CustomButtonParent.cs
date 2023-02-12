@@ -9,19 +9,10 @@ public abstract class CustomButtonParent : BasicUIElement/*, IPointerDownHandler
     public System.Action buttonEvents;
     public UnityEvent buttonEventsInspector;
 
-    
-    //public void OnPointerDown(PointerEventData eventData)
-    //{
-    //    //Debug.Log("Test");
-    //    //if(isInteractable)
-    //    //{
-    //    //    OnClickButton();
-    //    //}
-    //}
-    
+        
     private void OnMouseDown()
     {
-        if (isInteractable && !UIManager.ISDURINGTRANSITION /*&& !UIManager.ISDURINGCHEST*/)
+        if (isInteractable && !UIManager.IS_DURING_TRANSITION)
         {
             OnClickButton();
         }
@@ -34,8 +25,7 @@ public abstract class CustomButtonParent : BasicUIElement/*, IPointerDownHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //Debug.Log("Test");
-        if (isInteractable && !UIManager.ISDURINGTRANSITION /*&& !UIManager.ISDURINGCHEST*/)
+        if (isInteractable && !UIManager.IS_DURING_TRANSITION)
         {
             OnClickButton();
         }

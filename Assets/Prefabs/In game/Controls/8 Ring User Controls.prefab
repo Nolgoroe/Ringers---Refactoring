@@ -44,21 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b882f289231787544b576aab8a91ec70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileLayer:
-    serializedVersion: 2
-    m_Bits: 128
   tileGrabbingLayer:
     serializedVersion: 2
     m_Bits: 768
   tileInsertingLayer:
     serializedVersion: 2
     m_Bits: 512
-  cellTag: Cell
   overlapRadius: 1
   pickupSpeed: 0.1
   tileFollowSpeed: 11
   tileFollowOffset: {x: 0, y: 0, z: -1}
   currentTileToMove: {fileID: 0}
   tileOriginalHolder: {fileID: 0}
-  ringManager: {fileID: 0}
-  clipManager: {fileID: 0}
+  gameRing: {fileID: 0}
+  gameClip: {fileID: 0}

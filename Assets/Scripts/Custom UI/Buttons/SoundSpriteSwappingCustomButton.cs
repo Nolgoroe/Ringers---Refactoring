@@ -21,10 +21,11 @@ public class SoundSpriteSwappingCustomButton : CustomButtonParent
 
     public override void OnClickButton()
     {
+        buttonEvents?.Invoke();
         buttonEventsInspector?.Invoke();
     }
 
-    public override void OverrideSetMe(string[] texts, Sprite[] sprites, Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, Action[] actions)
     {
     }
 

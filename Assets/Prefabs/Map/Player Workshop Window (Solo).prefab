@@ -588,7 +588,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -898,7 +898,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -1362,7 +1362,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -1693,7 +1693,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -1791,7 +1791,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -1948,7 +1948,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs:
+  buttonRefrences:
   - {fileID: 2062952213232414705}
   - {fileID: 2062952213580225950}
   - {fileID: 2062952214605221072}
@@ -3071,7 +3071,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -3293,7 +3293,7 @@ MonoBehaviour:
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []

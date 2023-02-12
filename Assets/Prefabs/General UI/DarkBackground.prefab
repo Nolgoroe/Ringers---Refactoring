@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2948848526729385724}
   - component: {fileID: 2948848526729385725}
   - component: {fileID: 2948848526729385727}
+  - component: {fileID: 745152681451631174}
   m_Layer: 5
   m_Name: DarkBackground
   m_TagString: Untagged
@@ -93,10 +94,11 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 0}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -119,3 +121,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   connectedSparent: {fileID: 0}
+--- !u!225 &745152681451631174
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948848526729385715}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

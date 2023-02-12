@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class BasicCustomUIWindow : CustomWindowParent
 {
-    public override void OverrideSetMe(string[] texts, Sprite[] sprites, Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, Action[] actions)
     {
-        base.SetMe(texts, sprites);
+        base.SetMyElement(texts, sprites);
 
         if (getButtonRefrences.Length > 0 && actions != null)
         {

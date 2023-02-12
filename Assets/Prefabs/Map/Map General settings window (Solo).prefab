@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3097379819467761457}
   - component: {fileID: 3097379819467761462}
   - component: {fileID: 6996562539525799095}
+  - component: {fileID: 1290320556027133704}
   m_Layer: 0
   m_Name: Music Icon button
   m_TagString: Untagged
@@ -95,9 +96,11 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 1290320556027133704}
   textRefrences: []
   imageRefrences: []
-  buttonRefs: []
+  spriterRendererRefrences: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -107,18 +110,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: MuteMusic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 6996562539525799095}
         m_TargetAssemblyTypeName: SoundSpriteSwappingCustomButton, Assembly-CSharp
         m_MethodName: CheckSoundManagerMusicState
@@ -152,6 +143,18 @@ MonoBehaviour:
         m_CallState: 2
   connectedImage: {fileID: 3097379819467761462}
   connectedSpriteRenderer: {fileID: 0}
+--- !u!225 &1290320556027133704
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097379819467761460}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3097379819862700666
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,13 +165,14 @@ GameObject:
   m_Component:
   - component: {fileID: 3097379819862700645}
   - component: {fileID: 3097379819862700644}
+  - component: {fileID: 6345335712438828423}
   m_Layer: 0
   m_Name: Map General settings window (Solo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3097379819862700645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -208,16 +212,32 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 6345335712438828423}
   textRefrences:
   - {fileID: 3097379820156946178}
   imageRefrences: []
-  buttonRefs: []
+  spriterRendererRefrences: []
+  buttonRefrences:
+  - {fileID: 6996562539525799095}
+  - {fileID: 9108474539459673254}
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!225 &6345335712438828423
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097379819862700666}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3097379820156946176
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +386,7 @@ GameObject:
   - component: {fileID: 3097379820250381783}
   - component: {fileID: 3097379820250381780}
   - component: {fileID: 9108474539459673254}
+  - component: {fileID: 459916096450567368}
   m_Layer: 0
   m_Name: SFX Icon button
   m_TagString: Untagged
@@ -449,9 +470,11 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 459916096450567368}
   textRefrences: []
   imageRefrences: []
-  buttonRefs: []
+  spriterRendererRefrences: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -461,18 +484,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
-        m_MethodName: MuteSFX
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 9108474539459673254}
         m_TargetAssemblyTypeName: SoundSpriteSwappingCustomButton, Assembly-CSharp
         m_MethodName: CheckSoundManagerSFXState
@@ -506,6 +517,18 @@ MonoBehaviour:
         m_CallState: 2
   connectedImage: {fileID: 3097379820250381780}
   connectedSpriteRenderer: {fileID: 0}
+--- !u!225 &459916096450567368
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3097379820250381802}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3097379820597146409
 GameObject:
   m_ObjectHideFlags: 0

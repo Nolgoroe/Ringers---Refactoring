@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public class CustomSpecificUIElementDisplayer : BasicUIElement
 {    //specific ui elements are what we call the specific elements
 
-    public override void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
     {
-        base.SetMe(texts, sprites);
+        base.SetMyElement(texts, sprites);
     }
 }

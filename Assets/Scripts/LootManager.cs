@@ -183,7 +183,7 @@ public class LootManager : MonoBehaviour
     {
         CustomSpecificUIElementDisplayer displayer = Instantiate(lootDisplayPrefab, GameManager.instance.summonedChest.transform);
 
-        displayer.SetMe(texts, sprites);
+        displayer.SetMyElement(texts, sprites);
 
         LeanTween.move(displayer.gameObject, lootPositions[currentLootPos], lootMoveSpeed).setOnComplete(() => displayer.transform.parent = target);
     }

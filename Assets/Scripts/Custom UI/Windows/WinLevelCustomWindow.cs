@@ -15,10 +15,10 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
 
     private CanvasGroup nextLevelCanvasGroup;
     private CanvasGroup toMapCanvasGroup;
-    public override void OverrideSetMe(string[] texts, Sprite[] sprites, Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, Action[] actions)
     {
 
-        base.SetMe(texts, sprites);
+        base.SetMyElement(texts, sprites);
 
         if (getButtonRefrences.Length > 0)
         {

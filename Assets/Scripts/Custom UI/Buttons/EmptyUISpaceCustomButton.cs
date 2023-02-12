@@ -37,8 +37,8 @@ public class EmptyUISpaceCustomButton : CustomButtonParent
         UIManager.instance.CloseElement(connectedSparent);
     }
 
-    public override void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
     {
-        base.SetMe(texts, sprites);
+        base.SetMyElement(texts, sprites);
     }
 }

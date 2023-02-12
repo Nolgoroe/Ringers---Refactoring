@@ -55,10 +55,11 @@ MonoBehaviour:
   isOverrideSolo: 1
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 4441481671912890891}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs:
+  buttonRefrences:
   - {fileID: 5994699258315752583}
   - {fileID: 5994699257997076414}
   HoverOverMeToGetInfo:

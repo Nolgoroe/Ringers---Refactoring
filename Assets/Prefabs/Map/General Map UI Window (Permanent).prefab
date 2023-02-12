@@ -95,10 +95,17 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 2178843971677572236}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -358,10 +365,17 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 7526634873481224692}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -640,10 +654,17 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 7259568894519674583}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls:
@@ -867,15 +888,22 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 1
   isInteractable: 1
+  group: {fileID: 713159970138289647}
   textRefrences:
   - {fileID: 5251956185223835639}
   - {fileID: 5251956186537042141}
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs:
+  buttonRefrences:
   - {fileID: 5251956186476645072}
   - {fileID: 5251956185081650606}
   - {fileID: 5251956185507839722}
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!225 &713159970138289647
 CanvasGroup:
   m_ObjectHideFlags: 0

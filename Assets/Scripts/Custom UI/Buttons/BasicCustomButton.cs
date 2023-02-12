@@ -8,8 +8,9 @@ public class BasicCustomButton : CustomButtonParent
     [SerializeField] private bool isUseOnce;
     public override void OnClickButton()
     {
-        buttonEventsInspector?.Invoke();
         buttonEvents?.Invoke();
+
+        buttonEventsInspector?.Invoke();
 
         if (isUseOnce)
         {
@@ -17,8 +18,8 @@ public class BasicCustomButton : CustomButtonParent
         }
     }
 
-    public override void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
     {
-        base.SetMe(texts, sprites);
+        base.SetMyElement(texts, sprites);
     }
 }

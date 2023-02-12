@@ -121,6 +121,25 @@ public class Ingredients : ScriptableObject
             }
         }
     }
+
+    [MenuItem("AssetDatabase/Dirty and save")]
+    static void DirtySave()
+    {       
+        foreach (var item in AssetDatabase.FindAssets("t:prefab", new[] { "Assets/Prefabs"}))
+        {
+            string assetPath = AssetDatabase.GUIDToAssetPath(item);
+            object temp = AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
+
+            if (temp != null)
+            {
+                UnityEditor.EditorUtility.SetDirty((Object)temp);
+                Debug.Log(((Object)temp).name);
+            }
+        }
+
+        AssetDatabase.Refresh();
+        AssetDatabase.SaveAssets();
+    }
 #endif
 
 }

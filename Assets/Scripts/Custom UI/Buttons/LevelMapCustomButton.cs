@@ -25,9 +25,9 @@ public class LevelMapCustomButton : CustomButtonParent
         UIManager.instance.DisplayLaunchLevelPopUp(connectedLevelSO);
     }
 
-    public override void OverrideSetMe(string[] texts, Sprite[] sprites, System.Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
     {
-        base.SetMe(texts, sprites);
+        base.SetMyElement(texts, sprites);
     }
 
     [ContextMenu("Populater cluster SO")]

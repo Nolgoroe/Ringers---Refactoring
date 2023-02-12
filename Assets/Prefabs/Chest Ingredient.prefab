@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 1377138609351998744}
   - component: {fileID: 3380399782725322918}
   - component: {fileID: 8714735532760440799}
+  - component: {fileID: 8147389498102346630}
   m_Layer: 0
   m_Name: Chest Ingredient
   m_TagString: Untagged
@@ -340,18 +341,31 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 0
+  group: {fileID: 8147389498102346630}
   textRefrences:
   - {fileID: 7468868240046697761}
   imageRefrences: []
   spriterRendererRefrences:
   - {fileID: 2564729669506232962}
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!225 &8147389498102346630
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7246645321885862645}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &5388128554793115378
 PrefabInstance:
   m_ObjectHideFlags: 0

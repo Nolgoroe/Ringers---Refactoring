@@ -1085,7 +1085,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blurUnblurPerZone:
-    world: 0
     planesToChangeFront:
     - {fileID: 8144455642550267440}
     - {fileID: 4157803776629046652}

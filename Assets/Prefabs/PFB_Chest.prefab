@@ -1411,6 +1411,7 @@ GameObject:
   - component: {fileID: 5497893881909438061}
   - component: {fileID: 7713872906921619068}
   - component: {fileID: 8001428572238400874}
+  - component: {fileID: 5430602454907854114}
   m_Layer: 5
   m_Name: DarkBackground (Custom Button)
   m_TagString: Untagged
@@ -1501,10 +1502,11 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 5430602454907854114}
   textRefrences: []
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -1526,6 +1528,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isUseOnce: 0
 --- !u!61 &8001428572238400874
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1552,6 +1555,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!225 &5430602454907854114
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6269035129351338020}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6631932704579698422
 GameObject:
   m_ObjectHideFlags: 0

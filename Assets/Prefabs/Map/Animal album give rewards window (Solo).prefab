@@ -314,12 +314,19 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 7846769806724263864}
   textRefrences:
   - {fileID: 1066132825720481566}
   imageRefrences: []
   spriterRendererRefrences: []
-  buttonRefs:
+  buttonRefrences:
   - {fileID: 3621705498490489671}
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!225 &7846769806724263864
 CanvasGroup:
   m_ObjectHideFlags: 0

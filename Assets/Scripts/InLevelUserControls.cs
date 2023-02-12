@@ -32,7 +32,9 @@ public class InLevelUserControls : MonoBehaviour
         // we use both isusingUI and isduringfade since we have some ui elements
         // as part of a ui object that we wat to not be able to click when were fadind
         // but do what to be able to click when using ui
-        if (!UIManager.ISUSINGUI && !UIManager.ISDURINGTRANSITION)
+        bool canUseControls = !UIManager.IS_USING_UI && !UIManager.IS_DURING_TRANSITION;
+
+        if (canUseControls)
          {
             NormalControls();
             return;
@@ -166,8 +168,6 @@ public class InLevelUserControls : MonoBehaviour
             }
             else
             {
-
-
                 tileOriginalHolder.RemoveTile();
             }
         }

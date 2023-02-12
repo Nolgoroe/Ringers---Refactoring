@@ -50,9 +50,6 @@ MonoBehaviour:
   connectionType: 0
   requiredSymbol: 0
   requiredColor: 0
-  isLocking: 0
-  sliceData:
-    conditionIsValidated: 0
   midIcon: {fileID: 368524672712014788}
 --- !u!60 &3359257049771442781
 PolygonCollider2D:

@@ -232,9 +232,11 @@ MonoBehaviour:
   isOverrideSolo: 0
   isPermanent: 0
   isInteractable: 1
+  group: {fileID: 7139417515899797949}
   textRefrences: []
   imageRefrences: []
-  buttonRefs: []
+  spriterRendererRefrences: []
+  buttonRefrences: []
   HoverOverMeToGetInfo:
     serializedVersion: 2
     m_Curve: []
@@ -244,6 +246,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!225 &7139417515899797949
 CanvasGroup:
   m_ObjectHideFlags: 0
