@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour
         //currentLevel = tempcurrentlevel;
 
         //SetLevel(currentLevel);
+
+        LeanTween.init(5000);
     }
 
     private void Update()

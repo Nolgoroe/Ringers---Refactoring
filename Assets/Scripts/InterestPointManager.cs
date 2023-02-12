@@ -5,14 +5,14 @@ using UnityEngine;
 public enum MainSystems
 {
     playerInventory,
-    plyaerAnimals
+    playerAnimals
 }
 
 [System.Serializable]
 public class MainSystemToRefrences
 {
     public MainSystems mainSystem;
-    public GameObject iconables; //TEMP - this will later be the Iconable interface!!!
+    public GameObject[] iconables; //TEMP - this will later be the Iconable interface!!!
 }
 
 public class InterestPointManager : MonoBehaviour

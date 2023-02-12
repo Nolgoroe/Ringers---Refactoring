@@ -176,7 +176,7 @@ public class InLevelUserControls : MonoBehaviour
             ReturnHome();
         }
 
-        //ReleaseData();
+        ReleaseData();
     }
 
     private RaycastHit2D[] GetIntersectionsArea(Vector3 touchPos, LayerMask layerToHit)

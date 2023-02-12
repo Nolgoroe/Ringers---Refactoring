@@ -357,9 +357,9 @@ public class UIManager : MonoBehaviour
         AddUIElement(inLevelRestartLevelQuesiton);
         System.Action[] actions = new System.Action[inLevelRestartLevelQuesiton.getButtonRefrences.Length];
 
-        actions[0] += () => CloseElement(inLevelRestartLevelQuesiton);
-        actions[1] += () => FadeInFadeWindow(true, MainScreens.InLevel);
-        actions[1] += GameManager.instance.CallRestartLevel;
+        actions[0] += () => FadeInFadeWindow(true, MainScreens.InLevel);
+        actions[0] += GameManager.instance.CallRestartLevel;
+        actions[1] += () => CloseElement(inLevelRestartLevelQuesiton);
 
         inLevelRestartLevelQuesiton.OverrideSetMyElement(null, null, actions);
     }

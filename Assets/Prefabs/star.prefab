@@ -390,6 +390,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EF_StarAppear_LevelBar
       objectReference: {fileID: 0}
+    - target: {fileID: 3109722933597726652, guid: bfbc54dd8fe771d43b39ac71b8511b39,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bfbc54dd8fe771d43b39ac71b8511b39, type: 3}
 --- !u!4 &7359437568214883569 stripped
