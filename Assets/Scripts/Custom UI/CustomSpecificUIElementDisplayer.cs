@@ -10,4 +10,5 @@ public class CustomSpecificUIElementDisplayer : BasicUIElement
     {
         base.SetMyElement(texts, sprites);
     }
+
 }

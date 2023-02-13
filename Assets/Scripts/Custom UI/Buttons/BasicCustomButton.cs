@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class BasicCustomButton : CustomButtonParent
 {
-    [SerializeField] private bool isUseOnce;
     public override void OnClickButton()
     {
         buttonEvents?.Invoke();

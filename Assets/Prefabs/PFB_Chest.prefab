@@ -1528,7 +1528,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isUseOnce: 0
 --- !u!61 &8001428572238400874
 BoxCollider2D:
   m_ObjectHideFlags: 0

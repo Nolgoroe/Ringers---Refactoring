@@ -297,8 +297,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -16.350006, y: 79.76}
-  m_SizeDelta: {x: 31.57, y: 79.76}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -1047.21, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &2062952212727224038
 CanvasRenderer:
@@ -383,11 +383,11 @@ RectTransform:
   m_Father: {fileID: 2062952212727224033}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00048828125}
-  m_SizeDelta: {x: 939.41, y: 248.4}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 524.425, y: 0}
+  m_SizeDelta: {x: 1048.85, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2062952212786245451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,15 +401,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 60
+    m_Left: 30
     m_Right: 0
-    m_Top: 85
+    m_Top: 15
     m_Bottom: 0
   m_ChildAlignment: 3
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 80, y: 75}
-  m_Spacing: {x: 80, y: 140}
+  m_CellSize: {x: 200, y: 200}
+  m_Spacing: {x: 0, y: 140}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &2062952212945675762
@@ -598,7 +598,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!225 &2062952212983874995
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -621,7 +620,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2062952213086989222}
   - component: {fileID: 2062952213086989227}
-  - component: {fileID: 2062952213086989220}
   - component: {fileID: 2062952213086989221}
   m_Layer: 0
   m_Name: Bottom potions Canvas
@@ -646,10 +644,10 @@ RectTransform:
   m_Father: {fileID: 2062952214183106279}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -60.289978, y: -95.119995}
-  m_SizeDelta: {x: 537.05, y: 674.16003}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 491.16022, y: -868.3}
+  m_SizeDelta: {x: 1783.27, y: 263.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &2062952213086989227
 Canvas:
@@ -670,31 +668,8 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_TargetDisplay: 0
---- !u!114 &2062952213086989220
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2062952213086989223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
 --- !u!114 &2062952213086989221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -908,7 +883,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &2062952213232414706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1152,7 +1126,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &2062952213580225951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1372,7 +1345,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &2062952213747502405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1432,7 +1404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -271.6, y: 243.3}
+  m_AnchoredPosition: {x: -270, y: 243}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2062952213845612151
@@ -1468,7 +1440,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 216.1, y: -100.9}
+  m_AnchoredPosition: {x: 220, y: -110}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2062952213847744446
@@ -1703,7 +1675,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &2062952213860163513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1747,7 +1718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2062952213876034540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1903,7 +1874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2062952213891266956
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1962,15 +1933,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  materialsContent: {fileID: 2062952213386433891}
   materialDisplayPrefab: {fileID: 2349783637571556606, guid: 4c6a60617a84f3c4fa3a057c5abdf126,
     type: 3}
-  potionsMaterialZones:
-  - {fileID: 2062952213837768719}
-  - {fileID: 2062952213909361433}
-  - {fileID: 2062952213845612150}
-  - {fileID: 2062952214667179877}
-  - {fileID: 2062952214223444607}
+  materialsContent: {fileID: 2062952213386433891}
   sortSwapHelpers:
   - {fileID: 2062952214605221077}
   - {fileID: 2062952213860163513}
@@ -1982,6 +1947,7 @@ MonoBehaviour:
   categoryTabs:
   - {fileID: 2062952213876034541}
   - {fileID: 2062952214183106272}
+  CurrentCategoryIndex: -1
 --- !u!225 &2062952213891266994
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2027,7 +1993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 133.7, y: 245.2}
+  m_AnchoredPosition: {x: 135, y: 243}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2062952214036110540
@@ -2115,13 +2081,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2062952214183106279}
+  - component: {fileID: 1683025172}
+  - component: {fileID: 1683025171}
   m_Layer: 0
   m_Name: Potions tab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2062952214183106279
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2149,6 +2117,66 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1080, y: 2340}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &1683025172
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062952214183106272}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1683025171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062952214183106272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad126d7cc8ba4bd4d942593a6aae2abd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSolo: 0
+  isOverrideSolo: 0
+  isPermanent: 0
+  isInteractable: 0
+  group: {fileID: 1683025172}
+  textRefrences:
+  - {fileID: 2062952214776788395}
+  - {fileID: 2062952214539614587}
+  imageRefrences:
+  - {fileID: 2062952214036110578}
+  spriterRendererRefrences: []
+  buttonRefrences: []
+  HoverOverMeToGetInfo:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2062952214219648056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,7 +2286,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -62, y: -258.2}
+  m_AnchoredPosition: {x: -59, y: -270}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2062952214282293684
@@ -2692,10 +2720,10 @@ RectTransform:
   m_Father: {fileID: 2062952213086989222}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 36.9, y: -753.44}
-  m_SizeDelta: {x: 675.36, y: 168.64}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2062952214392947522
 CanvasRenderer:
@@ -2748,8 +2776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 2062952212786245444}
-  m_Horizontal: 0
-  m_Vertical: 1
+  m_Horizontal: 1
+  m_Vertical: 0
   m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
@@ -3057,7 +3085,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &2062952214605221077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3155,7 +3182,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -321.6, y: -101.1}
+  m_AnchoredPosition: {x: -320, y: -110}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2062952214724744192
@@ -3279,7 +3306,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &2062952214745042124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3702,9 +3728,64 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
         type: 3}
+      propertyPath: connectedParent
+      value: 
+      objectReference: {fileID: 2062952213891266995}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
       propertyPath: connectedSparent
       value: 
       objectReference: {fileID: 2062952213891266995}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 3768807033573731738}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CallClearPowerupScreenDataCoroutine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CallUICloseElement
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PowerupManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: EmptyUISpaceCustomButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: buttonEventsInspector.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 288766dfd160f954e87874a70824433f, type: 3}
 --- !u!224 &3768807033573731735 stripped
@@ -3713,3 +3794,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2062952214452009829}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3768807033573731738 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2062952214452009829}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593284bdf8ebf7b47b0e81e386b44e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

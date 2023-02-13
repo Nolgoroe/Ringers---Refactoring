@@ -458,6 +458,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
         type: 3}
+      propertyPath: connectedParent
+      value: 
+      objectReference: {fileID: 7846769806724263847}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
       propertyPath: connectedSparent
       value: 
       objectReference: {fileID: 7846769806724263847}

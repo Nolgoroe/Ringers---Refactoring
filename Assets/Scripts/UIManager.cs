@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
+using System.Linq;
 
 [System.Serializable]
 public class WorldDisplayCombo
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
     [Header("General refrences")]
     [SerializeField] private Player player;
     [SerializeField] private AnimalsManager animalManager;
+    [SerializeField] private PowerupManager powerupManager;
 
     [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -50,6 +52,7 @@ public class UIManager : MonoBehaviour
     [Header("Map Screen")]
     [SerializeField] private BasicCustomUIWindow levelScrollRect;
     [SerializeField] private PlayerWorkshopCustomWindow playerWorkshopWindow;
+    [SerializeField] private BasicCustomUIWindow buyPotionWindow;
     [SerializeField] private BasicCustomUIWindow levelMapPopUp;
     [SerializeField] private BasicCustomUIWindow generalSettings;
     [SerializeField] private BasicCustomUIWindow generalMapUI;
@@ -453,19 +456,64 @@ public class UIManager : MonoBehaviour
     private void DisplayPlayerWorkshop()
     {
         System.Action[] actions = new System.Action[playerWorkshopWindow.getButtonRefrences.Length];
-        actions[0] += () => playerWorkshopWindow.SwitchCategory(0); // inventory catagory
-        actions[1] += () => playerWorkshopWindow.SwitchCategory(1); // potion catagory
+        actions[0] += () => playerWorkshopWindow.TrySwitchCategory(0); // inventory catagory
+        actions[0] += () => playerWorkshopWindow.SortWorkshop(0); // inventory catagory
+        actions[0] += () => StartCoroutine(powerupManager.ClearPowerupScreenData()); // inventory catagory
+        actions[1] += OpenPotionsCategory; // potion catagory
         actions[2] += () => playerWorkshopWindow.SortWorkshop(0); // inventory build sort
         actions[3] += () => playerWorkshopWindow.SortWorkshop(1); // inventory gem sort
         actions[4] += () => playerWorkshopWindow.SortWorkshop(2); // inventory herb sort
         actions[5] += () => playerWorkshopWindow.SortWorkshop(3); // inventory witchcraft sort
-        actions[6] += () => FadeInFadeWindow(true, MainScreens.InLevel); // potion brew button
+        actions[6] += () => powerupManager.TryBrewPotion(); // potion brew button
 
         AddUIElement(playerWorkshopWindow);
 
         playerWorkshopWindow.OverrideSetMyElement(null, null, actions);
         //playerWorkshopWindow.InitPlayerWorkshop(player, lootManager);
         playerWorkshopWindow.InitPlayerWorkshop();
+    }
+
+    public void DisplayBuyPotionWindow(int neededRubies)
+    {
+        //how to color text red/white if have enough rubies???
+
+
+        System.Action[] actions = new System.Action[buyPotionWindow.getButtonRefrences.Length];
+        actions[0] += () => powerupManager.BuyPotion();
+        actions[0] += () => CloseElement(buyPotionWindow);
+        actions[1] += () => CloseElement(buyPotionWindow);
+
+        AddUIElement(buyPotionWindow);
+
+        bool hasEnoughRubies = player.GetOwnedRubies >= neededRubies;
+        string[] texsts = new string[] { neededRubies.ToString() };
+
+        buyPotionWindow.OverrideSetMyElement(texsts, null, actions);
+    }
+    private void OpenPotionsCategory()
+    {
+        //if succeds it opens the potions screen
+        if (!playerWorkshopWindow.TrySwitchCategory(1))
+        {
+            return;
+        }
+
+        if(powerupManager.unlockedPowerups.Count > 0)
+        {
+            //set selected potion
+            powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
+
+            //summon all potion buttons
+            foreach (PowerupType powerType in powerupManager.unlockedPowerups)
+            {
+                powerupManager.InstantiatePowerButton(powerType);
+            }
+        }
+        else
+        {
+            Debug.Log("No owned potions, can't open potion screen");
+            //show error message
+        }
     }
     private void DisplayAnimalAlbum()
     {

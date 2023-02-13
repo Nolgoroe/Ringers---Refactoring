@@ -1,29 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
 {
-    [Header("Required refs inventory")]
-    [SerializeField] private Transform materialsContent;
+    [Header("General refrences")]
     [SerializeField] private CustomSpecificUIElementDisplayer materialDisplayPrefab;
 
-    [Header("Required refs potion")]
-    [SerializeField] private Transform[] potionsMaterialZones;
+    [Header("Required refrences inventory")]
+    [SerializeField] private Transform materialsContent;
 
     [Header("Swappers")]
     [SerializeField] private ImageSwapHelper[] sortSwapHelpers;
     [SerializeField] private ImageSwapHelper[] catagoriesSwapHelpers;
     [SerializeField] private GameObject[] categoryTabs;
 
+    [SerializeField] private int CurrentCategoryIndex = -1;
+
     private List<IngredientPlusMainTypeCombo> localCombos => GameManager.instance.GetPlayerCombos;
-    private Dictionary<Ingredients, DictionairyLootEntry> localDict => GameManager.instance.GetIngredientDict;
+    private Dictionary<Ingredients, LootEntry> localownedIngredientsDict => GameManager.instance.GetIngredientDict;
 
     public void InitPlayerWorkshop()
     {
         SortWorkshop(0);
-        SwitchCategory(0);
+        TrySwitchCategory(0);
     }
 
     public void SortWorkshop(int index)
@@ -49,7 +52,7 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
             }
         }
     }
-    public void SwitchCategory(int index)
+    private void SwitchCategory(int index)
     {
         SetCategoriesDisplay(index);
     }
@@ -90,7 +93,7 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
                 {
                     CustomSpecificUIElementDisplayer displayer = Instantiate(materialDisplayPrefab, materialsContent);
 
-                    int amount = localDict[combo.typeIngredients[i]].amount;
+                    int amount = localownedIngredientsDict[combo.typeIngredients[i]].amount;
                     Sprite sprite = combo.typeIngredients[i].ingredientSprite;
 
                     string[] texts = new string[] { amount.ToString() };
@@ -102,5 +105,18 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
                 break;
             }
         }
+    }
+
+    public bool TrySwitchCategory(int index)
+    {
+        if(CurrentCategoryIndex != index)
+        {
+            CurrentCategoryIndex = index;
+            SwitchCategory(index);
+            return true;
+        }
+
+        Debug.LogError("This screnn is already open");
+        return false;
     }
 }

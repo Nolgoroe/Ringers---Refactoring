@@ -18,15 +18,6 @@ public class sliceToSpawnDataStruct
 
 }
 
-public enum PowerUp
-{
-    Switch,
-    Joker,
-    TileBomb,
-    SliceBomb,
-}
-
-
 [System.Serializable]
 public class tileDataStruct
 {
@@ -67,7 +58,7 @@ public class LevelSO : ScriptableObject
     public sliceToSpawnDataStruct[] slicesToSpawn;
 
     [Header("PowerUps")]
-    public PowerUp[] powerupsForLevel;
+    public PowerupType[] powerupsForLevel;
 
     [Header("Stone Tiles")]
     public stoneTileDataStruct[] stoneTiles;

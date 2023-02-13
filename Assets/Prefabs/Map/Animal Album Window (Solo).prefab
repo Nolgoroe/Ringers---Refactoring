@@ -110,7 +110,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 1
 --- !u!225 &5076173805835264017
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -510,7 +509,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &5076173806183937461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,7 +1062,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &5076173806499184099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1171,7 +1168,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &5076173806732014604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,7 +1390,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!114 &5076173807004117178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1569,7 +1564,6 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
-  isUseOnce: 0
 --- !u!225 &5076173807462612986
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5180,6 +5174,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DarkBackground
       objectReference: {fileID: 0}
+    - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
+        type: 3}
+      propertyPath: connectedParent
+      value: 
+      objectReference: {fileID: 5076173807778364529}
     - target: {fileID: 2948848526729385727, guid: 288766dfd160f954e87874a70824433f,
         type: 3}
       propertyPath: connectedSparent

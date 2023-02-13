@@ -121,7 +121,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isUseOnce: 0
 --- !u!225 &2178843971677572236
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -391,7 +390,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isUseOnce: 0
 --- !u!225 &7526634873481224692
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -680,7 +678,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  isUseOnce: 0
 --- !u!225 &7259568894519674583
 CanvasGroup:
   m_ObjectHideFlags: 0

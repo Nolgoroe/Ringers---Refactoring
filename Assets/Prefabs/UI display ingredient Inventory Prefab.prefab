@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2349783637571556606}
   - component: {fileID: 996176224331161323}
   m_Layer: 5
-  m_Name: UI display ingredient Prefab
+  m_Name: UI display ingredient Inventory Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

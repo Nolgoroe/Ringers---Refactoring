@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+//using UnityEngine.Serialization;
 
 public class EmptyUISpaceCustomButton : CustomButtonParent
 {
-    [SerializeField] private BasicUIElement connectedSparent;
+    [SerializeField] private BasicUIElement connectedParent;
 
     private void OnValidate()
     {
         if (transform.parent == null) return;
-        transform.parent.TryGetComponent(out connectedSparent);
+        transform.parent.TryGetComponent(out connectedParent);
 
-        if (connectedSparent == null)
+        if (connectedParent == null)
         {
             Debug.LogError("Parent isn't a basic ui element!!!");
             return;
@@ -28,13 +29,13 @@ public class EmptyUISpaceCustomButton : CustomButtonParent
     // called from button
     public void CallUICloseElement()
     {
-        if (connectedSparent == null)
+        if (connectedParent == null)
         {
             Debug.LogError("Parent isn't a basic ui element!!!");
             return;
         }
 
-        UIManager.instance.CloseElement(connectedSparent);
+        UIManager.instance.CloseElement(connectedParent);
     }
 
     public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
