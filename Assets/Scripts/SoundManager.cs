@@ -21,11 +21,11 @@ public class SoundManager : MonoBehaviour
         private set { isSFXMutedPrivate = value; }
     }
 
-
-    private void Start()
+    private void Awake()
     {
         instance = this;
     }
+
     public void MuteSFX()
     {
         //called from button

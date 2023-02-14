@@ -80,10 +80,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private WorldDisplayCombo[] orderOfWorlds;
     [SerializeField] private RefWorldDisplayCombo[] worldImageReferenceCombo;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
+    }
 
+    private void Start()
+    {
         StartCoroutine(DisplayLevelMap(false));
     }
 

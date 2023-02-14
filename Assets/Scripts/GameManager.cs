@@ -55,14 +55,16 @@ public class GameManager : MonoBehaviour
     public ClusterSO[] allClusters;
 
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         // TO DO
         // if we use a scene transfer system then  make sure the Instance is deleted if we transfer a scene
         // consider changing Sigleton access to something else.
 
-        instance = this;
         //currentLevel = tempcurrentlevel;
 
         //SetLevel(currentLevel);
