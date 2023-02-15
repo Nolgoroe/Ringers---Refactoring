@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int ownedRubies;
     [SerializeField] private int ownedTears;
+    [SerializeField] private int maxOwnedTears;
 
     private Dictionary<Ingredients, LootEntry> ownedIngredients;
 
@@ -116,7 +117,20 @@ public class Player : MonoBehaviour
     }
     public void AddTears(int amount)
     {
+        if (CheckHasMaxTears())
+        {
+            Debug.Log("Has max tears");
+            return;
+        }
+
+        //af adding more than the max at once then we'll get here
         ownedTears += amount;
+
+        if(ownedTears > maxOwnedTears)
+        {
+            ownedTears = maxOwnedTears;
+        }
+
         UIManager.instance.RefreshRubyAndTearsTexts(ownedTears, ownedRubies);
         Debug.Log("Added: " + amount + " " + "To Tears!");
     }
@@ -130,11 +144,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    private bool CheckHasMaxTears()
+    {
+        return ownedTears < maxOwnedTears;
+    }
+
     /**/
     // GETTERS!
     /**/
     public int GetOwnedRubies => ownedRubies;
     public int GetOwnedTears => ownedTears;
+    public bool GetHasMaxTears => CheckHasMaxTears();
     public List<IngredientPlusMainTypeCombo> returnOwnedIngredientsByType => ingredientsToMainTypes;
     public Dictionary<Ingredients, LootEntry> returnownedIngredients => ownedIngredients;
 }

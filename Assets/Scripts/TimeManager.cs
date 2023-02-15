@@ -8,24 +8,31 @@ public class TimeManager : MonoBehaviour
 {
     const string DAILY_TIMER_PATTERN = "{0:D2}:{1:D2}:{2:D2}";
     const string DROPS_TIMER_PATTERN = "{0:D2}:{1:D2}";
+    const string DailyAvailable = "Reward Available";
 
-    [SerializeField] private DateTime targetDailyRewardTime;
     [SerializeField] private DateTime currentDateTime;
-    [SerializeField] private DateTime targetDewDropTime;
-
-    [SerializeField] private int constTimeLeftGiveDewDrop;
-    [SerializeField] private int currentTimeLeftGiveDewDrop; //we might not need this variable which will save us alot of trouble - ask lior
 
     [Header("Required refs")]
     [SerializeField] private Player player; // go over with lior on why is this here?
+    [SerializeField] private DailyRewardsManager dailyRewardsManager; // This is a two way dependency! ask lior!!
+
+    [Header("DewDrops")]
+    [SerializeField] private int constTimeLeftGiveDewDrop;
+    [SerializeField] private int currentTimeLeftGiveDewDrop; //we might not need this variable which will save us alot of trouble - ask lior
     [SerializeField] private TMP_Text dewDropsTimeText; // go over with lior on why is this here?
+    [SerializeField] private DateTime targetDewDropTime;
+
+    [Header("Daily rewards")]
     [SerializeField] private TMP_Text dailyRewardText; // go over with lior on why is this here?
+    [SerializeField] private DateTime targetDailyRewardTime;
+    [SerializeField] private int constTimeLeftGiveDailyLoot;
+    [SerializeField] private TimeSpan dailyRewardsSpan;
 
     [Header("TEMP")]
     public string timeString;
     public string lastTimeString;
+    public long lastTime;
 
-    long lastTime;
     void Start()
     {
         //initial values
@@ -38,22 +45,14 @@ public class TimeManager : MonoBehaviour
 
             targetDailyRewardTime = DateTime.FromBinary(lastTime);
 
-        }
-        else
-        {
-            /**/
-            // this is what needs to happen after I take daily loot.
-            // will also need to save the target daily reward time and check it every time we open the daily rewards screen / every time we open the game.
-            /**/
-            targetDailyRewardTime = DateTime.UtcNow.AddDays(1);
+            dailyRewardsSpan = targetDailyRewardTime.Subtract(currentDateTime);
         }
 
-        CheckDailyRewardsAvailableOnStart();
+        CheckDailyRewardsAvailable();
 
         if (PlayerPrefs.HasKey("LatestDewTime")) // will become server...
         {
             currentTimeLeftGiveDewDrop = PlayerPrefs.GetInt("LatestDewTime");
-
         }
         else
         {
@@ -111,6 +110,8 @@ public class TimeManager : MonoBehaviour
             Debug.Log("Giving drop now");
         }
 
+        CheckDailyRewardsAvailable();
+
         /**/
         //Set texsts
         /**/
@@ -119,13 +120,24 @@ public class TimeManager : MonoBehaviour
 
     private void UpdateTexsts()
     {
-        TimeSpan dropsTimeSpan = targetDewDropTime.Subtract(currentDateTime);
-        string dropsText = string.Format(DROPS_TIMER_PATTERN, dropsTimeSpan.Minutes, dropsTimeSpan.Seconds);
-        dewDropsTimeText.text = dropsText;
+        if(!player.GetHasMaxTears)
+        {
+            TimeSpan dropsTimeSpan = targetDewDropTime.Subtract(currentDateTime);
+            string dropsText = string.Format(DROPS_TIMER_PATTERN, dropsTimeSpan.Minutes, dropsTimeSpan.Seconds);
+            dewDropsTimeText.text = dropsText;
+        }
 
-        TimeSpan dailySpan = targetDailyRewardTime.Subtract(currentDateTime);
-        string dailyText = string.Format(DAILY_TIMER_PATTERN, dailySpan.Hours, dailySpan.Minutes, dailySpan.Seconds);
-        dailyRewardText.text = dailyText;
+
+        if (!CheckDailyRewardsAvailable())
+        {
+            dailyRewardsSpan = targetDailyRewardTime.Subtract(currentDateTime);
+            string dailyText = string.Format(DAILY_TIMER_PATTERN, dailyRewardsSpan.Hours, dailyRewardsSpan.Minutes, dailyRewardsSpan.Seconds);
+            dailyRewardText.text = dailyText;
+        }
+        else
+        {
+            dailyRewardText.text = DailyAvailable;
+        }
     }
     private void CheckGiveAmountOfDewDropsOnStart(float amount)
     {
@@ -137,14 +149,21 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-    private void CheckDailyRewardsAvailableOnStart()
+    private bool CheckDailyRewardsAvailable()
     {
-        TimeSpan dailySpan = targetDailyRewardTime - currentDateTime;
-
-        if (dailySpan < TimeSpan.Zero)
+        //why does this function exsist?
+        if (dailyRewardsSpan < TimeSpan.Zero) 
         {
+            if(!dailyRewardsManager.GetIsDailyAvailable) //this if statement annoys me - ask lior
+            {
+                dailyRewardsManager.MakeDailyAvailable();
+            }
+
+            return true;
             // can give daily loot now since time is negative
         }
+
+        return false;
     }
 
     private void GiveAmountOfDewDros(float amount)
@@ -164,18 +183,20 @@ public class TimeManager : MonoBehaviour
 
         if (constTimeLeftGiveDewDrop >= 60)
         {
-            int minutes = constTimeLeftGiveDewDrop / 60;
-            int seconds = constTimeLeftGiveDewDrop % 60;
-            targetDewDropTime = DateTime.UtcNow.AddMinutes(minutes);
-            targetDewDropTime = targetDewDropTime.AddSeconds(seconds);
+            targetDewDropTime = targetDewDropTime.AddSeconds(constTimeLeftGiveDewDrop);
         }
         else
         {
             targetDewDropTime = DateTime.UtcNow.AddSeconds(constTimeLeftGiveDewDrop);
         }
-
     }
 
+    public void SetTargetDailyRewardTime()
+    {
+        targetDailyRewardTime = DateTime.UtcNow.AddSeconds(constTimeLeftGiveDailyLoot);
+
+        dailyRewardsSpan = targetDailyRewardTime.Subtract(currentDateTime);
+    }
     private void OnApplicationQuit()
     {
         // Save the current system time as a string in the player prefs class
@@ -183,6 +204,5 @@ public class TimeManager : MonoBehaviour
         PlayerPrefs.SetString("QuitTime", DateTime.UtcNow.ToBinary().ToString());
         PlayerPrefs.SetInt("LatestDewTime", currentTimeLeftGiveDewDrop);
         PlayerPrefs.SetString("NextTimeDaily", targetDailyRewardTime.ToBinary().ToString());
-
     }
 }

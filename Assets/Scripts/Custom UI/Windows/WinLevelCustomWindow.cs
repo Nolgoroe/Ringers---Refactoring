@@ -56,7 +56,7 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
         // next level button
         // only appears if we have a next level to move to
         // we don't have a next level if we're a chest level - the hud button will appear after chest is shown
-        if(GameManager.instance.nextLevel != null)
+        if (GameManager.instance.nextLevel != null)
         {
             if (nextLevelButton != null)
             {
@@ -72,7 +72,11 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
 
             // to map button
             // always appears, though sometimes after chest. if we are a chest level, chest manages showing the hud button
-            ManuallyShowToHudButton();
+            ManuallyShowOnlyToHudButton();
+        }
+        else if (GameManager.instance.nextLevel == null && !GameManager.instance.currentCluster.isChestCluster)
+        {
+            ManuallyShowOnlyToHudButton();
         }
     }
 
@@ -81,7 +85,7 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
         button.isInteractable = true;
     }
 
-    public void ManuallyShowToHudButton()
+    public void ManuallyShowOnlyToHudButton()
     {
         if (toMapButton != null )
         {

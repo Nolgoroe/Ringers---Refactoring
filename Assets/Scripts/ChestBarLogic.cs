@@ -54,7 +54,7 @@ public class ChestBarLogic : MonoBehaviour
             chestBarSlider.value = currentIndex;
         }
 
-        GameManager.instance.chestBarLogic = this;
+        //GameManager.instance.chestBarLogic = this; //this is now manually dragged as ref to gamemanager, find better way
     }
     private void OnDisable()
     {

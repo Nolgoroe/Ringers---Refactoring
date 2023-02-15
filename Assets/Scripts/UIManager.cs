@@ -39,10 +39,11 @@ public class UIManager : MonoBehaviour
     public static bool IS_USING_UI;
     public static bool IS_DURING_TRANSITION;
 
-    [Header("General refrences")]
+    [Header("General refrences")] // ask Lior if this section is ok for the long run
     [SerializeField] private Player player;
     [SerializeField] private AnimalsManager animalManager;
     [SerializeField] private PowerupManager powerupManager;
+    [SerializeField] private DailyRewardsManager dailyRewardsManager;
 
     [Header("Active screens")]
     [SerializeField] private BasicUIElement currentlyOpenSoloElement;
@@ -53,11 +54,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private BasicCustomUIWindow levelScrollRect;
     [SerializeField] private PlayerWorkshopCustomWindow playerWorkshopWindow;
     [SerializeField] private BasicCustomUIWindow buyPotionWindow;
-    [SerializeField] private BasicCustomUIWindow levelMapPopUp;
+    [SerializeField] private LevelMapPopupCustomWindow levelMapPopUp;
     [SerializeField] private BasicCustomUIWindow generalSettings;
     [SerializeField] private BasicCustomUIWindow generalMapUI;
     [SerializeField] private AnimalAlbumCustonWindow animalAlbumWindow;
     [SerializeField] private BasicCustomUIWindow animalAlbumRewardWidnow;
+    [SerializeField] private DailyRewardsCustomWindow dailyRewardsWindow;
 
     [Header("In level Screen")]
     [SerializeField] private BasicCustomUIWindow inLevelUI;
@@ -88,6 +90,8 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(DisplayLevelMap(false));
+
+        DisplayDailyRewardsWindow();
     }
 
     private void OnValidate()
@@ -391,7 +395,7 @@ public class UIManager : MonoBehaviour
     //why is this here?
     public void ContinueAfterChest()
     {
-        inLevelWinWindow.ManuallyShowToHudButton();
+        inLevelWinWindow.ManuallyShowOnlyToHudButton();
     }
 
     /**/
@@ -549,6 +553,15 @@ public class UIManager : MonoBehaviour
         animalAlbumRewardWidnow.OverrideSetMyElement(texts, null, actions);
     }
 
+    public void DisplayDailyRewardsWindow()
+    {
+        System.Action[] actions = new System.Action[dailyRewardsWindow.getButtonRefrences.Length];
+        actions[0] += () => StartCoroutine(dailyRewardsManager.RecieveReward());
+
+        AddUIElement(dailyRewardsWindow);
+
+        dailyRewardsWindow.OverrideSetMyElement(null, null, actions);
+    }
     /**/
     // general
     /**/

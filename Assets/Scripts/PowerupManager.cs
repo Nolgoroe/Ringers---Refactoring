@@ -323,17 +323,22 @@ public class PowerupManager : MonoBehaviour
 
         RefreshIngredientDisplays();
 
+        AddPotion(currentPotionSelected.powerType);
+    }
 
-        OwnedPowersAndAmounts temoVar = ownedPowerups.Where(i => i.powerType == currentPotionSelected.powerType).SingleOrDefault();
+    public void AddPotion(PowerupType powerType)
+    {
+        OwnedPowersAndAmounts temoVar = ownedPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
 
-        if(temoVar == null)
+        if (temoVar == null)
         {
-            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(currentPotionSelected.powerType, 1);
+            OwnedPowersAndAmounts newPotion = new OwnedPowersAndAmounts(powerType, 1);
             ownedPowerups.Add(newPotion);
         }
         else
         {
             temoVar.amount++;
         }
+        Debug.Log("Added this power: " + powerType.ToString());
     }
 }

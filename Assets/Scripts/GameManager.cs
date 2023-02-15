@@ -127,9 +127,17 @@ public class GameManager : MonoBehaviour
         
         // actions after gameplay, on winning the level
         WinLevelActions += AdvanceLevelStatue;
-        WinLevelActions += chestBarLogic.AddToChestBar;
         WinLevelActions += UIManager.instance.DisplayInLevelWinWindow;
 
+        if(currentClusterSO.isChestCluster)
+        {
+            chestBarLogic.gameObject.SetActive(true);
+            WinLevelActions += chestBarLogic.AddToChestBar;
+        }
+        else
+        {
+            chestBarLogic.gameObject.SetActive(false);
+        }
         // actions after gameplay, on losing the level
         //LoseLevelActions += UIManager.instance.DisplayInLevelRingHasNonMatchingMessage;
     }
@@ -363,7 +371,7 @@ public class GameManager : MonoBehaviour
     public List<IngredientPlusMainTypeCombo> GetPlayerCombos => player.returnOwnedIngredientsByType;
     public Dictionary<Ingredients, LootEntry> GetIngredientDict => player.returnownedIngredients;
     public List<OwnedAnimalDataSet> GetUnlockedAnimals => animalsManager.GetUnlockedAnimals();
-
+    public ClusterSO currentCluster => currentClusterSO;
     public bool IsAnimalAlreadyInAlbum(AnimalsInGame animal) => animalsManager.CheckAnimalAlreadyInAlbum(animal);
 
 

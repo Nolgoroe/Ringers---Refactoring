@@ -9,7 +9,8 @@ public abstract class CustomButtonParent : BasicUIElement/*, IPointerDownHandler
     public System.Action buttonEvents;
     public UnityEvent buttonEventsInspector;
 
-    protected bool isUseOnce;
+
+    [SerializeField] protected bool isUseOnce;
 
     private void OnMouseDown()
     {
