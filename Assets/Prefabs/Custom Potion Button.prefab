@@ -129,6 +129,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
   connecetdScriptableObjectType: 0
 --- !u!225 &5653637519035394522
 CanvasGroup:

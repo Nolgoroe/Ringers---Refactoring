@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 [System.Serializable]
@@ -25,9 +26,11 @@ public class PowerupManager : MonoBehaviour
     public List<PowerupType> unlockedPowerups;
 
     [Header("Live Crafting")]
+    [SerializeField] private RectTransform selectedPotionRect;
     [SerializeField] private PowerupScriptableObject currentPotionSelected;
     [SerializeField] private int currentNeededRubies;
     [SerializeField] private List<PotionIngredientCustomSpecificDisplayer> spawnedDisplays;
+    [SerializeField] public List<PotionCustomButton> customPotionButtons { get; private set; }
 
     [Header("Crafting refrences")]
     [SerializeField] private BasicCustomUIWindow potionWindow;
@@ -41,16 +44,21 @@ public class PowerupManager : MonoBehaviour
 
     [Header("General refrences")]
     [SerializeField] private Player player; //go over with Lior, do we need the whole player?
-    
+
+    private void Start()
+    {
+        customPotionButtons = new List<PotionCustomButton>();
+    }
     public void InstantiatePowerButton(PowerupType powerType) // is it okay to take care of display and data of buttons here?
     {
         //summon and set button data
         PotionCustomButton createdButton = Instantiate(potionButtonPrefab, potionButtonsParent);
         createdButton.connecetdScriptableObjectType = powerType;
 
+        customPotionButtons.Add(createdButton);
         //set button display and logic when it's summoned
         PowerupScriptableObject tempVar = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
-        if (currentPotionSelected == null)
+        if (tempVar == null)
         {
             Debug.LogError("Couldn't find potion!");
         }
@@ -62,14 +70,25 @@ public class PowerupManager : MonoBehaviour
         createdButton.OverrideSetMyElement(null, sprites, actions);
     }
 
-    public void SetSelectedPotion(PowerupType powerType) // is it okay to take care of display and summon of dispay here?
+    public void SetSelectedPotion(PowerupType powerType) // is it okay to take care of display and summon of dispay here? is index of also ok?
     {
         PowerupScriptableObject tempSelected = allPowerups.Where(i => i.powerType == powerType).SingleOrDefault();
+        int indexOfNewPotion = allPowerups.IndexOf(tempSelected);
 
-        if(currentPotionSelected == tempSelected)
+
+        AnimatePotionButton(customPotionButtons[indexOfNewPotion], true);
+
+        if (currentPotionSelected == tempSelected)
         {
             return;
         }
+
+        if(currentPotionSelected)
+        {
+            int precviousindexOfPotion = allPowerups.IndexOf(currentPotionSelected);
+            AnimatePotionButton(customPotionButtons[precviousindexOfPotion], false);
+        }
+
 
         currentPotionSelected = tempSelected;
         if (currentPotionSelected == null)
@@ -85,28 +104,26 @@ public class PowerupManager : MonoBehaviour
         StartCoroutine(InstantiateNeededIngredients());
     }
 
+    private void AnimatePotionButton(PotionCustomButton customButton, bool isUp)
+    {
+        RectTransform rect = customButton.GetComponent<RectTransform>();
+        
+        if (isUp)
+        {
+            LeanTween.moveY(rect, customButton.originalPos.y + 50, 0.2f);
+        }
+        else
+        {
+            LeanTween.moveY(rect, customButton.originalPos.y, 0.2f);
+        }
+    }
     private IEnumerator InstantiateNeededIngredients() // go over with lior
     {
-        SwitchPotion();
+        StartCoroutine(ClearGeneralData());
 
         yield return new WaitForEndOfFrame();
 
         SpawnIngredients();
-    }
-
-    private void SwitchPotion()
-    {
-        for (int i = 0; i < potionsMaterialZones.Length; i++) // go over with Lior
-        {
-            for (int k = 0; k < potionsMaterialZones[i].childCount; k++)
-            {
-                Destroy(potionsMaterialZones[i].GetChild(k).gameObject);
-            }
-        }
-
-        currentNeededRubies = 0;
-        spawnedDisplays.Clear();
-
     }
 
     private void SpawnIngredients()
@@ -149,16 +166,22 @@ public class PowerupManager : MonoBehaviour
     public void CallClearPowerupScreenDataCoroutine() // go over with Lior
     {
         //called from DarkBackground under workshop
-        StartCoroutine(ClearPowerupScreenData());
+        ClearPowerupScreenDataComplete();
     }
-    public IEnumerator ClearPowerupScreenData()
+    public void ClearPowerupScreenDataComplete()
     {
         for (int i = 0; i < potionButtonsParent.childCount; i++)
         {
             Destroy(potionButtonsParent.GetChild(i).gameObject);         
         }
 
+        StartCoroutine(ClearGeneralData());
+        currentPotionSelected = null;
+        customPotionButtons.Clear();
+    }
 
+    private IEnumerator ClearGeneralData()
+    {
         for (int i = 0; i < potionsMaterialZones.Length; i++) // go over with Lior
         {
             for (int k = 0; k < potionsMaterialZones[i].childCount; k++)
@@ -167,7 +190,6 @@ public class PowerupManager : MonoBehaviour
             }
         }
 
-        currentPotionSelected = null;
         currentNeededRubies = 0;
         spawnedDisplays.Clear();
         yield return new WaitForEndOfFrame();

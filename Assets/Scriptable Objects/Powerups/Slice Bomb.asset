@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d641e528236e2684fb0b26691f411447, type: 3}
   m_Name: Slice Bomb
   m_EditorClassIdentifier: 
-  powerType: 0
+  powerType: 3
   ingredientsNeeded:
   - ingredient: {fileID: 11400000, guid: d75bb8165977999489eba68afccd9e16, type: 2}
     amountNeeded: 3

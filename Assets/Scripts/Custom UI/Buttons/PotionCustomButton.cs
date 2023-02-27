@@ -6,8 +6,12 @@ using UnityEngine;
 public class PotionCustomButton : CustomButtonParent
 {
     public PowerupType connecetdScriptableObjectType; //why public?
+    [SerializeField] public Vector3 originalPos { get; private set; }
 
-
+    public void SetOriginalPos()
+    {
+        originalPos = GetComponent<RectTransform>().anchoredPosition; // is this good to expect a rect transform?
+    }
     public override void OnClickButton()
     {
         buttonEvents?.Invoke();

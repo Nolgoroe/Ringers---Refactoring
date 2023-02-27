@@ -465,8 +465,8 @@ public class UIManager : MonoBehaviour
         System.Action[] actions = new System.Action[playerWorkshopWindow.getButtonRefrences.Length];
         actions[0] += () => playerWorkshopWindow.TrySwitchCategory(0); // inventory catagory
         actions[0] += () => playerWorkshopWindow.SortWorkshop(0); // inventory catagory
-        actions[0] += () => StartCoroutine(powerupManager.ClearPowerupScreenData()); // inventory catagory
-        actions[1] += OpenPotionsCategory; // potion catagory
+        actions[0] += () => powerupManager.ClearPowerupScreenDataComplete(); // inventory catagory
+        actions[1] += () => StartCoroutine(OpenPotionsCategory()); // potion catagory
         actions[2] += () => playerWorkshopWindow.SortWorkshop(0); // inventory build sort
         actions[3] += () => playerWorkshopWindow.SortWorkshop(1); // inventory gem sort
         actions[4] += () => playerWorkshopWindow.SortWorkshop(2); // inventory herb sort
@@ -497,24 +497,30 @@ public class UIManager : MonoBehaviour
 
         buyPotionWindow.OverrideSetMyElement(texsts, null, actions);
     }
-    private void OpenPotionsCategory()
+    private IEnumerator OpenPotionsCategory()
     {
         //if succeds it opens the potions screen
         if (!playerWorkshopWindow.TrySwitchCategory(1))
         {
-            return;
+            yield break;
         }
 
         if(powerupManager.unlockedPowerups.Count > 0)
         {
-            //set selected potion
-            powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
-
             //summon all potion buttons
             foreach (PowerupType powerType in powerupManager.unlockedPowerups)
             {
                 powerupManager.InstantiatePowerButton(powerType);
             }
+
+            yield return new WaitForEndOfFrame();
+
+            foreach (PotionCustomButton customButton in powerupManager.customPotionButtons)
+            {
+                customButton.SetOriginalPos();
+            }
+            //set selected potion
+            powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
         }
         else
         {
