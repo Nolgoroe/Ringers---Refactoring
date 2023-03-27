@@ -348,9 +348,9 @@ public class GameManager : MonoBehaviour
     public void AdvanceGiveLootFromManager()
     {
         //sequencer?
-        lootManager.ManageLootReward(currentClusterSO);
+        lootManager.ManageLootReward(currentClusterSO); //go over this with Lior
     }
-    public void AdvanceLootChestAnimation()
+    public void AdvanceLootChestAnimation() //go over this with Lior
     {
         //sequencer?
         StartCoroutine(summonedChest.AfterGiveLoot());

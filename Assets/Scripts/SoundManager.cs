@@ -26,9 +26,9 @@ public class SoundManager : MonoBehaviour
         instance = this;
     }
 
-    public void MuteSFX()
+    public void ToggleSFX()
     {
-        //called from button
+        //called from button acttion delegation
 
         if (isSFXMuted)
         {
@@ -43,9 +43,10 @@ public class SoundManager : MonoBehaviour
 
         isSFXMuted = !isSFXMuted;
     }
-    public void MuteMusic()
+    public void ToogleMusic()
     {
-        //called from button
+        //called from button delegation
+
         if (isMusicMuted)
         {
 

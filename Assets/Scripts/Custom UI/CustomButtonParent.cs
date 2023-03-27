@@ -19,6 +19,7 @@ public abstract class CustomButtonParent : BasicUIElement/*, IPointerDownHandler
             OnClickButton();
         }
     }
+
     public abstract void OnClickButton();
 
     public void OnPointerUp(PointerEventData eventData)

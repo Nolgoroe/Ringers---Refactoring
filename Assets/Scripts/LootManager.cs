@@ -64,7 +64,7 @@ public class LootManager : MonoBehaviour
             }
         }
 
-        GiveLootToPlayer();
+        GiveLootToPlayer(); //go over this with Lior
     }
 
     private void UnpackToRubiesChest(LootTables lootTable)
@@ -125,7 +125,7 @@ public class LootManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(DisplayLootFromChest());
+        StartCoroutine(DisplayLootFromChest()); //go over this with Lior
     }
 
     private IEnumerator DisplayLootFromChest()
@@ -167,7 +167,7 @@ public class LootManager : MonoBehaviour
         currentRubiesToGive = 0;
         currentLootPos = 0;
 
-        GameManager.instance.AdvanceLootChestAnimation();
+        GameManager.instance.AdvanceLootChestAnimation(); //go over this with Lior
     }
 
     private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target)

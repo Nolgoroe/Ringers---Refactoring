@@ -70,7 +70,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 46645740796259839}
-  customButton: {fileID: 7713872906921619068}
 --- !u!1 &46645741366846967
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,6 +1527,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  isUseOnce: 1
 --- !u!61 &8001428572238400874
 BoxCollider2D:
   m_ObjectHideFlags: 0

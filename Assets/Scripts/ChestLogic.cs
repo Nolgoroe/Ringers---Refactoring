@@ -5,7 +5,6 @@ using UnityEngine;
 public class ChestLogic : MonoBehaviour
 {
     [SerializeField] private Animator anim;
-    [SerializeField] private BasicCustomButton customButton;
 
 
     private void Start()
@@ -14,19 +13,18 @@ public class ChestLogic : MonoBehaviour
     }
     public void OnPressedChest()
     {
-        StartCoroutine(InitiateLootGive());
+        StartCoroutine(InitiateLootGive()); //go over this with Lior
     }
 
     private IEnumerator InitiateLootGive()
     {
-        customButton.isInteractable = false;
         anim.SetTrigger("TappedChest");
 
         yield return new WaitForSeconds(1.2f);
 
-        GameManager.instance.AdvanceGiveLootFromManager();
+        GameManager.instance.AdvanceGiveLootFromManager(); //go over this with Lior
     }
-    public IEnumerator AfterGiveLoot()
+    public IEnumerator AfterGiveLoot() //go over this with Lior
     {
         anim.SetTrigger("FinishedLootDisplay");
 

@@ -5,6 +5,11 @@ using UnityEngine.Events;
 
 public class BasicCustomButton : CustomButtonParent
 {
+    private void Start()
+    {
+        // delegate action to play sound on click.
+    }
+
     public override void OnClickButton()
     {
         buttonEvents?.Invoke();
