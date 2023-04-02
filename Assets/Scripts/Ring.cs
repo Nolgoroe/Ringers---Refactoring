@@ -25,8 +25,8 @@ public class Ring : MonoBehaviour
     [SerializeField] private SliceSpriteSetter[] sliceDisplayArray; // move somewhere else?
     public void InitRing()
     {
-        onAddTile += OnAddTileToRing;
         onAddTile += ChangeCellCountAndConnectionDataOnRemove;
+        onAddTile += OnAddTileToRing;
 
         onRemoveTile += UpdateFilledAndConnectDataCount;
     }
@@ -104,7 +104,7 @@ public class Ring : MonoBehaviour
     }
     public bool LastPieceRingProblems()
     {
-        return filledCellsCount == GameManager.gameRing.ringCells.Length - 1
+        return filledCellsCount == GameManager.gameRing.ringCells.Length
             &&
             unsuccessfulConnectionsCount > 0;
     }

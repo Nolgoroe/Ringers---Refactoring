@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PotionIngredientCustomSpecificDisplayer : CustomSpecificUIElementDisplayer
+public class PotionIngredientSegment : UIElementDisplayerSegment
 {
     [SerializeField] private Color normalTextColor;
     [SerializeField] private Color missingIngredientsColor;
     [SerializeField] private TMP_Text amountText;
 
-    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions = null)
     {
         base.SetMyElement(texts, sprites);
     }

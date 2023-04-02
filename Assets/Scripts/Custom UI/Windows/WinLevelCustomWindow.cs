@@ -20,14 +20,14 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
 
         base.SetMyElement(texts, sprites);
 
-        if (getButtonRefrences.Length > 0)
+        if (ButtonRefrences.Length > 0)
         {
             ResetAllButtonEvents();
 
-            for (int i = 0; i < getButtonRefrences.Length; i++)
+            for (int i = 0; i < ButtonRefrences.Length; i++)
             {
-                getButtonRefrences[i].buttonEvents += actions[i];
-                getButtonRefrences[i].isInteractable = false;
+                ButtonRefrences[i].buttonEvents += actions[i];
+                ButtonRefrences[i].isInteractable = false;
             }
         }
 
@@ -61,12 +61,11 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
             if (nextLevelButton != null)
             {
                 GeneralFloatValueTo(
-                nextLevelButton.gameObject,
+                nextLevelCanvasGroup,
                 0,
                 1,
                 timeToReveaButtons,
-                LeanTweenType.linear,
-                nextLevelCanvasGroup,
+                LeanTweenType.linear,                
                 () => ActivateButton(nextLevelButton));
             }
 
@@ -90,12 +89,11 @@ public class WinLevelCustomWindow : BasicCustomUIWindow
         if (toMapButton != null )
         {
             GeneralFloatValueTo(
-            toMapButton.gameObject,
+            toMapCanvasGroup,
             0,
             1,
             timeToReveaButtons,
             LeanTweenType.linear,
-            toMapCanvasGroup,
             () => ActivateButton(toMapButton));
         }
     }

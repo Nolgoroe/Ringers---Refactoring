@@ -358,7 +358,7 @@ public class GameManager : MonoBehaviour
 
     public void DestroyOnLevelExit()
     {
-        lootManager.DestoryAllLootChildren();
+        lootManager.DestroyAllLootChildren();
         for (int i = 0; i < inLevelParent.childCount; i++)
         {
             Destroy(inLevelParent.GetChild(i).gameObject);

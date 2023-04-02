@@ -191,6 +191,8 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
 
     public void GrabTileFrom()
     {
+        OnRemoveTileDisplay();
+
         amountUnsuccessfullConnections = 0;
 
         if (leftCell.heldTile)

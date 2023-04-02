@@ -86,5 +86,13 @@ MonoBehaviour:
     isLock: 1
     RandomSliceValues: 0
   powerupsForLevel: 
-  stoneTiles: []
+  stoneTiles:
+  - cellIndex: 0
+    randomValues: 1
+    rightTileSymbol: 0
+    leftTileSymbol: 0
+  - cellIndex: 1
+    randomValues: 1
+    rightTileSymbol: 0
+    leftTileSymbol: 0
   arrayOfSpecificTilesInClip: []

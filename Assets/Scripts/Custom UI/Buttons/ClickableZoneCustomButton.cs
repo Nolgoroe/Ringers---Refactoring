@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-//using UnityEngine.Serialization;
 
-public class EmptyUISpaceCustomButton : CustomButtonParent
+public class ClickableZoneCustomButton : CustomButtonParent
 {
     [SerializeField] private BasicUIElement connectedParent;
 
@@ -38,7 +37,7 @@ public class EmptyUISpaceCustomButton : CustomButtonParent
         UIManager.instance.CloseElement(connectedParent);
     }
 
-    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions = null)
     {
         base.SetMyElement(texts, sprites);
     }

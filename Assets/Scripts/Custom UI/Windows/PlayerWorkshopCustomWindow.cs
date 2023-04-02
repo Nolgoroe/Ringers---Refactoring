@@ -8,7 +8,7 @@ using TMPro;
 public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
 {
     [Header("General refrences")]
-    [SerializeField] private CustomSpecificUIElementDisplayer materialDisplayPrefab;
+    [SerializeField] private UIElementDisplayerSegment materialDisplayPrefab;
 
     [Header("Required refrences inventory")]
     [SerializeField] private Transform materialsContent;
@@ -91,7 +91,7 @@ public class PlayerWorkshopCustomWindow :  BasicCustomUIWindow
             {
                 for (int i = 0; i < combo.typeIngredients.Count; i++)
                 {
-                    CustomSpecificUIElementDisplayer displayer = Instantiate(materialDisplayPrefab, materialsContent);
+                    UIElementDisplayerSegment displayer = Instantiate(materialDisplayPrefab, materialsContent);
 
                     int amount = localownedIngredientsDict[combo.typeIngredients[i]].amount;
                     Sprite sprite = combo.typeIngredients[i].ingredientSprite;

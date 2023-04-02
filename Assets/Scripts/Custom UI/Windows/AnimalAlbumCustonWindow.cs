@@ -35,7 +35,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
     [Header("Required refs")]
     [SerializeField] private Transform pagesParent;
     [SerializeField] private GameObject presentImage;
-    [SerializeField] private CanvasGroup getRewardsButton;
+    [SerializeField] private CanvasGroup getRewardsCanvasGroup;
     [SerializeField] private ImageSwapHelper[] animalTypeSwapHelpers;
 
     [Header("Reveal data")]
@@ -91,8 +91,8 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
     {
         currentlyOpenPageIndex = index;
         filledAnimalsCount = 0;
-        getRewardsButton.alpha = 0;
-        getRewardsButton.gameObject.SetActive(false);
+        getRewardsCanvasGroup.alpha = 0;
+        getRewardsCanvasGroup.gameObject.SetActive(false);
         presentImage.gameObject.SetActive(true);
     }
 
@@ -156,8 +156,8 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
             }
             else
             {
-                getRewardsButton.gameObject.SetActive(true);
-                getRewardsButton.alpha = 1;
+                getRewardsCanvasGroup.gameObject.SetActive(true);
+                getRewardsCanvasGroup.alpha = 1;
             }
         }
     }
@@ -168,7 +168,7 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         {
             Material mat = image.material;
             string keyname = "_DissolveSprite";
-            GeneralFloatValueTo(image.gameObject, 0, 1.7f, animalRevealTime, LeanTweenType.linear, mat, keyname, null);
+            GeneralFloatValueTo(mat, 0, 1.7f, animalRevealTime, LeanTweenType.linear, keyname);
         }
 
         yield return new WaitForSeconds(animalRevealTime + 0.1f);
@@ -181,18 +181,18 @@ public class AnimalAlbumCustonWindow : BasicCustomUIWindow
         //make this somehow not hardcoded!
         if (filledAnimals == 4)
         {
-            getRewardsButton.gameObject.SetActive(true);
-            getRewardsButton.blocksRaycasts = false; //can't click on
-            GeneralFloatValueTo(getRewardsButton.gameObject, 0, 1, rewardButtonRevealTime, LeanTweenType.linear, getRewardsButton, null);
+            getRewardsCanvasGroup.gameObject.SetActive(true);
+            getRewardsCanvasGroup.blocksRaycasts = false; //can't click on
+            GeneralFloatValueTo(getRewardsCanvasGroup, 0, 1, rewardButtonRevealTime, LeanTweenType.linear);
             yield return new WaitForSeconds(rewardButtonRevealTime + 0.1f);
-            getRewardsButton.blocksRaycasts = true;//can click on
+            getRewardsCanvasGroup.blocksRaycasts = true;//can click on
         }
     }
 
     public void GivePlayerRewardsFromAnimalAlbum()
     {
-        getRewardsButton.alpha = 0;
-        getRewardsButton.gameObject.SetActive(false);
+        getRewardsCanvasGroup.alpha = 0;
+        getRewardsCanvasGroup.gameObject.SetActive(false);
         presentImage.SetActive(false);
 
         localAnimalManager.AddToAlbumPagesCompleted(currentOpenType);

@@ -9,12 +9,18 @@ using System;
 [RequireComponent(typeof(CanvasGroup))]
 public abstract class BasicUIElement : MonoBehaviour
 {
+    public CustomButtonParent[] ButtonRefrences => buttonRefrences;
+    public TMP_Text[] TextRefrences => textRefrences;
+
+
+    // these are public since they are used outside of their family
     public bool isSolo;
     public bool isOverrideSolo;
     public bool isPermanent;
     public bool isInteractable = true;
     public CanvasGroup group;
 
+    // Used only by children (in family)
     [SerializeField] protected TMP_Text[] textRefrences;
     [SerializeField] protected Image[] imageRefrences;
     [SerializeField] protected SpriteRenderer[] spriterRendererRefrences;
@@ -26,6 +32,7 @@ public abstract class BasicUIElement : MonoBehaviour
         "We can go up as high or as low as we want, 1 symbolizes the target position we want to achieve.\n\n" +
         "If we want to move to new Vector3(0, 0, 50), then 1 will be 0, 0, 50 ")]
     [SerializeField] protected AnimationCurve HoverOverMeToGetInfo = AnimationCurve.Linear(0, 0, 1, 1);
+
 
     private void OnValidate()
     {
@@ -57,13 +64,13 @@ public abstract class BasicUIElement : MonoBehaviour
     /**/
     // Move zone
     /**/
-    public void MoveToTarget(Vector3 targetPos, float time)
+    public void MoveToTarget(Vector3 targetPos, float time, LeanTweenType easeType)
     {
-        LeanTween.move(gameObject, targetPos, time);
+        LeanTween.move(gameObject, targetPos, time).setEase(easeType);
     }
-    public void MoveToTarget(Vector2 targetPos, float time)
+    public void MoveToTarget(Vector2 targetPos, float time, LeanTweenType easeType)
     {
-        LeanTween.move(gameObject, targetPos, time);
+        LeanTween.move(gameObject, targetPos, time).setEase(easeType);
     }
     public void MoveToTarget(AnimationCurve moveCurve, Vector3 targetPos, float time)
     {
@@ -73,13 +80,13 @@ public abstract class BasicUIElement : MonoBehaviour
     /**/
     // Scale zone
     /**/
-    public void ScaleToTarget(Vector3 targetScale, float time)
+    public void ScaleToTarget(Vector3 targetScale, float time, LeanTweenType easeType)
     {
-
+        LeanTween.scale(gameObject, targetScale, time).setEase(easeType);
     }
-    public void ScaleToTarget(Vector2 targetScale, float time)
+    public void ScaleToTarget(Vector2 targetScale, float time, LeanTweenType easeType)
     {
-
+        LeanTween.scale(gameObject, targetScale, time).setEase(easeType);
     }
     public void ScaleToTarget(AnimationCurve scaleCurve, Vector3 targetScale, float time)
     {
@@ -89,9 +96,9 @@ public abstract class BasicUIElement : MonoBehaviour
     /**/
     // Rotate zone
     /**/
-    public void RotateToTarget(Quaternion targetRotation, float time)
+    public void RotateToTarget(Quaternion targetRotation, float time, LeanTweenType easeType)
     {
-
+        LeanTween.rotate(gameObject, targetRotation.eulerAngles, time).setEase(easeType);
     }
     public void RotateToTarget(AnimationCurve rotationCurve, Quaternion targetRotation, float time)
     {
@@ -111,7 +118,7 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="easeType"></param>
     /// <param name="image"></param>
-    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, Image image)
+    public void GeneralFloatValueTo(Image image, float from, float to, float time, LeanTweenType easeType)
     {
         LeanTween.value(gameObject, from, to, time).setEase(easeType).setOnUpdate((float val) =>
         {
@@ -130,7 +137,7 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="easeType"></param>
     /// <param name="image"></param>
-    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, Material mat, string keyName, System.Action action)
+    public void GeneralFloatValueTo(Material mat, float from, float to, float time, LeanTweenType easeType, string keyName, System.Action action = null)
     {
         LeanTween.value(gameObject, from, to, time).setEase(easeType).setOnComplete(action).setOnUpdate((float val) =>
         {
@@ -147,15 +154,9 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="easeType"></param>
     /// <param name="textObject"></param>
-    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, TMP_Text textObject)
+    public void GeneralFloatValueTo(TMP_Text textObject, float from, float to, float time, LeanTweenType easeType)
     {
-        //LeanTween.value(introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1], 1, 0, speedFadeOutIntro).setEase(LeanTweenType.easeInOutQuad).setOnUpdate((float val) =>
-        //{
-        //    TMP_Text sr = introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1].GetComponent<TMP_Text>();
-        //    Color newColor = sr.color;
-        //    newColor.a = val;
-        //    sr.color = newColor;
-        //});
+        // fill logic when needed
     }
 
     /// <summary>
@@ -167,15 +168,9 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="easeType"></param>
     /// <param name="sprite"></param>
-    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, Sprite sprite)
+    public void GeneralFloatValueTo(Sprite sprite, float from, float to, float time, LeanTweenType easeType)
     {
-        //LeanTween.value(introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1], 1, 0, speedFadeOutIntro).setEase(LeanTweenType.easeInOutQuad).setOnUpdate((float val) =>
-        //{
-        //    TMP_Text sr = introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1].GetComponent<TMP_Text>();
-        //    Color newColor = sr.color;
-        //    newColor.a = val;
-        //    sr.color = newColor;
-        //});
+        // fill logic when needed
     }
 
     /// <summary>
@@ -187,7 +182,7 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="time"></param>
     /// <param name="easeType"></param>
     /// <param name="canvasGroup"></param>
-    public void GeneralFloatValueTo(GameObject gameObject, float from, float to, float time, LeanTweenType easeType, CanvasGroup canvasGroup, System.Action action)
+    public void GeneralFloatValueTo(CanvasGroup canvasGroup, float from, float to, float time, LeanTweenType easeType, System.Action action = null)
     {
         LeanTween.value(gameObject, from, to, time).setEase(easeType).setOnComplete(action).setOnUpdate((float val) =>
         {
@@ -203,13 +198,7 @@ public abstract class BasicUIElement : MonoBehaviour
     /// <param name="time"></param>
     public void GeneralFloatValueTo(float from, float to, float time)
     {
-        //LeanTween.value(introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1], 1, 0, speedFadeOutIntro).setEase(LeanTweenType.easeInOutQuad).setOnUpdate((float val) =>
-        //{
-        //    TMP_Text sr = introImages[introImageIndex].textObjects[introImages[introImageIndex].textObjects.Count() - 1].GetComponent<TMP_Text>();
-        //    Color newColor = sr.color;
-        //    newColor.a = val;
-        //    sr.color = newColor;
-        //});
+        // fill logic when needed
     }
 
     /**/
@@ -261,8 +250,4 @@ public abstract class BasicUIElement : MonoBehaviour
     }
 
     public abstract void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions);
-
-
-    public CustomButtonParent[] getButtonRefrences => buttonRefrences;
-    public TMP_Text[] getTextRefrences => textRefrences;
 }

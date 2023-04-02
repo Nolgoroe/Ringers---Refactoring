@@ -19,6 +19,7 @@ public class InLevelUserControls : MonoBehaviour
     [Header("General")]
     [SerializeField] private TileParentLogic currentTileToMove;
     [SerializeField] private TileHolder tileOriginalHolder;
+    [SerializeField] private TileHolder lastTileHolder;
 
     [Header("Needed Classes")]
     [SerializeField] private Ring gameRing;
@@ -164,11 +165,25 @@ public class InLevelUserControls : MonoBehaviour
 
             if (!droopedOnObject.DroppedOn(currentTileToMove))
             {
+                //can't place tile
+
                 ReturnHome();
             }
             else
             {
                 tileOriginalHolder.RemoveTile();
+
+
+                //If we enter here that means we actually succeeded placing the tile.
+                //this does not mean that the tile is a good match! this is why we check to see if we have problems.
+                //we did the connection checks, so we must "remove" the tile if we have problems (use the "GrabTileFrom" sicne we know it has to be a cell)
+
+                if (gameRing.LastPieceRingProblems())
+                {
+                    UIManager.instance.DisplayInLevelRingHasNonMatchingMessage();
+                    lastTileHolder = droopedOnObject;
+                    return;
+                }
             }
         }
         else
@@ -224,6 +239,13 @@ public class InLevelUserControls : MonoBehaviour
     public void ReturnHomeBadRingConnections()
     {
         LeanTween.cancel(currentTileToMove.gameObject);
+
+        IGrabTileFrom grabbedObject = lastTileHolder.GetComponent<IGrabTileFrom>();
+
+        if(grabbedObject != null)
+        {
+            grabbedObject.GrabTileFrom();
+        }
 
         tileOriginalHolder.RecieveTileDisplayer(currentTileToMove);
     }

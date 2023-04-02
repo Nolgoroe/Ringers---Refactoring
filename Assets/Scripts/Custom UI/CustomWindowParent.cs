@@ -9,7 +9,7 @@ public abstract class CustomWindowParent : BasicUIElement
 
     public virtual void ResetAllButtonEvents()
     {
-        foreach (CustomButtonParent button in getButtonRefrences)
+        foreach (CustomButtonParent button in ButtonRefrences)
         {
             button.buttonEvents = null;
         }
@@ -18,6 +18,4 @@ public abstract class CustomWindowParent : BasicUIElement
     {
         button.isInteractable = true;
     }
-
-    public abstract void OverrideResetAllButtonEvents();
 }

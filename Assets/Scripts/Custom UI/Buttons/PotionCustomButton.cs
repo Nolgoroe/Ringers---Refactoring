@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PotionCustomButton : CustomButtonParent
 {
-    public PowerupType connecetdScriptableObjectType; //why public?
+    public PowerupType connecetdScriptableObjectType;
     [SerializeField] public Vector3 originalPos { get; private set; }
 
     public void SetOriginalPos()
@@ -28,12 +28,12 @@ public class PotionCustomButton : CustomButtonParent
     {
         base.SetMyElement(texts, sprites);
 
-        if (getButtonRefrences.Length > 0 && actions != null)
+        if (ButtonRefrences.Length > 0 && actions != null)
         {
-            for (int i = 0; i < getButtonRefrences.Length; i++)
+            for (int i = 0; i < ButtonRefrences.Length; i++)
             {
-                getButtonRefrences[i].buttonEvents += actions[i];
-                getButtonRefrences[i].isInteractable = true;
+                ButtonRefrences[i].buttonEvents += actions[i];
+                ButtonRefrences[i].isInteractable = true;
             }
         }
     }

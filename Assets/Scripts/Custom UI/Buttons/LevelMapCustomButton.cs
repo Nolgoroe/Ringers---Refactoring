@@ -25,12 +25,12 @@ public class LevelMapCustomButton : CustomButtonParent
         UIManager.instance.DisplayLaunchLevelPopUp(connectedLevelSO);
     }
 
-    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions)
+    public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, System.Action[] actions = null)
     {
         base.SetMyElement(texts, sprites);
     }
 
-    [ContextMenu("Populater cluster SO")]
+    [ContextMenu("Populate cluster SO")]
     public void PopulateCluster()
     {
         GameManager gm = GameObject.FindObjectOfType<GameManager>();

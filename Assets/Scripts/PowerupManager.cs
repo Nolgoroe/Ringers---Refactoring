@@ -29,17 +29,16 @@ public class PowerupManager : MonoBehaviour
     [SerializeField] private RectTransform selectedPotionRect;
     [SerializeField] private PowerupScriptableObject currentPotionSelected;
     [SerializeField] private int currentNeededRubies;
-    [SerializeField] private List<PotionIngredientCustomSpecificDisplayer> spawnedDisplays;
+    [SerializeField] private List<PotionIngredientSegment> spawnedDisplays;
     [SerializeField] public List<PotionCustomButton> customPotionButtons { get; private set; }
 
     [Header("Crafting refrences")]
     [SerializeField] private BasicCustomUIWindow potionWindow;
     [SerializeField] private PotionCustomButton potionButtonPrefab;
-    [SerializeField] private PotionIngredientCustomSpecificDisplayer potionMaterialPrefab;
+    [SerializeField] private PotionIngredientSegment potionMaterialPrefab;
     [SerializeField] private Transform[] potionsMaterialZones;
     [SerializeField] private Transform potionButtonsParent;
-    //[SerializeField] private BasicCustomUIWindow buyPotionScreen; // go over with lior
-    [SerializeField] private CustomSpecificUIElementDisplayer buyPotionScreenMaterialPrefab; // go over with lior
+    [SerializeField] private UIElementDisplayerSegment buyPotionScreenMaterialPrefab; // go over with lior
     [SerializeField] private Transform buyPotionScreenMaterialParent; // go over with lior
 
     [Header("General refrences")]
@@ -131,7 +130,7 @@ public class PowerupManager : MonoBehaviour
         int summonIndex = 0;
         foreach (IngredientsNeeded ingredientNeeded in currentPotionSelected.ingredientsNeeded)
         {
-            PotionIngredientCustomSpecificDisplayer displayer = Instantiate(potionMaterialPrefab, potionsMaterialZones[summonIndex]);
+            PotionIngredientSegment displayer = Instantiate(potionMaterialPrefab, potionsMaterialZones[summonIndex]);
             spawnedDisplays.Add(displayer);
 
             int ownedAmountOfIngredient = 0;
@@ -146,7 +145,7 @@ public class PowerupManager : MonoBehaviour
 
             string[] texsts = new string[] { amountRepresentation };
             Sprite[] sprites = new Sprite[] { ingredientNeeded.ingredient.ingredientSprite };
-            displayer.OverrideSetMyElement(texsts, sprites, null);
+            displayer.OverrideSetMyElement(texsts, sprites);
 
             displayer.SetColorMissingIngredients(ownedAmountOfIngredient < neededAmount);
 
@@ -227,11 +226,11 @@ public class PowerupManager : MonoBehaviour
             {
                 int deltaAmount = neededAmount - ownedAmountOfIngredient;
 
-                CustomSpecificUIElementDisplayer displayer = Instantiate(buyPotionScreenMaterialPrefab, buyPotionScreenMaterialParent);
+                UIElementDisplayerSegment displayer = Instantiate(buyPotionScreenMaterialPrefab, buyPotionScreenMaterialParent);
                 Sprite[] sprites = new Sprite[] { ingredientNeeded.ingredient.ingredientSprite };
                 string[] texsts = new string[] { deltaAmount.ToString()};
 
-                displayer.OverrideSetMyElement(texsts, sprites, null);
+                displayer.OverrideSetMyElement(texsts, sprites);
             }
         }
 

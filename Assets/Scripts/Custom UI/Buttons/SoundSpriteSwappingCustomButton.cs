@@ -27,6 +27,7 @@ public class SoundSpriteSwappingCustomButton : CustomButtonParent
 
     public override void OverrideSetMyElement(string[] texts, Sprite[] sprites, Action[] actions)
     {
+        // nothing happends here
     }
 
     public void CheckSoundManagerMusicState()

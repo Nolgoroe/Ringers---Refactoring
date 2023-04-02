@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using System.Linq;
+using System.ComponentModel;
 
 [System.Serializable]
 public class WorldDisplayCombo
@@ -107,78 +108,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    /**/
-    // main ui manager actions.
-    /**/
-    private void OpenSolo(BasicUIElement UIElement)
-    {
-        if(currentlyOpenSoloElement == null)
-        {
-            // show solo screen - CLOSE ALL ADDITIVE SCREENS
-
-            if(currentAdditiveScreens.Count > 0)
-            {
-                // reverse for
-                for (int i = currentAdditiveScreens.Count - 1; i >= 0; i--)
-                {
-                    if (!currentAdditiveScreens[i].isPermanent)
-                    {
-                        CloseElement(currentAdditiveScreens[i]);
-                    }
-                }
-            }
-
-            UIElement.gameObject.SetActive(true);
-            currentlyOpenSoloElement = UIElement;
-        }
-        else
-        {
-            if(UIElement.isOverrideSolo)
-            {
-                currentlyOpenSoloElement.gameObject.SetActive(false);
-
-                UIElement.gameObject.SetActive(true);
-                currentlyOpenSoloElement = UIElement;
-            }
-            else
-            {
-                Debug.Log("Tried to open a solo screen on top of another solo screen, but is not overriding.");
-                // do nothing
-            }
-        }
-
-        IS_USING_UI = true;
-    }
-
-    private void AddAdditiveElement(BasicUIElement UIElement)
-    {
-        if(!currentAdditiveScreens.Contains(UIElement) && !currentPermanentScreens.Contains(UIElement))
-        {
-            if(UIElement.isPermanent)
-            {
-                currentPermanentScreens.Add(UIElement);
-            }
-            else
-            {
-                currentAdditiveScreens.Add(UIElement);
-            }
-
-            UIElement.gameObject.SetActive(true);
-        }
-    }
-
-    private void AddUIElement(BasicUIElement UIElement)
-    {
-        if(UIElement.isSolo)
-        {
-            OpenSolo(UIElement);
-        }
-        else
-        {
-            AddAdditiveElement(UIElement);
-        }
-    }
-
+    #region main ui manager actions
     public void CloseElement(BasicUIElement UIElement)
     {
         if (UIElement.isSolo)
@@ -200,6 +130,75 @@ public class UIManager : MonoBehaviour
         UIElement.gameObject.SetActive(false);
 
         CheckResetUsingUI();
+    }
+
+    private void OpenSolo(BasicUIElement UIElement)
+    {
+        if (currentlyOpenSoloElement == null)
+        {
+            // show solo screen - CLOSE ALL ADDITIVE SCREENS
+
+            if (currentAdditiveScreens.Count > 0)
+            {
+                // reverse for
+                for (int i = currentAdditiveScreens.Count - 1; i >= 0; i--)
+                {
+                    if (!currentAdditiveScreens[i].isPermanent)
+                    {
+                        CloseElement(currentAdditiveScreens[i]);
+                    }
+                }
+            }
+
+            UIElement.gameObject.SetActive(true);
+            currentlyOpenSoloElement = UIElement;
+        }
+        else
+        {
+            if (UIElement.isOverrideSolo)
+            {
+                currentlyOpenSoloElement.gameObject.SetActive(false);
+
+                UIElement.gameObject.SetActive(true);
+                currentlyOpenSoloElement = UIElement;
+            }
+            else
+            {
+                Debug.Log("Tried to open a solo screen on top of another solo screen, but is not overriding.");
+                // do nothing
+            }
+        }
+
+        IS_USING_UI = true;
+    }
+
+    private void AddAdditiveElement(BasicUIElement UIElement)
+    {
+        if (!currentAdditiveScreens.Contains(UIElement) && !currentPermanentScreens.Contains(UIElement))
+        {
+            if (UIElement.isPermanent)
+            {
+                currentPermanentScreens.Add(UIElement);
+            }
+            else
+            {
+                currentAdditiveScreens.Add(UIElement);
+            }
+
+            UIElement.gameObject.SetActive(true);
+        }
+    }
+
+    private void AddUIElement(BasicUIElement UIElement)
+    {
+        if (UIElement.isSolo)
+        {
+            OpenSolo(UIElement);
+        }
+        else
+        {
+            AddAdditiveElement(UIElement);
+        }
     }
 
     private void CheckResetUsingUI()
@@ -231,8 +230,8 @@ public class UIManager : MonoBehaviour
         {
             CloseElement(currentlyOpenSoloElement);
         }
-        
-        if(currentAdditiveScreens.Count > 0)
+
+        if (currentAdditiveScreens.Count > 0)
         {
             // reverse for
             for (int i = currentAdditiveScreens.Count - 1; i >= 0; i--)
@@ -253,19 +252,13 @@ public class UIManager : MonoBehaviour
         ResetUsingUI();
     }
 
-    public void ActivateSingleButton(BasicCustomButton button)
-    {
-        DeactiavteAllCustomButtons();
-        button.isInteractable = true;
-    }
-
     private void DeactiavteAllCustomButtons()
     {
         if (currentlyOpenSoloElement)
         {
-            for (int i = 0; i < currentlyOpenSoloElement.getButtonRefrences.Length; i++)
+            for (int i = 0; i < currentlyOpenSoloElement.ButtonRefrences.Length; i++)
             {
-                currentlyOpenSoloElement.getButtonRefrences[i].isInteractable = false;
+                currentlyOpenSoloElement.ButtonRefrences[i].isInteractable = false;
             }
         }
 
@@ -273,9 +266,9 @@ public class UIManager : MonoBehaviour
         {
             foreach (var screen in currentAdditiveScreens)
             {
-                for (int i = 0; i < screen.getButtonRefrences.Length; i++)
+                for (int i = 0; i < screen.ButtonRefrences.Length; i++)
                 {
-                    screen.getButtonRefrences[i].isInteractable = false;
+                    screen.ButtonRefrences[i].isInteractable = false;
                 }
             }
         }
@@ -284,17 +277,22 @@ public class UIManager : MonoBehaviour
         {
             foreach (var screen in currentPermanentScreens)
             {
-                for (int i = 0; i < screen.getButtonRefrences.Length; i++)
+                for (int i = 0; i < screen.ButtonRefrences.Length; i++)
                 {
-                    screen.getButtonRefrences[i].isInteractable = false;
+                    screen.ButtonRefrences[i].isInteractable = false;
                 }
             }
         }
     }
 
-    /**/
-    // Inside Level related actions
-    /**/
+    private void ActivateSingleButton(BasicCustomButton button)
+    {
+        DeactiavteAllCustomButtons();
+        button.isInteractable = true;
+    }
+    #endregion
+
+    #region Inside Level related actions
     public void DisplayInLevelUI()
     {
         CloseAllCurrentScreens(); // close all screens open before level launch
@@ -318,45 +316,17 @@ public class UIManager : MonoBehaviour
         inLevelUI.OverrideSetMyElement(null, null, actions);
     }
 
-
-    private void DisplayInLevelSettings()
-    {
-        // options for this screen get thier actions from the DisplayInLevelUI
-        if(inLevelSettingsWindow.gameObject.activeInHierarchy)
-        {
-            CloseElement(inLevelSettingsWindow);
-        }
-        else
-        {
-            AddUIElement(inLevelSettingsWindow);
-        }
-    }
-
     public void DisplayInLevelRingHasNonMatchingMessage()
     {
         AddUIElement(inLevelNonMatchTilesMessage);
 
         System.Action[] actions = DelegateAction(
             inLevelNonMatchTilesMessage,
-            new ButtonActionIndexPair { index = 0, action = GameManager.gameControls.ReturnHomeBadRingConnections}, 
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelNonMatchTilesMessage)}, 
-            new ButtonActionIndexPair { index = 1, action = DisplayInLevelLostMessage});
+            new ButtonActionIndexPair { index = 0, action = GameManager.gameControls.ReturnHomeBadRingConnections },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(inLevelNonMatchTilesMessage) },
+            new ButtonActionIndexPair { index = 1, action = DisplayInLevelLostMessage });
 
         inLevelNonMatchTilesMessage.OverrideSetMyElement(null, null, actions);
-    }
-
-    private void DisplayInLevelLostMessage()
-    {
-        AddUIElement(inLevelLostLevelMessage);
-
-        System.Action[] actions = DelegateAction(
-            inLevelLostLevelMessage,
-            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel)},
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel},
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelMap(true)) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel())});
-
-        inLevelLostLevelMessage.OverrideSetMyElement(null, null, actions);
     }
 
     public void DisplayInLevelLastDealWarning()
@@ -370,6 +340,49 @@ public class UIManager : MonoBehaviour
             new ButtonActionIndexPair { index = 1, action = GameManager.instance.CallRestartLevel });
 
         inLevelLastDealWarning.OverrideSetMyElement(null, null, actions);
+    }
+
+    public void DisplayInLevelWinWindow()
+    {
+        DeactiavteAllCustomButtons();
+
+        System.Action[] actions = DelegateAction(
+            inLevelWinWindow,
+            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallNextLevel },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelMap(true)) },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
+
+        inLevelWinWindow.OverrideSetMyElement(GameManager.instance.ReturnStatueName(), null, actions);
+
+        AddUIElement(inLevelWinWindow);
+    }
+
+    private void DisplayInLevelSettings()
+    {
+        // options for this screen get thier actions from the DisplayInLevelUI
+        if (inLevelSettingsWindow.gameObject.activeInHierarchy)
+        {
+            CloseElement(inLevelSettingsWindow);
+        }
+        else
+        {
+            AddUIElement(inLevelSettingsWindow);
+        }
+    }
+
+    private void DisplayInLevelLostMessage()
+    {
+        AddUIElement(inLevelLostLevelMessage);
+
+        System.Action[] actions = DelegateAction(
+            inLevelLostLevelMessage,
+            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
+            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallRestartLevel },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelMap(true)) },
+            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
+
+        inLevelLostLevelMessage.OverrideSetMyElement(null, null, actions);
     }
 
     private void DisplayInLevelExitToMapQuestion()
@@ -397,24 +410,7 @@ public class UIManager : MonoBehaviour
 
         inLevelRestartLevelQuesiton.OverrideSetMyElement(null, null, actions);
     }
-
-    public void DisplayInLevelWinWindow()
-    {
-        DeactiavteAllCustomButtons();
-
-        System.Action[] actions = DelegateAction(
-            inLevelWinWindow,
-            new ButtonActionIndexPair { index = 0, action = () => FadeInFadeWindow(true, MainScreens.InLevel) },
-            new ButtonActionIndexPair { index = 0, action = GameManager.instance.CallNextLevel },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(DisplayLevelMap(true)) },
-            new ButtonActionIndexPair { index = 1, action = () => StartCoroutine(GameManager.instance.InitiateDestrucionOfLevel()) });
-
-        inLevelWinWindow.OverrideSetMyElement(GameManager.instance.ReturnStatueName(), null, actions);
-
-        AddUIElement(inLevelWinWindow);
-    }
-
-
+    #endregion
 
     //why is this here?
     public void ContinueAfterChest()
@@ -422,12 +418,10 @@ public class UIManager : MonoBehaviour
         inLevelWinWindow.ManuallyShowOnlyToHudButton();
     }
 
-    /**/
-    // Level map related actions
-    /**/
+    #region Level map related actions
     public void DisplayLaunchLevelPopUp(LevelSO levelSO)
     {
-        string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), levelSO.worldName.ToString() };
+        string[] texts = new string[] { "Level " + levelSO.levelNumInZone.ToString(), ToDescription(levelSO.worldName)};
 
         System.Action[] actions = DelegateAction(
             levelMapPopUp,
@@ -439,9 +433,57 @@ public class UIManager : MonoBehaviour
         levelMapPopUp.OverrideSetMyElement(texts, null, actions);
     }
 
+    public void RefreshRubyAndTearsTexts(int tearsAmount, int rubiesAmount)
+    {
+        generalMapUI.TextRefrences[0].text = tearsAmount.ToString(); // dew drops text
+        generalMapUI.TextRefrences[1].text = rubiesAmount.ToString(); // rubies text
+    }
+
+    public void DisplayBuyPotionWindow(int neededRubies)
+    {
+        //how to color text red/white if have enough rubies???
+
+        System.Action[] actions = DelegateAction(
+            buyPotionWindow,
+            new ButtonActionIndexPair { index = 0, action = () => powerupManager.BuyPotion() },
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(buyPotionWindow) },
+            new ButtonActionIndexPair { index = 1, action = () => CloseElement(buyPotionWindow) });
+
+        AddUIElement(buyPotionWindow);
+
+        bool hasEnoughRubies = player.GetOwnedRubies >= neededRubies;
+        string[] texsts = new string[] { neededRubies.ToString() };
+
+        buyPotionWindow.OverrideSetMyElement(texsts, null, actions);
+    }
+
+    public void DisplayAnimalAlbumReward(int amountOfReward)
+    {
+        System.Action[] actions = DelegateAction(
+            animalAlbumRewardWidnow,
+            new ButtonActionIndexPair { index = 0, action = () => CloseElement(animalAlbumRewardWidnow) });
+
+        AddUIElement(animalAlbumRewardWidnow);
+
+        string[] texts = new string[] { amountOfReward.ToString() };
+
+        animalAlbumRewardWidnow.OverrideSetMyElement(texts, null, actions);
+    }
+
+    public void DisplayDailyRewardsWindow()
+    {
+        System.Action[] actions = DelegateAction(
+            dailyRewardsWindow,
+            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(dailyRewardsManager.RecieveReward()) });
+
+        AddUIElement(dailyRewardsWindow);
+
+        dailyRewardsWindow.OverrideSetMyElement(null, null, actions);
+    }
+
     private IEnumerator DisplayLevelMap(bool isFade)
     {
-        if(isFade)
+        if (isFade)
         {
             FadeInFadeWindow(true, MainScreens.Map);
             yield return new WaitForSeconds(ReturnFadeTime(true, MainScreens.Map) + 0.1f);
@@ -466,10 +508,56 @@ public class UIManager : MonoBehaviour
         generalMapUI.OverrideSetMyElement(texts, null, actions);
     }
 
-    public void RefreshRubyAndTearsTexts(int tearsAmount, int rubiesAmount)
+    private void DisplayAnimalAlbum()
     {
-        generalMapUI.getTextRefrences[0].text = tearsAmount.ToString(); // dew drops text
-        generalMapUI.getTextRefrences[1].text = rubiesAmount.ToString(); // rubies text
+        string tearsText = player.GetOwnedTears.ToString();
+        string rubiesText = player.GetOwnedRubies.ToString();
+        string[] texts = new string[] { tearsText, rubiesText };
+
+        System.Action[] actions = DelegateAction(
+            animalAlbumWindow,
+            new ButtonActionIndexPair { index = 0, action = () => animalAlbumWindow.SwitchAnimalCategory(0) }, // Fox type
+            new ButtonActionIndexPair { index = 1, action = () => animalAlbumWindow.SwitchAnimalCategory(1) }, // Stag type
+            new ButtonActionIndexPair { index = 2, action = () => animalAlbumWindow.SwitchAnimalCategory(2) }, // Owl type
+            new ButtonActionIndexPair { index = 3, action = () => animalAlbumWindow.SwitchAnimalCategory(3) }, // Boar type
+            new ButtonActionIndexPair { index = 4, action = () => animalAlbumWindow.GivePlayerRewardsFromAnimalAlbum() }); // show animal reward window and give reward
+
+        AddUIElement(animalAlbumWindow);
+
+        animalAlbumWindow.OverrideSetMyElement(null, null, actions);
+        animalAlbumWindow.InitAnimalAlbum(animalManager, player);
+    }
+
+    private IEnumerator OpenPotionsCategory()
+    {
+        //if succeds it opens the potions screen
+        if (!playerWorkshopWindow.TrySwitchCategory(1))
+        {
+            yield break;
+        }
+
+        if (powerupManager.unlockedPowerups.Count > 0)
+        {
+            //summon all potion buttons
+            foreach (PowerupType powerType in powerupManager.unlockedPowerups)
+            {
+                powerupManager.InstantiatePowerButton(powerType);
+            }
+
+            yield return new WaitForEndOfFrame();
+
+            foreach (PotionCustomButton customButton in powerupManager.customPotionButtons)
+            {
+                customButton.SetOriginalPos();
+            }
+            //set selected potion
+            powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
+        }
+        else
+        {
+            Debug.Log("No owned potions, can't open potion screen");
+            //show error message
+        }
     }
 
     private void DisplayMapSettings()
@@ -508,108 +596,12 @@ public class UIManager : MonoBehaviour
 
         playerWorkshopWindow.InitPlayerWorkshop();
     }
+    #endregion
 
-    public void DisplayBuyPotionWindow(int neededRubies)
+    #region  general
+    private System.Action[] DelegateAction(BasicUIElement widnow, params ButtonActionIndexPair[] buttonActionIndexPair)
     {
-        //how to color text red/white if have enough rubies???
-
-        System.Action[] actions = DelegateAction(
-            buyPotionWindow,
-            new ButtonActionIndexPair { index = 0, action = () => powerupManager.BuyPotion() },
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(buyPotionWindow) },  
-            new ButtonActionIndexPair { index = 1, action = () => CloseElement(buyPotionWindow) });
-
-        AddUIElement(buyPotionWindow);
-
-        bool hasEnoughRubies = player.GetOwnedRubies >= neededRubies;
-        string[] texsts = new string[] { neededRubies.ToString() };
-
-        buyPotionWindow.OverrideSetMyElement(texsts, null, actions);
-    }
-
-    private IEnumerator OpenPotionsCategory()
-    {
-        //if succeds it opens the potions screen
-        if (!playerWorkshopWindow.TrySwitchCategory(1))
-        {
-            yield break;
-        }
-
-        if(powerupManager.unlockedPowerups.Count > 0)
-        {
-            //summon all potion buttons
-            foreach (PowerupType powerType in powerupManager.unlockedPowerups)
-            {
-                powerupManager.InstantiatePowerButton(powerType);
-            }
-
-            yield return new WaitForEndOfFrame();
-
-            foreach (PotionCustomButton customButton in powerupManager.customPotionButtons)
-            {
-                customButton.SetOriginalPos();
-            }
-            //set selected potion
-            powerupManager.SetSelectedPotion(powerupManager.unlockedPowerups[0]);
-        }
-        else
-        {
-            Debug.Log("No owned potions, can't open potion screen");
-            //show error message
-        }
-    }
-
-    private void DisplayAnimalAlbum()
-    {
-        string tearsText = player.GetOwnedTears.ToString();
-        string rubiesText = player.GetOwnedRubies.ToString();
-        string[] texts = new string[] { tearsText, rubiesText };
-
-        System.Action[] actions = DelegateAction(
-            animalAlbumWindow,
-            new ButtonActionIndexPair { index = 0, action = () => animalAlbumWindow.SwitchAnimalCategory(0) }, // Fox type
-            new ButtonActionIndexPair { index = 1, action = () => animalAlbumWindow.SwitchAnimalCategory(1) }, // Stag type
-            new ButtonActionIndexPair { index = 2, action = () => animalAlbumWindow.SwitchAnimalCategory(2) }, // Owl type
-            new ButtonActionIndexPair { index = 3, action = () => animalAlbumWindow.SwitchAnimalCategory(3) }, // Boar type
-            new ButtonActionIndexPair { index = 4, action = () => animalAlbumWindow.GivePlayerRewardsFromAnimalAlbum() }); // show animal reward window and give reward
-
-        AddUIElement(animalAlbumWindow);
-
-        animalAlbumWindow.OverrideSetMyElement(null, null, actions);
-        animalAlbumWindow.InitAnimalAlbum(animalManager, player);
-    }
-
-    public void DisplayAnimalAlbumReward(int amountOfReward)
-    {
-        System.Action[] actions = DelegateAction(
-            animalAlbumRewardWidnow,
-            new ButtonActionIndexPair { index = 0, action = () => CloseElement(animalAlbumRewardWidnow) });
-
-        AddUIElement(animalAlbumRewardWidnow);
-
-        string[] texts = new string[] { amountOfReward.ToString() };
-
-        animalAlbumRewardWidnow.OverrideSetMyElement(texts, null, actions);
-    }
-
-    public void DisplayDailyRewardsWindow()
-    {
-        System.Action[] actions = DelegateAction(
-            dailyRewardsWindow,
-            new ButtonActionIndexPair { index = 0, action = () => StartCoroutine(dailyRewardsManager.RecieveReward()) });
-
-        AddUIElement(dailyRewardsWindow);
-
-        dailyRewardsWindow.OverrideSetMyElement(null, null, actions);
-    }
-
-    /**/
-    // general
-    /**/
-
-    System.Action[] DelegateAction(BasicUIElement widnow, params ButtonActionIndexPair[] buttonActionIndexPair)
-    {
-        System.Action[] actions = new System.Action[widnow.getButtonRefrences.Length];
+        System.Action[] actions = new System.Action[widnow.ButtonRefrences.Length];
 
         for (int i = 0; i < buttonActionIndexPair.Length; i++)
         {
@@ -651,20 +643,19 @@ public class UIManager : MonoBehaviour
         System.Action action = fadeIn == true ? () => StartCoroutine(ReverseFade(fadeIn, mainScreen, fadeInSpeed)) : OnEndFade;
 
         fadeWindow.gameObject.SetActive(true);
-        
+
         fadeWindow.GeneralFloatValueTo(
-            fadeWindow.gameObject,
+            group,
             from,
             to,
             fadeInSpeed,
             LeanTweenType.linear,
-            group,
             action);
     }
 
     private IEnumerator ReverseFade(bool fadeIn, MainScreens mainScreen, float fadeTime)
     {
-        IS_DURING_TRANSITION = false; 
+        IS_DURING_TRANSITION = false;
         // is this ok?
         // This is here for actions that want to happen on the transition between
         // fade in and out - so we for 0.5f seconds, allow actions to operate in "fade time"
@@ -681,7 +672,7 @@ public class UIManager : MonoBehaviour
     }
     private float ReturnFadeTime(bool fadeIn, MainScreens mainScreen)
     {
-        if(fadeIn)
+        if (fadeIn)
         {
             switch (mainScreen)
             {
@@ -708,6 +699,14 @@ public class UIManager : MonoBehaviour
         Debug.LogError("Some problem here");
         return -1;
     }
+    public static string ToDescription(WorldEnum value)
+    {
+        DescriptionAttribute[] da = (DescriptionAttribute[])(value.GetType().GetField(value.ToString())).GetCustomAttributes(typeof(DescriptionAttribute), false);
+        return da.Length > 0 ? da[0].Description : value.ToString();
+    }
+
+    #endregion
+
 
 #if UNITY_EDITOR
 

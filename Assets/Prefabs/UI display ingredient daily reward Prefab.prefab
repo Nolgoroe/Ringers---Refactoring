@@ -302,7 +302,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  CurrentRewardParent: {fileID: 6214916827746795982}
+  currentRewardParent: {fileID: 6214916827746795982}
   timeDeactivateTodayVFX: 0.45
   connectedImage: {fileID: 5548810624850486535}
   connectedAnimator: {fileID: 4871771510604564742}

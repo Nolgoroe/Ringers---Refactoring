@@ -25042,6 +25042,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 279411651}
     m_Modifications:
+    - target: {fileID: 5076173805835264019, guid: 9f1469f632e688b4da01743882477d50,
+        type: 3}
+      propertyPath: m_Name
+      value: Give Reward button canvas group
+      objectReference: {fileID: 0}
     - target: {fileID: 5076173807778364528, guid: 9f1469f632e688b4da01743882477d50,
         type: 3}
       propertyPath: m_Pivot.x
@@ -25156,6 +25161,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970908662327946760, guid: 9f1469f632e688b4da01743882477d50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f1469f632e688b4da01743882477d50, type: 3}

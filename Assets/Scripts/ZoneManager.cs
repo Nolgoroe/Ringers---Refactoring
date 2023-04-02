@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.ComponentModel;
 
 public enum WorldEnum
 {
+    [Description("Walnut Grove")]
     WalnutGrove,
+    [Description("Vinebloom Pines")]
     VinebloomPines,
+    [Description("Greymoss Bog")]
     GreyMossBog,
+    [Description("Red Root Covert")]
     RedRootCovert,
-    ThornberryWoods
+    [Description("Thornberry Woods")]
+    ThornberryWoods 
 }
 
 [System.Serializable]

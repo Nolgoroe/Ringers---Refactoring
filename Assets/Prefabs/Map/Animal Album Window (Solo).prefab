@@ -110,6 +110,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!225 &5076173805835264017
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -509,6 +510,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!114 &5076173806183937461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1062,6 +1064,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!114 &5076173806499184099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1168,6 +1171,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!114 &5076173806732014604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,6 +1394,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!114 &5076173807004117178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,6 +1569,7 @@ MonoBehaviour:
   buttonEventsInspector:
     m_PersistentCalls:
       m_Calls: []
+  isUseOnce: 0
 --- !u!225 &5076173807462612986
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1750,7 +1756,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5076173807778364528
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1894,7 +1900,7 @@ MonoBehaviour:
   filledAnimalsCount: 0
   pagesParent: {fileID: 5076173807059533467}
   presentImage: {fileID: 5076173807462612977}
-  getRewardsButton: {fileID: 5076173805835264017}
+  getRewardsCanvasGroup: {fileID: 5076173805835264017}
   animalTypeSwapHelpers:
   - {fileID: 5076173806732014604}
   - {fileID: 5076173807004117178}

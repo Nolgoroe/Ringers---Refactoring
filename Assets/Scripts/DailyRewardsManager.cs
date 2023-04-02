@@ -9,7 +9,7 @@ public class DailyRewardsManager : MonoBehaviour
 
     [Header("Required refrences")]
     [SerializeField] private DailyRewardsSO[] allWeekSOOptions;
-    [SerializeField] private DailyRewardsEntryCustomSpecificDisplayer dailyRewardPrefab;
+    [SerializeField] private DailyRewardsEntrySegment dailyRewardPrefab;
     [SerializeField] private BasicCustomButton getDailyButton;
     [SerializeField] private Transform GridLayourParent;
     [SerializeField] private TimeManager timeManager; // This is a two way dependency! ask lior!!
@@ -17,12 +17,12 @@ public class DailyRewardsManager : MonoBehaviour
     [SerializeField] private PowerupManager powerupManager; // talk with lior - is there a batter way?
 
     [Header("Automatic elements")]
-    [SerializeField] private DailyRewardsEntryCustomSpecificDisplayer currentVFXDisplay;
+    [SerializeField] private DailyRewardsEntrySegment currentVFXDisplay;
     [SerializeField] private int currentDay;
     [SerializeField] private DailyRewardsSO currentWeekSO;
     [SerializeField] private int chosenWeekIndex;
     [SerializeField] private bool canRecieveDaily;
-    [SerializeField] private List<DailyRewardsEntryCustomSpecificDisplayer> spawnedDisplayers; // go over with Lior
+    [SerializeField] private List<DailyRewardsEntrySegment> spawnedDisplayers; // go over with Lior
     private CanvasGroup dailyButtonCanvasGroup; // go over with Lior
 
     private void Awake()
@@ -52,7 +52,7 @@ public class DailyRewardsManager : MonoBehaviour
 
         for (int i = 0; i < currentWeekSO.rewards.Length; i++)
         {
-            DailyRewardsEntryCustomSpecificDisplayer display = Instantiate(dailyRewardPrefab, GridLayourParent);
+            DailyRewardsEntrySegment display = Instantiate(dailyRewardPrefab, GridLayourParent);
 
             if (display == null)
             {
@@ -72,7 +72,7 @@ public class DailyRewardsManager : MonoBehaviour
 
             if (i == currentDay)
             {
-                display.SetDisplayTodaysReward(true);
+                display.SetDisplayAsTodaysReward(true);
                 currentVFXDisplay = display;
             }
             else if(i < currentDay)
@@ -81,7 +81,7 @@ public class DailyRewardsManager : MonoBehaviour
             }
             else
             {
-                display.SetDisplayTodaysReward(false);
+                display.SetDisplayAsTodaysReward(false);
             }
 
             spawnedDisplayers.Add(display);
@@ -138,7 +138,7 @@ public class DailyRewardsManager : MonoBehaviour
         else
         {
             currentVFXDisplay = spawnedDisplayers[currentDay];
-            currentVFXDisplay.SetDisplayTodaysReward(true);
+            currentVFXDisplay.SetDisplayAsTodaysReward(true);
         }
 
         canRecieveDaily = false;
@@ -205,7 +205,7 @@ public class DailyRewardsManager : MonoBehaviour
             // we have this check since we can get to this function before the displays even summon
             // from the time manager, and we can get here at runtime.
             // the only difference is if we have a display or not.
-            currentVFXDisplay.SetDisplayTodaysReward(true);
+            currentVFXDisplay.SetDisplayAsTodaysReward(true);
 
 
             if (currentDay == 0)
@@ -220,7 +220,7 @@ public class DailyRewardsManager : MonoBehaviour
     private void FadeInClaimButton()
     {
         if (dailyButtonCanvasGroup == null) return;
-        getDailyButton.GeneralFloatValueTo(dailyButtonCanvasGroup.gameObject, dailyButtonCanvasGroup.alpha, 1, 0.5f, LeanTweenType.linear, dailyButtonCanvasGroup, null);
+        getDailyButton.GeneralFloatValueTo(dailyButtonCanvasGroup, dailyButtonCanvasGroup.alpha, 1, 0.5f, LeanTweenType.linear);
     }
     private void ChooseWeekSO()
     {

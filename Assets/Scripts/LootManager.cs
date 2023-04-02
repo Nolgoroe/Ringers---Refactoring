@@ -20,7 +20,7 @@ public class LootManager : MonoBehaviour
 {
     [Header("needed refs")]
     [SerializeField] private Player player;
-    [SerializeField] private CustomSpecificUIElementDisplayer lootDisplayPrefab;
+    [SerializeField] private UIElementDisplayerSegment lootDisplayPrefab;
     [SerializeField] private Ingredients[] allIngredients;
 
     [SerializeField] private Sprite rubySprite;
@@ -172,14 +172,14 @@ public class LootManager : MonoBehaviour
 
     private void InstantiateLootDisplay(string[] texts, Sprite[] sprites, Transform target)
     {
-        CustomSpecificUIElementDisplayer displayer = Instantiate(lootDisplayPrefab, GameManager.instance.summonedChest.transform);
+        UIElementDisplayerSegment displayer = Instantiate(lootDisplayPrefab, GameManager.instance.summonedChest.transform);
 
         displayer.SetMyElement(texts, sprites);
 
         LeanTween.move(displayer.gameObject, lootPositions[currentLootPos], lootMoveSpeed).setOnComplete(() => displayer.transform.parent = target);
     }
 
-    public void DestoryAllLootChildren()
+    public void DestroyAllLootChildren()
     {
         foreach (Transform lootPos in lootPositions)
         {
