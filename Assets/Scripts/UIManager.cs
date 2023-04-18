@@ -97,7 +97,7 @@ public class UIManager : MonoBehaviour
     {
         StartCoroutine(DisplayLevelMap(false));
 
-        DisplayDailyRewardsWindow();
+        //DisplayDailyRewardsWindow(); Enable if want to show Daily Rewards
     }
 
     private void OnValidate()

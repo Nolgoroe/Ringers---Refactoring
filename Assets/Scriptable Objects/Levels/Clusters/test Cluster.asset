@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8896170cfbe61049b4cf3a9b43ea784, type: 3}
   m_Name: test Cluster
   m_EditorClassIdentifier: 
-  isChestCluster: 1
+  isChestCluster: 0
   clusterLevels:
   - {fileID: 11400000, guid: 2252b973e6cdd544f95352cb822b2fda, type: 2}
   - {fileID: 11400000, guid: 2c706ba1c58dd5540b26dd1d3fc4412d, type: 2}
@@ -27,5 +27,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7e0a871c170714f4ba673148c4ba8390, type: 2}
   - {fileID: 11400000, guid: 05a218ca679d252479afa35164290304, type: 2}
   - {fileID: 11400000, guid: 0ebcc24a1908c7e46a7caaeea97cf592, type: 2}
-  clusterPrefabToSummon: {fileID: 8069607764811694032, guid: 8588d0fb232093c429c61324b8f5038f,
-    type: 3}
+  clusterPrefabToSummon: {fileID: 0}

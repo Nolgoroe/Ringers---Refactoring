@@ -55,6 +55,14 @@ MonoBehaviour:
   - {fileID: 162249438887668116}
   - {fileID: 162249438156486863}
   tileCreatorPreset: {fileID: 11400000, guid: a37ff2027ad20714da47a0ac9bc5de2a, type: 2}
+  piecesDealPositionsOut: {x: 20, y: 0, z: 0}
+  originalPiecePos: {x: -0.091, y: -0.449, z: 0}
+  delayClipMove: 0.1
+  timeToAnimateMove: 0.5
+  waitTimeBeforeIn: 0.3
+  delayDarkenClip: 0
+  timeToDarkenClip: 0.5
+  darkTintedColor: {r: 0.16862746, g: 0.29803923, b: 0.34901962, a: 0.50980395}
 --- !u!1001 &162249439628239836
 PrefabInstance:
   m_ObjectHideFlags: 0

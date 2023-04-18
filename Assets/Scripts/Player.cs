@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Tried to remove non exsisting ingredient");
+            //Debug.LogError("Tried to remove non exsisting ingredient");
         }
     }
 

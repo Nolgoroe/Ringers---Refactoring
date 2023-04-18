@@ -43,7 +43,7 @@ public class DailyRewardsManager : MonoBehaviour
     private void Start()
     {
         currentWeekSO = allWeekSOOptions[chosenWeekIndex];
-        DisplayDailyRewards();
+        //DisplayDailyRewards(); //Enable if want to use Daily rewards
     }
 
     private void DisplayDailyRewards()

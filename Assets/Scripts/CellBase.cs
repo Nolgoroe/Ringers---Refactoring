@@ -183,6 +183,9 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
             tileToPlace.SetPlaceTileData(true);
 
             GameManager.gameRing.CallOnAddTileActions();
+
+            SymbolAndColorCollector.instance.AddColorsAndSymbolsToLists(tileToPlace);
+
             return true;
         }
 
@@ -205,9 +208,12 @@ public abstract class CellBase : TileHolder, IGrabTileFrom
             SetConnectDataOnRemove(false, false, heldTile.subTileRight, rightCell.heldTile.subTileLeft, rightSlice);
         }
 
+        SymbolAndColorCollector.instance.AddColorsAndSymbolsToLists(heldTile);
+
         heldTile = null;
 
         GameManager.gameRing.CallOnRemoveTileFromRing();
+
     }
 
     public void SetAsLocked(bool locked)

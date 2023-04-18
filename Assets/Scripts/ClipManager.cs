@@ -13,6 +13,16 @@ public class ClipManager : MonoBehaviour
     [Header("Required refrences")]
     public TileCreator tileCreatorPreset;
 
+    [Header("Deal anim")]
+    [SerializeField] private Vector3 piecesDealPositionsOut;
+    [SerializeField] private Vector3 originalPiecePos;
+    [SerializeField] private float delayClipMove;
+    [SerializeField] private float timeToAnimateMove;
+    [SerializeField] private float waitTimeBeforeIn;
+    [SerializeField] private float delayDarkenClip;
+    [SerializeField] private float timeToDarkenClip;
+    [SerializeField] private Color darkTintedColor;
+
     public void InitClipManager()
     {
         activeClipSlotsCount = slots.Length;
@@ -61,7 +71,22 @@ public class ClipManager : MonoBehaviour
             yield break;
         }
 
-        DestroySlotTiles();
+
+        StartCoroutine(DeactivateClip(activeClipSlotsCount - 1)); //darken the slot
+
+        // move the tile GFX parent out of screen
+        for (int i = 0; i < activeClipSlotsCount; i++)
+        {
+            GameObject toMove = slots[i].tileGFXParent.gameObject;
+
+            LeanTween.move(toMove, piecesDealPositionsOut, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
+
+            yield return new WaitForSeconds(delayClipMove);
+        }
+
+        yield return new WaitForSeconds(waitTimeBeforeIn);
+
+        DestroySlotTiles(); //destroy tile
 
         activeClipSlotsCount--;
 
@@ -71,6 +96,32 @@ public class ClipManager : MonoBehaviour
         {
             SpawnRandomTileInSlot(slots[i]);
         }
+
+        // move the tile GFX parent back into screen
+        for (int i = activeClipSlotsCount - 1; i > -1; i--)
+        {
+            GameObject toMove = slots[i].tileGFXParent.gameObject;
+
+            LeanTween.move(toMove, originalPiecePos, timeToAnimateMove).setEase(LeanTweenType.easeInOutQuad).setMoveLocal(); // animate
+
+            yield return new WaitForSeconds(delayClipMove);
+        }
+    }
+
+    private IEnumerator DeactivateClip(int index)
+    {
+        yield return new WaitForSeconds(delayDarkenClip);
+
+        Color fromColor = slots[index].GetComponent<SpriteRenderer>().color;
+        Color toColor = darkTintedColor;
+
+        LeanTween.value(slots[index].gameObject, fromColor, toColor, timeToDarkenClip).setEase(LeanTweenType.linear).setOnUpdate((float val) =>
+        {
+            SpriteRenderer sr = slots[index].gameObject.GetComponent<SpriteRenderer>();
+            Color newColor = sr.color;
+            newColor = Color.Lerp(fromColor, toColor, val);
+            sr.color = newColor;
+        });
     }
 
     private void DestroySlotTiles()

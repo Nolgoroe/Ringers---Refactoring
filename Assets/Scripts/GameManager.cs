@@ -98,6 +98,8 @@ public class GameManager : MonoBehaviour
 
         AfterRingActions += () => currentLevel.afterRingSpawnActions.Invoke();
 
+        SymbolAndColorCollector.instance.ResetData();
+
         StartCoroutine(StartLevel());
     }
 
@@ -285,12 +287,20 @@ public class GameManager : MonoBehaviour
 
     public void SpawnLevelStatue()
     {
-        currentLevelAnimalStatue = Instantiate(currentClusterSO.clusterPrefabToSummon, inLevelParent);
-        currentLevelGeneralStatueAnimator = currentLevelAnimalStatue.statueAnimator;
+        if(currentClusterSO.clusterPrefabToSummon)
+        {
+            currentLevelAnimalStatue = Instantiate(currentClusterSO.clusterPrefabToSummon, inLevelParent);
+            currentLevelGeneralStatueAnimator = currentLevelAnimalStatue.statueAnimator;
 
-        isAnimalLevel = currentLevelAnimalStatue != null;
+            isAnimalLevel = currentLevelAnimalStatue != null;
 
-        currentLevelGeneralStatueAnimator.SetTrigger(ANIM_SET_RIVE + currentIndexInCluster);
+            currentLevelGeneralStatueAnimator.SetTrigger(ANIM_SET_RIVE + currentIndexInCluster);
+
+        }
+        else
+        {
+            isAnimalLevel = false;
+        }
     }
     public void AdvanceLevelStatue()
     {
@@ -302,7 +312,11 @@ public class GameManager : MonoBehaviour
         else
         {
             // advance animal statue
-            currentLevelGeneralStatueAnimator.SetTrigger(ANIM_CLEAR_RIVE + currentIndexInCluster);
+
+            if(currentLevelGeneralStatueAnimator)
+            {
+                currentLevelGeneralStatueAnimator.SetTrigger(ANIM_CLEAR_RIVE + currentIndexInCluster);
+            }
         }
     }
 
@@ -359,6 +373,7 @@ public class GameManager : MonoBehaviour
     public void DestroyOnLevelExit()
     {
         lootManager.DestroyAllLootChildren();
+
         for (int i = 0; i < inLevelParent.childCount; i++)
         {
             Destroy(inLevelParent.GetChild(i).gameObject);
